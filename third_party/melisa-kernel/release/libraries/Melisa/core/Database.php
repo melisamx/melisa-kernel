@@ -1,95 +1,17 @@
 <?php
 
 namespace Melisa\core;
-use Melisa\contracts\database\ConnectionManagerInterface as ConnectionManager;
+use \Melisa\core\database\GroupDatabaseTrait;
+use \Melisa\core\database\ConnectionsTrait;
 
 /**
  * 
- *
+ * 
  * @author Luis Josafat Heredia Contreras
  */
 class Database extends Base
 {
-    
-    public function getConnectionManager(ConnectionManager $connectionManager = NULL) {
-        
-        static $cnxManager = NULL;
-        
-        if( $cnxManager) {
-            
-            return $cnxManager;
-            
-        }
-        
-        if( is_null($connectionManager)) {
-            
-            $cnxManager = get_instance()
-                ->app
-                ->load()
-                ->libraries(__NAMESPACE__ . '\\database\\ConnectionManager');
-            
-        } else {
-            
-            $cnxManager = $connectionManager;
-            
-        }
-        
-        return $cnxManager;
-        
-    }
-    
-    public function transactionInit($group = NULL) {
-        
-        return $this->transactionAction('trans_begin', $group);
-        
-    }
-    
-    public function transactionCommit($group = NULL) {
-        
-        return $this->transactionAction('trans_commit', $group);
-        
-    }
-    
-    public function transactionRollback($group = NULL) {
-        
-        return $this->transactionAction('trans_rollback', $group);
-        
-    }
-    
-    private function transactionAction($action, $group = NULL) {
-        
-        $connection = $this->loadConnection($this->getGroupConnexion($group));
-        
-        if( $connection) {
-            
-            $this->log()->debug('{c} {a} runner', [
-                'c'=>__CLASS__,
-                'a'=>$action
-            ]);
-            
-            return $connection->{$action}();
-            
-        }
-        
-        return FALSE;
-        
-    }
-    
-    public function transactionStatus($group = NULL) {
-        
-        return $this->transactionAction('trans_status', $group);
-        
-    }
-    
-    public function rollback($message, array $context = [], $group = NULL) {
-        
-        $this->transactionRollback($group);
-        
-        $this->log()->error($message, $context);
-        
-        return FALSE;
-        
-    }
+    use GroupDatabaseTrait, ConnectionsTrait;
     
     public function runModel(array $config = [], array &$input = [], array &$params = []) {
         
@@ -99,7 +21,7 @@ class Database extends Base
             
         }
         
-        $connection = $this->loadConnection($config['conexion']);
+        $connection = $this->loadConnection($config['connection']);
         
         if( !$connection) {
             
@@ -146,31 +68,7 @@ class Database extends Base
         
     }
     
-    public function loadConnection($group) {
-        
-        $connection = $this->getConnectionManager()
-            ->load($group);
-        
-        if( $connection === FALSE) {
-            
-            return $this->log()->error('{a}. Unable to connect to database server using the settings provided in the group {g}', [
-                'c'=>__CLASS__,
-                'g'=>$group
-            ]);
-            
-        }
-        
-        return $connection;
-        
-    }
-    
     public function isValidModel(&$config) {
-        
-        $this->log()->debug('{c}. Is valid model {p}{m} ?', [
-            'c'=>__CLASS__,
-            'p'=>$config['path'],
-            'm'=>$config['model']
-        ]);
         
         $ci = &get_instance();
         $ci->abs->load_model($config['path'] . $config['model']);
@@ -188,30 +86,22 @@ class Database extends Base
         return TRUE;
         
     }
-    
-    public function getGroupConnexion($group = NULL) {
-        
-        if( $group) {
-            
-            return $group;
-            
-        }
-        
-        $app = get_instance()->app;
-        
-        return isset($app->db_app) ? $app->db_app : $app->db;
-        
-    }
 
     public function isValid(&$config = []) {
         
         $config = array_default($config, [
             'path'=>'',
             'function'=>'init',
-            'conexion'=>$this->getGroupConnexion()
+            'connection'=>NULL
         ]);
         
-        if( isset($config['conexion'], $config['model'], $config['function'])) {
+        if( is_null($config['connection'])) {
+            
+            $config ['connection']= $this->getGroupConnetion();
+            
+        }
+        
+        if( isset($config['connection'], $config['model'], $config['function'])) {
             
             return TRUE;
             

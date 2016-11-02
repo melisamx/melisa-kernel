@@ -20,13 +20,11 @@ if( !function_exists('array_default')) {
                 $arrayDefault[$key] = $arregloBase[$key];
                 unset($arregloBase[$key]);
 
+            } else {
+                
+                $arrayDefault = array_merge($arregloBase, $arrayDefault);
+                
             }
-
-        }
-
-        if(count($arregloBase)>0) {
-
-            return array_merge($arrayDefault, $arregloBase);
 
         }
 

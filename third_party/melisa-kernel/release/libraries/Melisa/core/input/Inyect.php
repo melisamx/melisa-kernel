@@ -5,7 +5,7 @@ namespace Melisa\core\input;
 use Melisa\core\Base;
 
 /**
- * 
+ * Inyect data in input required
  *
  * @author Luis Josafat Heredia Contreras
  */
