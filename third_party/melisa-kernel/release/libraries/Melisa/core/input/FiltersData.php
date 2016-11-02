@@ -118,7 +118,7 @@ class FiltersData extends Base
         
         if( !is_array($value)) {
                         
-            /* convert correct acentos and eñes */
+            /* convert correct accents and eñes */
             $value = mb_convert_case($value, MB_CASE_UPPER, 'UTF-8');
             return TRUE;
             
