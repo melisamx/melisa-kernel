@@ -48,10 +48,11 @@ class Validator extends Base
             'v'=>$model['validator']
         ]);
         
-        $result = $this->{$validator}($field, $value, $model, $errorMessage);
+        $result = $this->{$validator}($field, $value, $model);
         
         if( !$result) {
             
+            return FALSE;
             return $this->log()->error('{c}. ' . $errorMessage, [
                 'c'=>__CLASS__,
                 'f'=>$field,
@@ -64,7 +65,7 @@ class Validator extends Base
         
     }
     
-    public function validateWithModel(array &$fields = [], array &$model = []) {
+    public function withModel(array &$fields = [], array &$model = []) {
         
         if( !v::countable()->validate($fields) &&  !v::countable()->validate($fields)) {
             
@@ -78,7 +79,8 @@ class Validator extends Base
             
             if( !isset($model['columns'][$field])) {
                 
-                $flag = $this->log()->error('Field {f} no exist in model', [
+                $flag = $this->log()->error('{c}. Field {f} no exist in model', [
+                    'c'=>__CLASS__,
                     'f'=>$field
                 ]);
                 break;
@@ -173,7 +175,7 @@ class Validator extends Base
         
     }
     
-    public function vNumberPositive($field, &$value, &$model, &$errorMessage) {
+    public function vNumberPositive($field, &$value, &$model) {
         
         $result = v::numeric()->positive()->validate($value);
         
@@ -183,12 +185,58 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid number positive';
-        return FALSE;
+        return $this->log()->error('Value {v} in field "{f}" is not valid number positive', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     
-    public function vText($field, &$value, &$model, &$errorMessage) {
+    public function vPass($field, &$value, &$model) {
+        
+        $additionalChars = '!$%,.-()*+"\'';
+        
+        if( isset($model['additionalChars'])) {
+            
+            $additionalChars = $model['additionalChars'];
+            
+        }
+        
+        if( $model['required']) {
+            
+            $validator = v::allOf(
+                v::alnum($additionalChars)->setName($field), 
+                v::length(NULL, $model['size'])->setName($field), 
+                v::notEmpty()->setName($field),
+                v::noWhitespace()->setName($field)
+            );
+            
+        } else {
+            
+            $validator = v::when(
+                v::alnum($additionalChars)->setName($field),
+                v::optional(v::length(NULL, $model['size'])),
+                v::optional(v::alnum($additionalChars)->length(NULL, $model['size'])->noWhitespace())
+            );
+            
+        }
+        
+        if( $this->iterateExceptionValidation($validator, $value)) {
+            
+            return TRUE;
+            
+        }
+        
+        return $this->log()->error('Value {v} in field "{f}" is not valid pass', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
+        
+    }
+    
+    public function vText($field, &$value, &$model) {
         
         $additionalChars = '!,.-()*+"\'';
         
@@ -222,12 +270,15 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid text';
-        return FALSE;
+        return $this->log()->error('Value {v} in field "{f}" is not valid text', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     
-    public function vBoolean($field, &$value, &$model, &$errorMessage) {
+    public function vBoolean($field, &$value, &$model) {
         
         if( is_null($value)) {
             
@@ -243,12 +294,15 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid boolean';
-        return FALSE;
+        return $this->log()->error('{c}. Value {v} in field "{f}" is not valid boolean', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     
-    public function vDateTime($field, &$value, &$model, &$errorMessage) {
+    public function vDateTime($field, &$value, &$model) {
         
         $dateFormat = 'Y-m-d H:i:s';
         
@@ -274,12 +328,15 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid DateTime';
-        return FALSE;
+        return $this->log()->error('{c}. Value {v} in field "{f}" is not valid DateTime', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     
-    public function vUuid($field, &$value, &$model, &$errorMessage) {
+    public function vUuid($field, &$value, &$model) {
         
         $regex = '/^\{?[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}\}?$/';
         
@@ -291,12 +348,15 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid uuid';
-        return FALSE;
+        return $this->log()->error('Value {v} in field "{f}" is not valid uuid', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     
-    public function vDouble($field, &$value, &$model, &$errorMessage) {
+    public function vDouble($field, &$value, &$model) {
         
         if( $model['required']) {
             
@@ -314,8 +374,11 @@ class Validator extends Base
             
         }
         
-        $errorMessage = 'Value {v} in field "{f}" is not valid double number';
-        return FALSE;
+        return $this->log()->error('Value {v} in field "{f}" is not valid double number', [
+            'c'=>__CLASS__,
+            'v'=>$value,
+            'f'=>$field
+        ]);
         
     }
     

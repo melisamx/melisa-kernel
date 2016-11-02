@@ -72,7 +72,8 @@ trait InputTrait
                 'comment'=>[
                     'validator'=>'text',
                     'required'=>FALSE,
-                    'size'=>2
+                    'size'=>75,
+                    'filters'=>'trim'
                 ],
                 'createdAt'=>[
                     'validator'=>'datetime',
@@ -87,11 +88,33 @@ trait InputTrait
                     'validator'=>'uuid',
                     'required'=>FALSE
                 ],
+                'pass'=>[
+                    'validator'=>'pass',
+                    'required'=>TRUE,
+                    'size'=>10,
+                    'filters'=>'md5'
+                ],
             ]
         ];
         
-        return $this->load()->libraries('Melisa\core\Validator')
-                ->validateWithModel($input, $model);
+        if( $config['filtersOnly']) {
+            
+            return $this->load()->libraries('Melisa\core\input\FiltersData')
+                ->withModel($input, $model);
+            
+        }
+        
+        $result = $this->load()->libraries('Melisa\core\Validator')
+                ->withModel($input, $model);
+        
+        if( !$result) {
+            
+            return FALSE;
+            
+        }
+        
+        return $this->load()->libraries('Melisa\core\input\FiltersData')
+                ->withModel($input, $model);
         
     }
     
