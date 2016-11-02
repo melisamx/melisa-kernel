@@ -55,7 +55,7 @@ class Database extends Base
         
         if( $result !== FALSE) {
             
-            $this->log()->debug('{c}. Last query success: {q}', [
+            logger()->debug('{c}. Last query success: {q}', [
                 'c'=>__CLASS__,
                 'q'=>$cnx->last_query()
             ]);
@@ -75,7 +75,7 @@ class Database extends Base
         
         if( !method_exists($ci->{$config['model']}, $config['function'])) {
             
-            return $this->log()->error('{c}. No exist function {f} in the model {m}', [
+            return logger()->error('{c}. No exist function {f} in the model {m}', [
                 'c'=>__CLASS__,
                 'f'=>$config['function'],
                 'm'=>$config['path'] . $config['model'],
@@ -107,7 +107,7 @@ class Database extends Base
             
         }
         
-        return $this->log()->error('Required parameters not received: {r}', [
+        return logger()->error('Required parameters not received: {r}', [
             'r'=>print_r($config, TRUE)
         ]);
         

@@ -19,7 +19,7 @@ class Crud extends LogicBusiness implements CrudInterface
     
     public function readPaging(array $input = [], array $config = []) {
         
-        return $this->load()->libraries(__NAMESPACE__ . '\orm\Paging')
+        return load()->libraries(__NAMESPACE__ . '\orm\Paging')
             ->init(array_default($config, [
                 'input'=>[
                     'start',

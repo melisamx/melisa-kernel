@@ -16,7 +16,7 @@ class Users extends Crud
         
         return parent::readPaging($input, array_default($config, [
             'modelLoad'=>'users',
-            'modelValidations'=>'users'
+            'modelValidation'=>'users'
         ]));
         
     }

@@ -18,7 +18,7 @@ class Security extends Base
     
     public function __construct() {
         
-        $this->log()->debug(__CLASS__ . ' Class Initialized');
+        logger()->debug(__CLASS__ . ' Class Initialized');
         
     }
 
@@ -30,7 +30,7 @@ class Security extends Base
             
         }
         
-        $this->log()->debug('Validate tarks required: {t}', [
+        logger()->debug('Validate tarks required: {t}', [
             't'=>implode(PHP_EOL, $this->tasksRequired)
         ]);
         

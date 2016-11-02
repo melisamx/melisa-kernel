@@ -17,6 +17,8 @@ trait InputTrait
             'modelFunction'=>NULL,
             'modelPath'=>NULL,
             'modelParams'=>[],
+            'modelValidation'=>NULL,
+            'modelValidationDefault'=>NULL,
             'input'=>NULL,
             'inputSet'=>NULL,
             'inputValidate'=>TRUE,
@@ -29,7 +31,7 @@ trait InputTrait
     
     public function getRequired(array &$config = []) {
         
-        $this->log()->debug('{c}. Get input required', [
+        logger()->debug('{c}. Get input required', [
             'c'=>__CLASS__
         ]);
         
@@ -37,11 +39,38 @@ trait InputTrait
         
     }
     
+    public function loadModelsValidations(&$config) {
+        exit(var_dump($config));
+        if( is_null($config['modelValidation'])) {
+            
+            return logger()->error('{c}. The model is not specific to validate input data', [
+                'c'=>__CLASS__
+            ]);
+            
+        }
+        
+        if( !models()->load($config['modelValidation'])) {
+            
+            exit(var_dump('erro'));
+        }
+        exit(var_dump('ok'));
+        if( is_null($config['modelValidationDefault'])) {
+            
+            
+        }
+        
+    }
+    
     public function isValidInput(array &$input = [], array &$config = []) {
         
+        if( !$this->loadModelsValidations($config)) {
+            
+            exit(var_dump('er'));
+        }
+        exit(var_dump('ok'));
         if( !$config['inputValidate']) {
             
-            $this->log()->debug('{c}. I was omitted validate input data', [
+            logger()->debug('{c}. I was omitted validate input data', [
                 'c'=>__CLASS__
             ]);
             
@@ -99,12 +128,12 @@ trait InputTrait
         
         if( $config['filtersOnly']) {
             
-            return $this->load()->libraries('Melisa\core\input\FiltersData')
+            return load()->libraries('Melisa\core\input\FiltersData')
                 ->withModel($input, $model);
             
         }
         
-        $result = $this->load()->libraries('Melisa\core\Validator')
+        $result = load()->libraries('Melisa\core\Validator')
                 ->withModel($input, $model);
         
         if( !$result) {
@@ -113,7 +142,7 @@ trait InputTrait
             
         }
         
-        return $this->load()->libraries('Melisa\core\input\FiltersData')
+        return load()->libraries('Melisa\core\input\FiltersData')
                 ->withModel($input, $model);
         
     }

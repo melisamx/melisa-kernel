@@ -119,17 +119,15 @@ class Logging extends PsrLogLevel implements PsrLoggerInterface
      * @param  array  $context
      * @return void
      */
-    public function log($level, $message, array $context = [])
-    {
+    public function log($level, $message, array $context = []) {
         
         return $this->writeLog($level, $message, $context);
         
     }
     
-    protected function writeLog($level, &$message, &$context)
-    {
+    protected function writeLog($level, &$message, array &$context) {
         
-        message([
+        msg()->add([
             'type'=>$level,
             'message'=>array_interpolate($message, $context)
         ]);

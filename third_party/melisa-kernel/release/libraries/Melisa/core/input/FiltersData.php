@@ -20,7 +20,7 @@ class FiltersData extends Base
             
             if( !isset($model['columns'][$field])) {
                 
-                $flag = $this->log()->error('{c}. Field {f} no exist in model', [
+                $flag = logger()->error('{c}. Field {f} no exist in model', [
                     'c'=>__CLASS__,
                     'f'=>$field
                 ]);
@@ -65,7 +65,7 @@ class FiltersData extends Base
             
             if( !method_exists($this, $filterFunction)) {
                 
-                $this->log()->error('{c}. Filter {f} not suported', [
+                logger()->error('{c}. Filter {f} not suported', [
                     'c'=>__CLASS__,
                     'f'=>$filter
                 ]);

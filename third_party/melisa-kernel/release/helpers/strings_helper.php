@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if ( !function_exists('str_contains')) {
     /**
@@ -16,16 +16,6 @@ if ( !function_exists('str_contains')) {
         
         return false;
          
-    }
-    
-}
-
-if( !function_exists('Event')) {
-    
-    function Event() {
-        
-        return loader('Melisa/core/Events', 'libraries');
-        
     }
     
 }

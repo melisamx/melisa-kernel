@@ -70,7 +70,7 @@ class Inyect extends Base
         
         if( !$idUser) {
             
-            return $this->log()->error('{c}. Imposible get sessión item {i}', [
+            return logger()->error('{c}. Imposible get sessión item {i}', [
                 'c'=>__CLASS__,
                 'i'=>$field
             ]);

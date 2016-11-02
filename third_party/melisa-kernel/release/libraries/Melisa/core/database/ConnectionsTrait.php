@@ -59,7 +59,7 @@ trait ConnectionsTrait
         
         if( $connection) {
             
-            $this->log()->debug('{c} {a} runner', [
+            logger()->debug('{c} {a} runner', [
                 'c'=>__CLASS__,
                 'a'=>$action
             ]);
@@ -82,7 +82,7 @@ trait ConnectionsTrait
         
         $this->transactionRollback($group);
         
-        $this->log()->error($message, $context);
+        logger()->error($message, $context);
         
         return FALSE;
         
@@ -101,7 +101,7 @@ trait ConnectionsTrait
         
         if( $connection === FALSE) {
             
-            return $this->log()->error('{a}. Unable to connect to database server using the settings provided in the group {g}', [
+            return logger()->error('{a}. Unable to connect to database server using the settings provided in the group {g}', [
                 'c'=>__CLASS__,
                 'g'=>$group
             ]);

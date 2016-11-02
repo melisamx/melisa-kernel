@@ -217,7 +217,7 @@ class Input extends Base
             
             if( is_null($rules[$field]['default']) && $rules[$field]['required']) {
                 
-                $this->log()->error('{c}. {o} "{f}" not received, was received {i}', [
+                logger()->error('{c}. {o} "{f}" not received, was received {i}', [
                     'c'=>__CLASS__,
                     'o'=>$orign,
                     'f'=>$field,
@@ -231,7 +231,7 @@ class Input extends Base
             
             if( is_null($rules[$field]['default']) && !$rules[$field]['required']) {
                 
-                $this->log()->debug('{c}. Ignored {o} "{f}", field not required', [
+                logger()->debug('{c}. Ignored {o} "{f}", field not required', [
                     'c'=>__CLASS__,
                     'f'=>$field,
                     'o'=>$orign

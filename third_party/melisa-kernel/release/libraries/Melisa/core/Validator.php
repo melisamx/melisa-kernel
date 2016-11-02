@@ -24,7 +24,7 @@ class Validator extends Base
         
         if( !isset($model['validator'])) {
             
-            return $this->log()->error('Model invalid. No defined property validator', [
+            return logger()->error('Model invalid. No defined property validator', [
                 'c'=>__CLASS__,
             ]);
             
@@ -35,14 +35,14 @@ class Validator extends Base
         
         if( !method_exists($this, $validator)) {
             
-            return $this->log()->error('{c}. Validator {v} invalid not suported', [
+            return logger()->error('{c}. Validator {v} invalid not suported', [
                 'c'=>__CLASS__,
                 'v'=>$model['validator']
             ]);
             
         }
         
-        $this->log()->debug('{c}. Validating field {f} with the {v} validator', [
+        logger()->debug('{c}. Validating field {f} with the {v} validator', [
             'c'=>__CLASS__,
             'f'=>$field,
             'v'=>$model['validator']
@@ -53,7 +53,7 @@ class Validator extends Base
         if( !$result) {
             
             return FALSE;
-            return $this->log()->error('{c}. ' . $errorMessage, [
+            return logger()->error('{c}. ' . $errorMessage, [
                 'c'=>__CLASS__,
                 'f'=>$field,
                 'v'=>empty($value) ? '"NULL or []' : $value
@@ -69,7 +69,7 @@ class Validator extends Base
         
         if( !v::countable()->validate($fields) &&  !v::countable()->validate($fields)) {
             
-            return $this->log()->error('Fields and model invalid');
+            return logger()->error('Fields and model invalid');
             
         }
         
@@ -79,7 +79,7 @@ class Validator extends Base
             
             if( !isset($model['columns'][$field])) {
                 
-                $flag = $this->log()->error('{c}. Field {f} no exist in model', [
+                $flag = logger()->error('{c}. Field {f} no exist in model', [
                     'c'=>__CLASS__,
                     'f'=>$field
                 ]);
@@ -125,7 +125,7 @@ class Validator extends Base
         
         foreach($result as $result) {
             
-            $this->log()->error($result);
+            logger()->error($result);
             
         }
         
@@ -185,7 +185,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('Value {v} in field "{f}" is not valid number positive', [
+        return logger()->error('Value {v} in field "{f}" is not valid number positive', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -228,7 +228,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('Value {v} in field "{f}" is not valid pass', [
+        return logger()->error('Value {v} in field "{f}" is not valid pass', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -270,7 +270,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('Value {v} in field "{f}" is not valid text', [
+        return logger()->error('Value {v} in field "{f}" is not valid text', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -294,7 +294,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('{c}. Value {v} in field "{f}" is not valid boolean', [
+        return logger()->error('{c}. Value {v} in field "{f}" is not valid boolean', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -328,7 +328,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('{c}. Value {v} in field "{f}" is not valid DateTime', [
+        return logger()->error('{c}. Value {v} in field "{f}" is not valid DateTime', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -348,7 +348,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('Value {v} in field "{f}" is not valid uuid', [
+        return logger()->error('Value {v} in field "{f}" is not valid uuid', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field
@@ -374,7 +374,7 @@ class Validator extends Base
             
         }
         
-        return $this->log()->error('Value {v} in field "{f}" is not valid double number', [
+        return logger()->error('Value {v} in field "{f}" is not valid double number', [
             'c'=>__CLASS__,
             'v'=>$value,
             'f'=>$field

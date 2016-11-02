@@ -11,7 +11,7 @@ class Messages
         
     }
     
-    public function add(&$input) {
+    public function add($input) {
         
         $message = array_default($input, [
             'type'=>'error',

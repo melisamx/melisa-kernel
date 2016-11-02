@@ -47,7 +47,7 @@ class ConnectionManager extends Base implements ConnectionManagerInterface
                     $connections[$group]->username . $connections[$group]->database : 
                     $connections[$group]->conn_id;
             
-            $this->log()->debug('Reuse connection {g} with identifier {i}', [
+            logger()->debug('Reuse connection {g} with identifier {i}', [
                 'g'=>$group,
                 'i'=>$conexionId
             ]);
@@ -73,7 +73,7 @@ class ConnectionManager extends Base implements ConnectionManagerInterface
                 $connections[$group]->username . $connections[$group]->database : 
                 $connections[$group]->conn_id;
         
-        $this->log()->debug('Use connection {g} con identificador {i}', [
+        logger()->debug('Use connection {g} con identificador {i}', [
             'g'=>$group,
             'i'=>$conexionId
         ]);
@@ -93,7 +93,7 @@ class ConnectionManager extends Base implements ConnectionManagerInterface
     
     public function create($group, $config = []) {
         
-        $this->log()->debug('Connection {g} create', [
+        logger()->debug('Connection {g} create', [
             'g'=>$group
         ]);
         

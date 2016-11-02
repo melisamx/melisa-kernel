@@ -56,10 +56,9 @@ class Application
          */
         $ci->abs->load_helper([
             'arrays',
-            'message',
-            'nodejs',
             'loader',
-            'events'
+            'services',
+            'strings'
         ]);
         
         /**
@@ -157,7 +156,7 @@ class Application
     
     public function output() {
         
-        return $this->load()->libraries(__NAMESPACE__ . '\core\Output');
+        return load()->libraries(__NAMESPACE__ . '\core\Output');
         
     }
     
