@@ -54,7 +54,7 @@ class Users extends Crud
                 'isGod'=>[
                     'default'=>FALSE
                 ],
-                'updateAt'=>[
+                'updatedAt'=>[
                     'required'=>FALSE
                 ]
             ]
@@ -85,13 +85,12 @@ class Users extends Crud
                 'isGod'=>[
                     'default'=>FALSE
                 ],
-                'updateAt'=>[
+                'updatedAt'=>[
                     'default'=>'CURRENT_TIMESTAMP'
                 ]
             ]
         ]));
         
     }
-    
     
 }
