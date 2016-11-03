@@ -43,7 +43,7 @@ trait InputTrait
             'c'=>__CLASS__
         ]);
         
-        return input()->get($config['input'], $config['inputSet']);
+        return input()->init($config['input'], $config['inputSet']);
         
     }
     

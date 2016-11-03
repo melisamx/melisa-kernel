@@ -1,5 +1,11 @@
 <?php 
 
+if( !isset($bm)) {
+    
+    $bm = TRUE;
+    
+}
+
 if( !$output) {
     
     if( defined('HEADER_ERROR_400') && !HEADER_ERROR_400) {
@@ -34,7 +40,7 @@ if( !$output) {
         
         if( isset($response)) {
             
-            echo json_encode(array_default($response, [
+            echo json_encode(arrayDefault($response, [
                 'success'=>TRUE,
                 'id'=>$output,
                 'bm'=>[
@@ -60,7 +66,7 @@ if( !$output) {
         
         if( isset($response)) {
             
-            echo json_encode(array_default($response, [
+            echo json_encode(arrayDefault($response, [
                 'id'=>$output,
                 'success'=>TRUE
             ]));

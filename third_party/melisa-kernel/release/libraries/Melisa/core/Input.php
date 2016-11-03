@@ -53,13 +53,11 @@ class Input
                 
             } else {
                 
-                /* verify type array */
                 if( is_array($type)) {
                     
-                    /* add url default  */
-                    $rules [$item]= arrayDefault($type, [
+                    $rules [$item]= array_merge([
                         'type'=>$defaultOrigen
-                    ]);
+                    ], $type);
                     
                 } else {
                     
@@ -109,7 +107,7 @@ class Input
         
     }
     
-    public function get($inputRequired = NULL, $inputInyect = NULL) {
+    public function init($inputRequired = NULL, $inputInyect = NULL) {
         
         if( is_null($inputRequired)) {
             
@@ -161,6 +159,48 @@ class Input
         return $input;
         
     }
+    
+    public function get($inputRequired = NULL, $inputInyect = NULL) {
+        
+        if( is_null($inputRequired)) {
+            
+            logger()->info('{c}. No input required', [
+                'c'=>__CLASS__
+            ]);
+            return [];
+            
+        }
+        
+        if( !is_array($inputRequired)) {
+            
+            $inputRequired = [ $inputRequired ];
+            
+        }
+        
+        foreach($inputRequired as $i => &$input) {
+            
+            if(is_numeric($i)) {
+                
+                $inputRequired [$input]= [
+                    'type'=>'GET'
+                ];
+                
+                unset($inputRequired[$i]);
+                
+            } else {
+                
+                $inputRequired [$i]= arrayDefault($input, [
+                    'type'=>'GET'
+                ]);
+                
+            }
+            
+        }
+        
+        return $this->init($inputRequired, $inputInyect);
+        
+    }
+    
     public function getInputOrign(&$input, &$rules, &$inputRequerido, $orign = 'POST') {
         
         static $ci = NULL;
