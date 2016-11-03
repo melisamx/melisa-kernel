@@ -17,7 +17,7 @@
 			"validator": "text",
 			"size": 30
 		},
-		"pass": 
+		"password": 
 		{
 			"type": "string",
 			"validator": "pass",

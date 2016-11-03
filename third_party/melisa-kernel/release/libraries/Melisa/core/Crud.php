@@ -9,17 +9,23 @@ use Melisa\contracts\orm\CrudInterface;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-class Crud extends LogicBusiness implements CrudInterface
+class Crud implements CrudInterface
 {
     
     public function create(array $input = [], array $config = []) {
+        
+        return load()->libraries(__NAMESPACE__ . '\orm\Create')
+            ->init(arrayDefault($config, [
+                'inputSet'=>$input,
+                'modelLoad'=>'OrmCreate'
+            ]));
         
     }
     
     public function readPaging(array $input = [], array $config = []) {
         
         return load()->libraries(__NAMESPACE__ . '\orm\Paging')
-            ->init(array_default($config, [
+            ->init(arrayDefault($config, [
                 'input'=>[
                     'start',
                     'limit',

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Melisa\core\orm;
 
@@ -11,8 +11,9 @@ use Melisa\core\orm\InputTrait;
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Paging
+class Create
 {
+    
     use InputTrait, GroupDatabaseTrait, ConnectionsTrait;
     
     public function init(array $config = []) {
@@ -21,7 +22,7 @@ class Paging
         
         $input = $this->getRequired($config);
         
-        if( !$input) {
+        if( $input === FALSE) {
             
             return FALSE;
             
@@ -41,12 +42,11 @@ class Paging
         
         $result = database()->runModel([
             'model'=>$config['modelLoad'],
-            'function'=>$config['modelFunction'],
+            'modelFunction'=>$config['modelFunction'],
             'path'=>$config['modelPath'],
             'connection'=>$config['connection'],
         ], $input, $config['modelParams']);
         exit(var_dump($result));
-        return TRUE;
         
     }
     

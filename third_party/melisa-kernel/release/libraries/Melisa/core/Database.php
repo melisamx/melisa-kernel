@@ -89,7 +89,7 @@ class Database extends Base
 
     public function isValid(&$config = []) {
         
-        $config = array_default($config, [
+        $config = arrayDefault($config, [
             'path'=>'',
             'function'=>'init',
             'connection'=>NULL

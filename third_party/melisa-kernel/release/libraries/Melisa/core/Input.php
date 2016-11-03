@@ -7,12 +7,12 @@ namespace Melisa\core;
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Input extends Base
+class Input
 {
     
     public function __construct() {
         
-        logger()->debug(__CLASS__.' Class Initialized');
+        logger()->debug(__CLASS__ . ' Class Initialized');
         
     }
     
@@ -57,7 +57,7 @@ class Input extends Base
                 if( is_array($type)) {
                     
                     /* add url default  */
-                    $rules [$item]= array_default($type, [
+                    $rules [$item]= arrayDefault($type, [
                         'type'=>$defaultOrigen
                     ]);
                     
@@ -113,7 +113,10 @@ class Input extends Base
         
         if( is_null($inputRequired)) {
             
-            return TRUE;
+            logger()->info('{c}. No input required', [
+                'c'=>__CLASS__
+            ]);
+            return [];
             
         }
         
@@ -166,7 +169,6 @@ class Input extends Base
         if( !$ci) {
             
             $ci = get_instance();
-            $autoDate = date('Y-m-d H:i:s');
             
         }
         
@@ -179,7 +181,7 @@ class Input extends Base
                 
                 /* verify auto input */
                 /* esto nos permitira usar rules de logics */
-                $result = $this->event()->fire('core.input.inyect_php', [
+                $result = event()->fire('core.input.inyect_php', [
                     $field,
                     &$input[$field]
                 ]);
@@ -195,7 +197,7 @@ class Input extends Base
                 
             }
             
-            $rules [$field]= array_default($rules[$field], [
+            $rules [$field]= arrayDefault($rules[$field], [
                 'xss'=>TRUE,
                 'default'=>NULL,
                 'required'=>TRUE
@@ -240,14 +242,18 @@ class Input extends Base
                 
             }
             
-            if( $rules[$field]['default'] === 'CURRENT_TIMESTAMP' ) {
+            $input [$field]= $rules[$field]['default'];
+            
+            $result = event()->fire('core.input.inyect_php', [
+                $field,
+                &$input[$field]
+            ]);
                 
-                $input[$field] = $autoDate;
-                
-            } else {
-                
-                $input[$field] = $rules[$field]['default'];
-                
+            if( in_array(FALSE, $result)) {
+
+                $flag = FALSE;
+                break;
+
             }
             
         }

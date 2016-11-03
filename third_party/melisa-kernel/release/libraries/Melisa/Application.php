@@ -67,7 +67,7 @@ class Application
          * 
          */
         
-        $this->configDefault = array_default($config, $this->configDefault);
+        $this->configDefault = arrayDefault($config, $this->configDefault);
         
         if( !$this->isValidInit($this->configDefault)) {
             
@@ -90,7 +90,7 @@ class Application
          *  
          */
         
-        $config = array_default($config, $this->configDefault);
+        $config = arrayDefault($config, $this->configDefault);
         
         if ($config['request.only_cli']) {
             

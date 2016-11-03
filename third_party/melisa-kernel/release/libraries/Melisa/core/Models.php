@@ -109,4 +109,97 @@ class Models extends Base
         
     }
     
+    public function getFieldPk($modelName = NULL) {
+        
+        if( is_null($modelName)) {
+            
+            $modelName = $this->modelDefault;
+            
+        }
+        
+        $model = $this->get($modelName, TRUE);
+        
+        if( !$model) {
+            
+            return FALSE;
+            
+        }
+        
+        if( empty($model['primaryKeys'])) {
+            
+            logger()->info('{c}. Model {m} without primary key', [
+                'c'=>__CLASS__,
+                'm'=>$modelName
+            ]);
+            
+            return FALSE;
+            
+        }
+        
+        if( count($model['primaryKeys']) === 1) {
+            
+            return $model['primaryKeys'][0];
+            
+        }
+        
+        return $model['primaryKeys'];
+        
+    }
+    
+    public function getField($field, $modelName = NULL) {
+        
+        if( is_null($modelName)) {
+            
+            $modelName = $this->modelDefault;
+            
+        }
+        
+        $model = $this->get($modelName, TRUE);
+        
+        if( !$model) {
+            
+            return logger()->error('{c}. The model {m} no exist', [
+                'c'=>__CLASS__,
+                'm'=>$modelName
+            ]);
+            
+        }
+        
+        if( isset($model['columns'][$field])) {
+            
+            return $model['columns'][$field];
+            
+        }
+        
+        return logger()->error('{c}. The field {f} no exist in model {m}', [
+            'c'=>__CLASS__,
+            'f'=>$field,
+            'm'=>$modelName
+        ]);
+        
+    }
+    
+    public function getTable($modelName = NULL) {
+        
+        if( is_null($modelName)) {
+            
+            $modelName = $this->modelDefault;
+            
+        }
+        
+        $model = $this->get($modelName, TRUE);
+        
+        if( $model) {
+            
+            return $model['table'];
+            
+        }
+        
+        return logger()->error('{c}. The model {m} no exist', [
+            'c'=>__CLASS__,
+            'm'=>$modelName
+        ]);
+        
+    }
+    
 }

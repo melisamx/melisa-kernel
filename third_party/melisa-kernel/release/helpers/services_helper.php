@@ -28,6 +28,36 @@ if( !function_exists('msg')) {
     
 }
 
+if( !function_exists('uuid')) {
+    
+    function uuid() {
+        
+        return service('uuid');
+        
+    }
+    
+}
+
+if( !function_exists('input')) {
+    
+    function input() {
+        
+        return service('input');
+        
+    }
+    
+}
+
+if( !function_exists('app')) {
+    
+    function app() {
+        
+        return get_instance()->app;
+        
+    }
+    
+}
+
 if( !function_exists('fs')) {
     
     function fs() {

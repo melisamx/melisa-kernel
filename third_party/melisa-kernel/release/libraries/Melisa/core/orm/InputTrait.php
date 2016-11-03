@@ -10,9 +10,9 @@ namespace Melisa\core\orm;
 trait InputTrait
 {
     
-    public function getConfig(array $config = []) {
+    public function getConfig(array &$config = []) {
         
-        return array_default($config, [
+        $config = arrayDefault($config, [
             'modelLoad'=>NULL,
             'modelFunction'=>NULL,
             'modelPath'=>NULL,
@@ -27,6 +27,14 @@ trait InputTrait
             'transaction'=>FALSE
         ]);
         
+        if( is_null($config['modelValidation'])) {
+            
+            $config ['modelValidation']= $config['modelLoad'];
+            
+        }
+        
+        return $config;
+        
     }
     
     public function getRequired(array &$config = []) {
@@ -35,7 +43,7 @@ trait InputTrait
             'c'=>__CLASS__
         ]);
         
-        return $this->input()->get($config['input'], $config['inputSet']);
+        return input()->get($config['input'], $config['inputSet']);
         
     }
     
@@ -100,7 +108,6 @@ trait InputTrait
             return TRUE;
             
         }
-        
         
         if( $config['filtersOnly']) {
             

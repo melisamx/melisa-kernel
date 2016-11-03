@@ -18,7 +18,7 @@ trait GroupDatabaseTrait
             
         }
         
-        $app = $this->getApp();
+        $app = app();
         
         return isset($app->db_app) ? $app->db_app : $app->db;
         

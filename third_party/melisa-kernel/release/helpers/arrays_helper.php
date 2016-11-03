@@ -9,9 +9,9 @@ if( !function_exists('array_is_multi_array')) {
     
 }
 
-if( !function_exists('array_default')) {
+if( !function_exists('arrayDefault')) {
     
-    function array_default(&$arregloBase, $arrayDefault) {
+    function arrayDefault(&$arregloBase, $arrayDefault) {
 
         foreach($arrayDefault as $key => $valor) {
 

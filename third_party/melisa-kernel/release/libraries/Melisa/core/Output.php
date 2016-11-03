@@ -53,7 +53,7 @@ class Output
         }
         
         /* set value combinados */
-        $this->response[$item] = array_default($value, $this->response[$item]);
+        $this->response[$item] = arrayDefault($value, $this->response[$item]);
         
         return $this;
         

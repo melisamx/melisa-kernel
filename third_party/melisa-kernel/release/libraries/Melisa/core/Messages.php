@@ -13,7 +13,7 @@ class Messages
     
     public function add($input) {
         
-        $message = array_default($input, [
+        $message = arrayDefault($input, [
             'type'=>'error',
             'line'=>FALSE,
             'log'=>TRUE,

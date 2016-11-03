@@ -12,6 +12,7 @@ class ServiceProvider
     
     protected $services = [
         'cache'=>'Cache',
+        'input'=>'Input',
         'database'=>'Database',
         'view'=>'View',
         'msg'=>'Messages',
@@ -19,7 +20,8 @@ class ServiceProvider
         'load'=>'Loader',
         'logger'=>'Logging',
         'model'=>'Models',
-        'fs'=>'FileSystem'
+        'fs'=>'FileSystem',
+        'uuid'=>'tools\Uuid'
     ];
 
     public function __construct() {

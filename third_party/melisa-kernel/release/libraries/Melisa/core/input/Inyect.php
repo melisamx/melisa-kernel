@@ -2,14 +2,12 @@
 
 namespace Melisa\core\input;
 
-use Melisa\core\Base;
-
 /**
  * Inyect data in input required
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Inyect extends Base
+class Inyect
 {
     
     public function init($field, &$value) {
@@ -18,6 +16,7 @@ class Inyect extends Base
             'sessionIdIdentity',
             'sessionIdUser',
             'utilNull',
+            'currentDateTime'
         ], $field, $value);
         
     }
@@ -43,6 +42,19 @@ class Inyect extends Base
         
     }
     
+    public function currentDateTime($field, &$value) {
+        
+        if($value !== 'CURRENT_TIMESTAMP') {
+            
+            return TRUE;
+            
+        }
+        
+        $value = date('Y-m-d H:i:s');
+        return TRUE;
+        
+    }
+    
     public function sessionIdIdentity($field, &$value) {
         
         if($value !== '{session.idIdentity}') {
@@ -63,10 +75,7 @@ class Inyect extends Base
             
         }
         
-        $idUser = $this->getApp()
-            ->load()
-            ->libraries('Melisa\core\Session')
-            ->get('idUser');
+        $idUser = load()->libraries('Melisa\core\Session')->get('idUser');
         
         if( !$idUser) {
             

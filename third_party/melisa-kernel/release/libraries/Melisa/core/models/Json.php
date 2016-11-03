@@ -89,9 +89,11 @@ class Json
             
         }
         
+        $fieldsPk = [];
+        
         foreach($modelData['columns'] as $column => &$value) {
             
-            $columnConfig = array_default(
+            $columnConfig = arrayDefault(
                 $modelData['columns'][$column], [
                     'required'=>TRUE,
                     'type'=>'numeric',
@@ -106,15 +108,27 @@ class Json
                 
             }
             
-            if( !isset($columnConfig['type']['boolean'])) {
+            if( in_array($columnConfig['type'], [
+                'boolean',
+                'datetime',
+                'date'
+            ])) {
                 
                 unset($columnConfig ['size']);
+                
+            }
+            
+            if( isset($columnConfig['isPrimaryKey'])) {
+                
+                $fieldsPk []= $column;
                 
             }
             
             $modelData['columns'][$column] = $columnConfig;
             
         }
+        
+        $modelData ['primaryKeys']= $fieldsPk;
         
         return TRUE;
         
