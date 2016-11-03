@@ -75,22 +75,21 @@ if( !function_exists('loader')) {
         if( !$pathExistClass || !class_exists($className)) {
             
             /* registramos el error */
-            message([
+            msg()->add([
                 'type'=>'warning',
                 'file'=>__FILE__,
                 'line'=>__LINE__,
-                'msg'=>'Class no exist ' . 
-                        (
-                            ENVIRONMENT != 'development' ? 
-                                '' : 
-                                ':'. $classPath.'/'.$className
-                        )
+                'msg'=>'Class no exist ' . (
+                    ENVIRONMENT != 'development' ? 
+                    '' : 
+                    ':'. $classPath.'/'.$className
+                )
             ]);
             
-            $mensajes = message();
+            $messages = msg()->get();
             
             /* terminamos app */
-            exit(json_encode(array_default($mensajes, [
+            exit(json_encode(arrayDefault($messages, [
                 'success'=>FALSE
             ])));
             
