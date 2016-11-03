@@ -1,14 +1,14 @@
 <?php
 
 /**
- * 
+ * Create record using model
  *
  * @author Luis Josafat Heredia Contreras
  */
 class OrmCreate extends \CI_Model
 {
     
-    public function init(&$cnx, array &$input = [], &$params) {
+    public function init(&$cnx, array &$input = [], &$params = []) {
         
         $data = [];
         

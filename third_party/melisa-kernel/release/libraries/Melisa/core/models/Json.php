@@ -68,7 +68,7 @@ class Json
             
         }
         
-        logger()->debug('{c}. Model {m} created and config success', [
+        logger()->debug('{c} Model {m} created and config success', [
             'c'=>__CLASS__,
             'm'=>$model
         ]);

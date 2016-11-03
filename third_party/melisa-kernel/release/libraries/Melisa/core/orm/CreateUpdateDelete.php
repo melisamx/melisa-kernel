@@ -5,16 +5,17 @@ namespace Melisa\core\orm;
 use Melisa\core\database\GroupDatabaseTrait;
 use Melisa\core\database\ConnectionsTrait;
 use Melisa\core\orm\InputTrait;
+use Melisa\core\orm\CacheTrait;
 
 /**
  * 
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Create
+class CreateUpdateDelete
 {
     
-    use InputTrait, GroupDatabaseTrait, ConnectionsTrait;
+    use InputTrait, GroupDatabaseTrait, ConnectionsTrait, CacheTrait;
     
     public function init(array $config = []) {
         
@@ -41,12 +42,33 @@ class Create
         }
         
         $result = database()->runModel([
+            
             'model'=>$config['modelLoad'],
             'modelFunction'=>$config['modelFunction'],
             'path'=>$config['modelPath'],
-            'connection'=>$config['connection'],
+            'connection'=>$config['connection']
+                
         ], $input, $config['modelParams']);
-        exit(var_dump($result));
+        
+        if( $result === FALSE) {
+            
+            $this->cacheDelete($config, $input);
+            $this->cacheDeleteRegex($config);
+            
+            if( isset($config['msgError'])) {
+                
+                logger()->error($config['msgError'], $input);
+                
+            }
+            
+            return FALSE;
+            
+        }
+        
+        $this->cacheDelete($config, $input);
+        $this->cacheDeleteRegex($config);
+        
+        return $result;
         
     }
     

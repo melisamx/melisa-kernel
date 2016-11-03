@@ -2,17 +2,21 @@
 
 namespace Melisa\core;
 
-use Melisa\core\Base;
-
 /**
  * 
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Session extends Base
+class Session
 {
     
     protected $session = [];
+    
+    public function __construct() {
+        
+        logger()->debug(__CLASS__ . ' Class Initialized');
+        
+    }
 
     public function save($data) {
         

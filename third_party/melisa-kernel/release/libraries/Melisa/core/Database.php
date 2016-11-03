@@ -1,6 +1,7 @@
 <?php
 
 namespace Melisa\core;
+
 use \Melisa\core\database\GroupDatabaseTrait;
 use \Melisa\core\database\ConnectionsTrait;
 
@@ -9,9 +10,16 @@ use \Melisa\core\database\ConnectionsTrait;
  * 
  * @author Luis Josafat Heredia Contreras
  */
-class Database extends Base
+class Database
 {
+    
     use GroupDatabaseTrait, ConnectionsTrait;
+    
+    public function __construct() {
+        
+        logger()->debug(__CLASS__ . ' Class Initialized');
+        
+    }
     
     public function runModel(array $config = [], array &$input = [], array &$params = []) {
         
@@ -55,7 +63,7 @@ class Database extends Base
         
         if( $result !== FALSE) {
             
-            logger()->debug('{c}. Last query success: {q}', [
+            logger()->debug('{c} Last query success: {q}', [
                 'c'=>__CLASS__,
                 'q'=>$cnx->last_query()
             ]);

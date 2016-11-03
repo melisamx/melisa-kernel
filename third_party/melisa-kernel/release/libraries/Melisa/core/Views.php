@@ -9,6 +9,12 @@ namespace Melisa\core;
  */
 class Views
 {
+    
+    public function __construct() {
+        
+        logger()->debug(__CLASS__ . ' Class Initialized');
+    
+    }
         
     public function paging(&$output) {
         

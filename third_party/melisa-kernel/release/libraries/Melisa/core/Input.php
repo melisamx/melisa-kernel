@@ -107,6 +107,12 @@ class Input
         
     }
     
+    public function post($inputRequired = NULL, $inputInyect = NULL) {
+        
+        return $this->init($inputRequired, $inputInyect);
+        
+    }
+    
     public function init($inputRequired = NULL, $inputInyect = NULL) {
         
         if( is_null($inputRequired)) {
@@ -273,7 +279,7 @@ class Input
             
             if( is_null($rules[$field]['default']) && !$rules[$field]['required']) {
                 
-                logger()->debug('{c}. Ignored {o} "{f}", field not required', [
+                logger()->debug('{c} Ignored {o} "{f}", field not required', [
                     'c'=>__CLASS__,
                     'f'=>$field,
                     'o'=>$orign

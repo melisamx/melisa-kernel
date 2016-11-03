@@ -58,7 +58,7 @@ trait ConnectionsTrait
         
         if( $connection) {
             
-            logger()->debug('{c}. {a} runner', [
+            logger()->debug('{c} {a} runner', [
                 'c'=>__CLASS__,
                 'a'=>$action
             ]);

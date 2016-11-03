@@ -100,7 +100,7 @@ class Models extends Base
             
         }
         
-        logger()->debug('{c}. Model {m} get success', [
+        logger()->debug('{c} Model {m} get success', [
             'c'=>__CLASS__,
             'm'=>$item
         ]);

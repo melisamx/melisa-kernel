@@ -24,7 +24,10 @@ trait InputTrait
             'inputValidate'=>TRUE,
             'filtersOnly'=>FALSE,
             'connection'=>NULL,
-            'transaction'=>FALSE
+            'transaction'=>FALSE,
+            'cacheDelete'=>NULL,
+            'msgError'=>NULL,
+            'cacheDeleteRegex'=>NULL
         ]);
         
         if( is_null($config['modelValidation'])) {
@@ -39,7 +42,7 @@ trait InputTrait
     
     public function getRequired(array &$config = []) {
         
-        logger()->debug('{c}. Get input required', [
+        logger()->debug('{c} Get input required', [
             'c'=>__CLASS__
         ]);
         
@@ -101,7 +104,7 @@ trait InputTrait
         
         if( !$config['inputValidate']) {
             
-            logger()->debug('{c}. I was omitted validate input data', [
+            logger()->debug('{c} I was omitted validate input data', [
                 'c'=>__CLASS__
             ]);
             

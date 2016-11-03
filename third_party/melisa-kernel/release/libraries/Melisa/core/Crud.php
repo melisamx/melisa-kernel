@@ -14,7 +14,7 @@ class Crud implements CrudInterface
     
     public function create(array $input = [], array $config = []) {
         
-        return load()->libraries(__NAMESPACE__ . '\orm\Create')
+        return load()->libraries(__NAMESPACE__ . '\orm\CreateUpdateDelete')
             ->init(arrayDefault($config, [
                 'inputSet'=>$input,
                 'modelLoad'=>'OrmCreate'
@@ -31,21 +31,45 @@ class Crud implements CrudInterface
                     'limit',
                     'page',
                 ],
-                'inputSet'=>$input
+                'inputSet'=>$input,
+                'modelLoad'=>'OrmPaging'
             ]));
         
     }
     
     public function readById($id, array $config = []) {
         
+        return load()->libraries(__NAMESPACE__ . '\orm\ReadCache')
+            ->init(arrayDefault($config, [
+                'input'=>[
+                    'id'
+                ],
+                'inputSet'=>$id,
+                'modelLoad'=>'OrmReadById'
+            ]));
+        
     }
     
     public function update(array $input = [], array $config = []) {
         
+        return load()->libraries(__NAMESPACE__ . '\orm\CreateUpdateDelete')
+            ->init(arrayDefault($config, [
+                'inputSet'=>$input,
+                'modelLoad'=>'OrmUpdate'
+            ]));
+        
     }
     
-    public function delete($id, array $config = []) {
+    public function delete($id = NULL, array $config = []) {
         
+        return load()->libraries(__NAMESPACE__ . '\orm\CreateUpdateDelete')
+            ->init(arrayDefault($config, [
+                'input'=>[
+                    'id'
+                ],
+                'inputSet'=>$id,
+                'modelLoad'=>'OrmDelete'
+            ]));
         
     }
     

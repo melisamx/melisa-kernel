@@ -10,9 +10,8 @@ use Respect\Validation\Exceptions\NestedValidationException;
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Validator extends Base
+class Validator
 {
-
 
     public function __construct() {
         
@@ -31,7 +30,6 @@ class Validator extends Base
         }
         
         $validator = 'v' . ucfirst($model['validator']);
-        $errorMessage = 'Value in field {f} is invalid';
         
         if( !method_exists($this, $validator)) {
             
@@ -42,7 +40,7 @@ class Validator extends Base
             
         }
         
-        logger()->debug('{c}. Validating field {f} with the {v} validator', [
+        logger()->debug('{c} Validating field {f} with the {v} validator', [
             'c'=>__CLASS__,
             'f'=>$field,
             'v'=>$model['validator']
