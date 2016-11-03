@@ -147,3 +147,23 @@ if( !function_exists('view')) {
     }
     
 }
+
+if( !function_exists('views')) {
+    
+    function views() {
+        
+        return service('views');
+        
+    }
+    
+}
+
+if( !function_exists('uutput')) {
+    
+    function output() {
+        
+        return service('output');
+        
+    }
+    
+}

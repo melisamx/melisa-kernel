@@ -30,7 +30,7 @@ class Messages
         /* unset variables de mas */
         if( !$message['file']) unset($message['file']);
         if( !$message['line']) unset($message['line']);
-        if( !$message['log']) unset($message['log']);
+        unset($message['log']);
         
         if(ENVIRONMENT != 'development') {
             
@@ -77,11 +77,11 @@ class Messages
         switch ($message['type']) {
             
             case 'debug':
-                $tipo = 'd';
+                $tipo = 'debug';
                 break;
             
             case 'warning':
-                $tipo = 'w';
+                $tipo = 'warning';
                 break;
             
             case 'benchmark':
@@ -89,7 +89,7 @@ class Messages
                 $tipo = 'bmp';
                 break;
             default:
-                $tipo = 'e';
+                $tipo = 'errors';
                 break;
         }
         

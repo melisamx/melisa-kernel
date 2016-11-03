@@ -15,6 +15,8 @@ class ServiceProvider
         'input'=>'Input',
         'database'=>'Database',
         'view'=>'View',
+        'views'=>'Views',
+        'output'=>'Output',
         'msg'=>'Messages',
         'event'=>'Events',
         'load'=>'Loader',
