@@ -10,7 +10,7 @@ class BeforeAction
     
     public function __construct(App $application) {
         
-        log_message('debug', __CLASS__ . ' Class Initialized');
+        logger()->debug(__CLASS__ . ' Class Initialized');
         $this->app = $application;
         
     }
@@ -37,7 +37,7 @@ class BeforeAction
             
         }
         
-        $okAuthBasic = Event()->fire('core.autentificacion.httpBasic', [
+        $okAuthBasic = event()->fire('core.autentificacion.httpBasic', [
             'shared'=>&$config
         ]);
 

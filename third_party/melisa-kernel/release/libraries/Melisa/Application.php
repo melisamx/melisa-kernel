@@ -142,21 +142,9 @@ class Application
         
     }
     
-    public function load() {
-        
-        return loader(__NAMESPACE__ . '\core\Loader', 'libraries', $this);
-        
-    }
-    
     public function afterAction() {
         
         return TRUE;
-        
-    }
-    
-    public function output() {
-        
-        return load()->libraries(__NAMESPACE__ . '\core\Output');
         
     }
     

@@ -7,7 +7,7 @@ class Config
     
     public function __construct() {
         
-        log_message('debug', __CLASS__ . ' Class Initialized');
+        logger()->debug( __CLASS__ . ' Class Initialized');
         get_instance()->abs->driver_is_load();
         
     }

@@ -28,11 +28,21 @@ if( !function_exists('msg')) {
     
 }
 
-if( !function_exists('models')) {
+if( !function_exists('fs')) {
     
-    function models() {
+    function fs() {
         
-        return service('models');
+        return service('fs');
+        
+    }
+    
+}
+
+if( !function_exists('model')) {
+    
+    function model() {
+        
+        return service('model');
         
     }
     

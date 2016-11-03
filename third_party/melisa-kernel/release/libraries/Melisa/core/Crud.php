@@ -3,7 +3,6 @@
 namespace Melisa\core;
 
 use Melisa\contracts\orm\CrudInterface;
-//use Melisa\core\orm\Paging;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.

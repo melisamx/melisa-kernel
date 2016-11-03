@@ -17,7 +17,9 @@ class ServiceProvider
         'msg'=>'Messages',
         'event'=>'Events',
         'load'=>'Loader',
-        'logger'=>'Logging'
+        'logger'=>'Logging',
+        'model'=>'Models',
+        'fs'=>'FileSystem'
     ];
 
     public function __construct() {

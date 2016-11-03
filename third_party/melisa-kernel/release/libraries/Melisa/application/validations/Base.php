@@ -7,7 +7,7 @@ class Base
     
     public function __construct() {
         
-        log_message('debug', __CLASS__ . ' Class Initialized');
+        logger()->debug(__CLASS__ . ' Class Initialized');
         
     }
     
@@ -56,7 +56,7 @@ class Base
         
         if( $ua['tipo'] != 'cli') {
             
-            message([
+            msg()->add([
                 'debug'=>TRUE,
                 'file'=>__FILE__,
                 'line'=>__LINE__,
@@ -74,7 +74,7 @@ class Base
         $ci->abs->load_helper('class_reflection_helper');
 
         /* create listener */
-        Event()->listen('core.message.add', function($message) use ($ci) {
+        event()->listen('core.message.add', function($message) use ($ci) {
 
             switch ($message['type']) {
 
@@ -128,7 +128,7 @@ class Base
 
         }
         
-        message([
+        msg()->add([
             'file'=>__FILE__,
             'line'=>__LINE__,
             'msg'=>'Using the application is only supported by modern web browsers'
@@ -152,7 +152,7 @@ class Base
 
         }
         
-        message([
+        msg()->add([
             'file'=>__FILE__,
             'line'=>__LINE__,
             'msg'=>'Using the application is only supported by local requests: '.

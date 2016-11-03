@@ -94,7 +94,7 @@ class Messages
         }
         
         /* exec event */
-        Event()->fire('core.message.add', [
+        event()->fire('core.message.add', [
             $message
         ]);
         

@@ -159,7 +159,7 @@ class Loader extends \CI_Loader
 					}
 				}
 
-				log_message('debug', $class.' class already loaded. Second attempt ignored.');
+				logger()->debug( $class.' class already loaded. Second attempt ignored.');
 				return;
 			}
 			// Does the file exist? No? Bummer...

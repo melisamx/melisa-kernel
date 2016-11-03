@@ -8,7 +8,6 @@ class Events extends LaravelEvents
     
     public function __construct() {
         
-        /* log init */
         log_message('debug',__CLASS__.' Class Initialized');
         
     }
@@ -48,15 +47,12 @@ class Events extends LaravelEvents
         
     }
     
-    public function fire($eventos, $data = array(), $halt = FALSE) {
+    public function fire($eventos, $data = [], $halt = FALSE) {
         
-        /* load listeners */
         $this->load_listeners($eventos);
         
-        /* debug */
         if(MYDEBUG) {
             
-            /* verify  */
             if( !in_array($eventos, array(
                 'core.message.add',
                 'core.input.inyect_php',

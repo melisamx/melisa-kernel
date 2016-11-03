@@ -39,15 +39,11 @@ class Models extends Base
             
         }
         
-        if( $this->getModel($models, $source)) {
-            
-            return TRUE;
-            
-        }
+        return $this->get($models, FALSE, $source);
         
     }
     
-    public function getModel($model, $return = FALSE, $source = 'json') {
+    public function get($model, $return = FALSE, $source = 'json') {
         
         static $models = [];
         
@@ -59,9 +55,14 @@ class Models extends Base
             
         }
         
-        if( $this->getCacheModel($model)) {
+        $modelData = $this->getCacheModel($model);
+        
+        if( $modelData) {
             
-            return TRUE;
+            $models [$model] = $modelData;
+            $this->setModelDefault($model);
+            
+            return $return ? $models[$model] : TRUE;
             
         }
         
@@ -71,7 +72,13 @@ class Models extends Base
             
         }
         
-        return $this->getCacheModel($model);
+        return $this->get($model, $return, $source);
+        
+    }
+    
+    public function setModelDefault($model) {
+        
+        $this->modelDefault = $model;
         
     }
     
@@ -85,15 +92,15 @@ class Models extends Base
     
     public function getCacheModel($item) {
         
-        $cacheModel = cache()->get('models.' .$item);
-        exit(var_dump($cacheModel));
+        $cacheModel = cache()->get('models.' . $item);
+        
         if( !$cacheModel) {
             
             return FALSE;
             
         }
         
-        logger()->debug('{c}. Model get success: m', [
+        logger()->debug('{c}. Model {m} get success', [
             'c'=>__CLASS__,
             'm'=>$item
         ]);

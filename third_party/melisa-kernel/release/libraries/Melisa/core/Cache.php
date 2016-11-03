@@ -12,16 +12,25 @@ class Cache
     
     public function __construct() {
         
-        log_message('debug',__CLASS__.' Class Initialized');
+        logger()->debug(__CLASS__.' Class Initialized');
         
     }
     
-    static public function getItem($item) {
+    public function get($key) {
         
         $ci = &get_instance();
         $ci->abs->driver_is_load();
         
-        return $ci->abs->cache_get($item);
+        return $ci->abs->cache_get($key);
+        
+    }
+    
+    public function save($key, $data) {
+        
+        $ci = &get_instance();
+        $ci->abs->driver_is_load();
+        
+        return $ci->abs->cache_save($key, $data);
         
     }
     

@@ -12,7 +12,7 @@ class Input extends Base
     
     public function __construct() {
         
-        log_message('debug',__CLASS__.' Class Initialized');
+        logger()->debug(__CLASS__.' Class Initialized');
         
     }
     

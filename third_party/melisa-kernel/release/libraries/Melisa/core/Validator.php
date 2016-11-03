@@ -16,7 +16,7 @@ class Validator extends Base
 
     public function __construct() {
         
-        log_message('debug', __CLASS__ . ' Class Initialized');
+        logger()->debug(__CLASS__ . ' Class Initialized');
     
     }
     
@@ -25,7 +25,7 @@ class Validator extends Base
         if( !isset($model['validator'])) {
             
             return logger()->error('Model invalid. No defined property validator', [
-                'c'=>__CLASS__,
+                'c'=>__CLASS__
             ]);
             
         }
@@ -53,11 +53,6 @@ class Validator extends Base
         if( !$result) {
             
             return FALSE;
-            return logger()->error('{c}. ' . $errorMessage, [
-                'c'=>__CLASS__,
-                'f'=>$field,
-                'v'=>empty($value) ? '"NULL or []' : $value
-            ]);
             
         }
         

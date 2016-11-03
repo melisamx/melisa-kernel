@@ -22,8 +22,7 @@ trait ConnectionsTrait
         
         if( is_null($connectionManager)) {
             
-            $cnxManager = $this->getApp()->load()
-                ->libraries(__NAMESPACE__ . '\ConnectionManager');
+            $cnxManager = load()->libraries(__NAMESPACE__ . '\ConnectionManager');
             
         } else {
             
