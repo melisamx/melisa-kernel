@@ -178,6 +178,12 @@ class Validator
             
         }
         
+        if( $value == 0) {
+            
+            return TRUE;
+            
+        }
+        
         return logger()->error('Value {v} in field "{f}" is not valid number positive', [
             'c'=>__CLASS__,
             'v'=>$value,

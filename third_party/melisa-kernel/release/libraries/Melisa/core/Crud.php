@@ -5,9 +5,7 @@ namespace Melisa\core;
 use Melisa\contracts\orm\CrudInterface;
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Crud operations in table
  */
 class Crud implements CrudInterface
 {
@@ -22,17 +20,24 @@ class Crud implements CrudInterface
         
     }
     
-    public function readPaging(array $input = [], array $config = []) {
+    public function paging(array $input = [], array $config = []) {
         
         return load()->libraries(__NAMESPACE__ . '\orm\Paging')
             ->init(arrayDefault($config, [
                 'input'=>[
-                    'start',
-                    'limit',
-                    'page',
+                    'start'=>[
+                        'type'=>'GET'
+                    ],
+                    'limit'=>[
+                        'type'=>'GET'
+                    ],
+                    'page'=>[
+                        'type'=>'GET'
+                    ],
                 ],
                 'inputSet'=>$input,
-                'modelLoad'=>'OrmPaging'
+                'modelLoad'=>'OrmPaging',
+                'modelValidation'=>'_core'
             ]));
         
     }

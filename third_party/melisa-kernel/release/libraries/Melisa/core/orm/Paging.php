@@ -44,9 +44,22 @@ class Paging
             'function'=>$config['modelFunction'],
             'path'=>$config['modelPath'],
             'connection'=>$config['connection'],
+            'modelDefault'=>$config['modelDefault']
         ], $input, $config['modelParams']);
-        exit(var_dump($result));
-        return TRUE;
+        
+        if( $result === FALSE) {
+            
+            if( isset($config['msgError'])) {
+                
+                logger()->error($config['msgError'], $input);
+                
+            }
+            
+            return FALSE;
+            
+        }
+        
+        return $result;
         
     }
     

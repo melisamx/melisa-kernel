@@ -1,0 +1,27 @@
+{
+	"table": "core.paging",
+	"columns": {
+		"limit": {
+			"size": 10
+		},
+        "start": {
+            "size": 10
+        },
+        "page": {
+            "size": 10
+        },
+        "idScope": {
+            "size": 10
+        },
+        "idIdentity": {
+            "type": "string",
+			"validator": "uuid",
+			"size": 36
+        },
+        "id": {
+            "type": "string",
+			"validator": "uuid",
+			"size": 36
+        }
+	}
+}

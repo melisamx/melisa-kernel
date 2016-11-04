@@ -100,12 +100,19 @@ class Database
         $config = arrayDefault($config, [
             'path'=>'',
             'function'=>'init',
-            'connection'=>NULL
+            'connection'=>NULL,
+            'modelDefault'=>NULL
         ]);
         
         if( is_null($config['connection'])) {
             
             $config ['connection']= $this->getGroupConnetion();
+            
+        }
+        
+        if( $config['modelDefault']) {
+            
+            model()->setModelDefault($config['modelDefault']);
             
         }
         

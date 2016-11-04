@@ -12,10 +12,14 @@ use Melisa\core\Crud;
 class Users extends Crud
 {
     
-    public function readPaging(array $input = [], array $config = []) {
+    public function paging(array $input = [], array $config = []) {
         
-        return parent::readPaging($input, arrayDefault($config, [
-            'modelValidation'=>'users'
+        return parent::paging($input, arrayDefault($config, [
+            'modelValidation'=>[
+                '_core',
+                'users'
+            ],
+            'modelDefault'=>'users'
         ]));
         
     }
