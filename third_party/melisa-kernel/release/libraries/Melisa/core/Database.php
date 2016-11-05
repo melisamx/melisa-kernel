@@ -2,8 +2,8 @@
 
 namespace Melisa\core;
 
-use \Melisa\core\database\GroupDatabaseTrait;
-use \Melisa\core\database\ConnectionsTrait;
+use Melisa\core\database\GroupDatabaseTrait;
+use Melisa\core\database\ConnectionsTrait;
 
 /**
  * 

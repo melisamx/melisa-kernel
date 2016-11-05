@@ -9,7 +9,9 @@
         }
     ],
     "require": {
-        "respect/validation": "^1.1"
+        "respect/validation": "^1.1",
+        "illuminate/database": "*",
+        "illuminate/events": "^5.3.16"
     },
     "autoload": {
         "psr-4": {
