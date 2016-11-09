@@ -14,7 +14,7 @@ class Base
     public function init($config = []) {
         
         $ci = get_instance();
-        exit(var_dump('entro'));
+        
         if( !$this->isValidRouterMethod($ci)) {
             
             return FALSE;
