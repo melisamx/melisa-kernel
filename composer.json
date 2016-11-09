@@ -15,8 +15,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Melisa\\": "",
-            "Psr\\": "src/Psr/"
+            "Melisa\\": "Melisa/",
+            "Psr\\": "Psr/"
         }
     }
 }
