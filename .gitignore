@@ -2,3 +2,4 @@ nbproject
 vendor
 melisa/**/vendor
 melisa/**/vendor/composer.lock
+composer.lock

@@ -17,6 +17,7 @@ class Application
     public $sessionId;
     public $securityType;
     public $paths = [
+        MYINSTALLROOT,
         APPPATH,
         MYAPPCORE,
         MYCORE

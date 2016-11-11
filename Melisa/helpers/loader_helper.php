@@ -57,37 +57,41 @@ if( !function_exists('loader')) {
         
         static $loadedClass = [];
         
+        $classInstance = $className;
+        
         // suport class namespaces
         if( strpos($className, '/')) {
             
-            $className = str_replace('/', '\\', $className);
+            $classInstance = str_replace('/', '\\', $className);            
+            $ns = explode('/', $className);            
+            $className = array_pop($ns);            
+            $classPath = implode('/', $ns);
             
         }
         
-        if( isset($loadedClass[$className])) {
+        if( isset($loadedClass[$classInstance])) {
             
-            return $loadedClass[$className];
+            return $loadedClass[$classInstance];
             
         }
         
-        if(class_exists($className, FALSE)) {
+        if(class_exists($classInstance, FALSE)) {
             
-            $loadedClass[$className] = new $className();
+            $loadedClass[$classInstance] = new $classInstance();
 
-            return $loadedClass[$className];
+            return $loadedClass[$classInstance];
             
         }
         
         $pathExistClass = loaderSearchFile(str_replace('\\', '/', $className), $classPath);
         
-        if( !$pathExistClass || !class_exists($className)) {
+        if( !$pathExistClass || !class_exists($classInstance)) {
             
-            /* registramos el error */
             msg()->add([
                 'type'=>'warning',
                 'file'=>__FILE__,
                 'line'=>__LINE__,
-                'msg'=>'Class no exist ' . (
+                'message'=>'Class no exist ' . (
                     ENVIRONMENT != 'development' ? 
                     '' : 
                     ':'. $classPath.'/'.$className
@@ -110,7 +114,7 @@ if( !function_exists('loader')) {
         }
         
         $loadedClass[$className] = is_null($params) ? 
-            new $className() : new $className($params);
+            new $classInstance() : new $classInstance($params);
 
         
         return $loadedClass[$className];
