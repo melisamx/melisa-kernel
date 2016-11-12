@@ -5,6 +5,33 @@ namespace Melisa;
 use Melisa\application\validations\Base as ValidationBase;
 use Melisa\application\validations\BeforeAction as ValidationBeforeAction;
 use Melisa\codeigniter\Base as AbstractCodeigniter;
+use Optimus\Onion\Onion as Middleware;
+use Optimus\Onion\LayerInterface;
+use Closure;
+
+class BeforeLayer implements LayerInterface {
+
+    public function peel($object, Closure $next)
+    {
+        $object->runs[] = 'before';
+
+        return $next($object);
+    }
+
+}
+
+class AfterLayer implements LayerInterface {
+
+    public function peel($object, Closure $next)
+    {
+        $response = $next($object);
+        
+        $object->runs[] = 'after';
+
+        return $response;
+    }
+
+}
 
 class Application
 {
@@ -46,6 +73,26 @@ class Application
             'continue.logic'=>TRUE,
             'conexion'=>$this->db
         ];
+        
+        $this->middleware = new Middleware();
+        
+        $object = new \StdClass;
+        $object->runs = [];
+        
+        $end =  $this->middleware->layer([
+                new AfterLayer(),
+                new BeforeLayer(),
+                new AfterLayer(),
+                new BeforeLayer(),
+                new BeforeLayer()
+            ])
+            ->peel($object, function($object){
+//                exit(var_dump($object));
+                $object->runs[] = 'core';
+                return $object;
+            });
+
+var_dump($end);
         
     }
     

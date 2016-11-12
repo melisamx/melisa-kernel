@@ -11,7 +11,8 @@
     "require": {
         "respect/validation": "^1.1",
         "illuminate/database": "^5.3.16",
-        "illuminate/events": "^5.3.16"
+        "illuminate/events": "^5.3.16",
+        "optimus/onion": "0.1.*"
     },
     "autoload": {
         "psr-4": {
