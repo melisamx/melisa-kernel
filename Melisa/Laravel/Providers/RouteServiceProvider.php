@@ -47,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWebRoutes()
+    public function mapWebRoutes()
     {
         
         Route::group([
@@ -67,7 +67,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    public function mapApiRoutes()
     {
         
         Route::group([

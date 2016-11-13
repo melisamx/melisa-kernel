@@ -13,6 +13,10 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        
+        /* db query log */
+        \Melisa\Laravel\Http\Middleware\DbBeforeLogQuery::class,
+        \Melisa\Laravel\Http\Middleware\DbAfterLogQuery::class,
     ];
 
     /**

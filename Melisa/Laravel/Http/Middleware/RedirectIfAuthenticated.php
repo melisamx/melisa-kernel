@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
             
             return redirect($this->redirect);
             
-        }
+        }        
 
         return $next($request);
         
