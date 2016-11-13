@@ -28,8 +28,13 @@ class DbAfterLogQuery
         
         if($logData) {
             
-            \Log::info('Queries executed on '. $request->url() . ": " . count($querysLog));
-            \Log::info('Queries executed: ' . PHP_EOL . $logData );
+            \Log::info('Queries executed on '. 
+                    $request->url() . 
+                    ' (' .count($querysLog) .
+                    ": " . 
+                    PHP_EOL . 
+                    $logData
+            );
             
         }
 

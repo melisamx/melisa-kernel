@@ -344,4 +344,23 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
 
         return $this;
     }
+    
+    public function beginTransaction() {
+        
+        $this->model->getConnectionResolver()->connection()->beginTransaction();
+        
+    }
+    
+    public function commit() {
+        
+        $this->model->getConnectionResolver()->connection()->commit();
+        
+    }
+    
+    public function rollBack() {
+        
+        $this->model->getConnectionResolver()->connection()->rollBack();
+        
+    }
+            
 }

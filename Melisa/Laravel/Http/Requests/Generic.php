@@ -7,7 +7,8 @@ class Generic extends FormRequest
 {
     
     public $keyAction = true;
-    
+    protected $rules = [];
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -46,6 +47,12 @@ class Generic extends FormRequest
                 $errors
             ]
         ], 422);
+        
+    }
+    
+    public function allValid() {
+        
+        return $this->only(array_keys($this->rules));
         
     }
     
