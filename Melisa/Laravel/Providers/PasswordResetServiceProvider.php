@@ -4,18 +4,13 @@ use Illuminate\Auth\Passwords\PasswordResetServiceProvider as BasePasswordReset;
 use Melisa\Laravel\Auth\PasswordBrokerManager;
 
 /**
- * 
+ * Necesary for create passwork reset fields table diferent
  *
  * @author Luis Josafat Heredia Contreras
  */
 class PasswordResetServiceProvider extends BasePasswordReset
 {
     
-    /**
-     * Register the password broker instance.
-     *
-     * @return void
-     */
     protected function registerPasswordBroker()
     {
         $this->app->singleton('auth.password', function ($app) {

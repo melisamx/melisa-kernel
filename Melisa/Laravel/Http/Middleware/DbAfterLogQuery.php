@@ -21,16 +21,24 @@ class DbAfterLogQuery
         
         foreach($querysLog as $queryLog) {
             
-            $logData .= str_replace_first('?', $queryLog['bindings'], $queryLog['query']);
-            $logData .= PHP_EOL;
+            foreach($queryLog['bindings'] as $binding) {
+                
+                $queryLog['query'] = str_replace_first(
+                    '?', 
+                    $binding, 
+                    $queryLog['query']);
+                
+            }
+            
+            $logData .= $queryLog['query'] . PHP_EOL;
             
         }
         
         if($logData) {
             
-            \Log::info('Queries executed on '. 
+            logger()->info('Queries executed on '. 
                     $request->url() . 
-                    ' (' .count($querysLog) .
+                    ' (' .count($querysLog) . ')' .
                     ": " . 
                     PHP_EOL . 
                     $logData

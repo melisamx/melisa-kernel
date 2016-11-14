@@ -6,18 +6,13 @@ use Illuminate\Support\Facades\Response;
 class ResponseMacroServiceProvider extends ServiceProvider
 {
     
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
     public function boot()
     {
         
         Response::macro('create', function($value) {
             
             $data = [
-                'success'=>$value ? $value : false,
+                'success'=>$value ? true : false,
             ];
             
             $messages = melisa('msg')->get();
@@ -28,7 +23,17 @@ class ResponseMacroServiceProvider extends ServiceProvider
                 
             }
             
-            $response = melisa('array')->mergeDefault($data, $messages);
+            if( is_array($value)) {
+                
+                $data += $value;
+                
+            } else {
+                
+                $data ['id']= $value;
+                
+            }
+            
+            $response = melisa('array')->mergeDefault($messages, $data);
             
             if( $value) {
                 
