@@ -127,9 +127,13 @@ class Logging extends PsrLogLevel implements PsrLoggerInterface
     
     protected function writeLog($level, &$message, array &$context) {
         
-        msg()->add([
+        $data = melisa('array')->interpolate($message, $context);
+        
+        logger()->{$level}($data);
+        
+        melisa('msg')->add([
             'type'=>$level,
-            'message'=>array_interpolate($message, $context)
+            'message'=>$data
         ]);
         
     }

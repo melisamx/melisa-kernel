@@ -33,7 +33,7 @@ trait ErrorHumanTrait
     public static function duplicateKey(&$message, &$errorInfo, &$input) {
         
         $matches = [];
-        preg_match("/'(\w*)' for key '(\w*)_UNIQUE+/m", $message, $matches);
+        preg_match("/'(.*)' for key '(\w*)_UNIQUE+/m", $message, $matches);
         
         if( !isset($matches[1])) {
             
@@ -41,7 +41,7 @@ trait ErrorHumanTrait
             
         }
         
-        return array_interpolate('Duplicate value "{v}" in field {f}', [
+        return melisa('array')->interpolate('Duplicate value "{v}" in field {f}', [
             'v'=>$matches[1],
             'f'=>$matches[2]
         ]);

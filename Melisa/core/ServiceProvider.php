@@ -25,14 +25,9 @@ class ServiceProvider
         'fs'=>'FileSystem',
         'uuid'=>'tools\Uuid',
         'validator'=>'Validator',
-        'inputValid'=>'InputValid'
+        'inputValid'=>'InputValid',
+        'array'=>'ArrayHelper'
     ];
-
-    public function __construct() {
-        
-        log_message('debug', __CLASS__ . ' Class Initialized');
-        
-    }
     
     public function get($name) {
         
@@ -42,7 +37,7 @@ class ServiceProvider
             
         }
         
-        exit('service no suport' . $name);
+        exit('service no suport ' . $name);
         
     }
     

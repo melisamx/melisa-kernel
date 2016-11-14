@@ -19,7 +19,7 @@ trait CreateTrait
         } catch (QueryException $ex) {
             
             $result = false;
-            \Log::error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));
+            melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));
             
         }
         

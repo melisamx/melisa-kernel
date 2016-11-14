@@ -1,8 +1,12 @@
-<?php
+<?php namespace Melisa\core;
 
-namespace Melisa\core;
-
-class LogicBusiness extends Base
+trait LogicBusiness
 {
+    
+    public function error($message, array $data = []) {
+        
+        return melisa('logger')->error($message, $data);
+        
+    }
     
 }

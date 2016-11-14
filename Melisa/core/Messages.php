@@ -1,19 +1,11 @@
-<?php
-
-namespace Melisa\core;
+<?php namespace Melisa\core;
 
 class Messages
 {
-    
-    public function __construct() {
         
-        log_message('debug', __CLASS__ . ' Class Initialized');
-        
-    }
-    
     public function add($input) {
         
-        $message = arrayDefault($input, [
+        $message = melisa('array')->mergeDefault($input, [
             'type'=>'error',
             'line'=>FALSE,
             'log'=>TRUE,
@@ -21,18 +13,12 @@ class Messages
             'message'=>''
         ]);
         
-        if($message['log']) {
-            
-            log_message($message['type'], $message['message']);
-            
-        }
-        
         /* unset variables de mas */
         if( !$message['file']) unset($message['file']);
         if( !$message['line']) unset($message['line']);
         unset($message['log']);
         
-        if(ENVIRONMENT != 'development') {
+        if(env('APP_ENV') != 'local') {
             
             unset($message['line'], $message['file'], $message['log']);
             
@@ -56,7 +42,7 @@ class Messages
         if($get) {
             
             /* verify enviroment, delete message debug */
-            if(ENVIRONMENT != 'development' && isset($messages['d'])) {
+            if(env('APP_ENV') != 'local' && isset($messages['d'])) {
                 
                 unset($messages['d']);
                    
@@ -73,35 +59,29 @@ class Messages
             
         }
         
-        /* agrupamos los mensajes por type */
         switch ($message['type']) {
             
             case 'debug':
-                $tipo = 'debug';
+                $type = 'debug';
                 break;
             
             case 'warning':
-                $tipo = 'warning';
+                $type = 'warning';
                 break;
             
             case 'benchmark':
                 /* benchmark points ya que bm es usado por el sistema */
-                $tipo = 'bmp';
+                $type = 'bmp';
                 break;
             default:
-                $tipo = 'errors';
+                $type = 'errors';
                 break;
         }
-        
-        /* exec event */
-        event()->fire('core.message.add', [
-            $message
-        ]);
         
         unset($message['type']);
         
         /* add message */
-        $messages[$tipo][] = $message;
+        $messages[$type][] = $message;
         
     }
     

@@ -1,6 +1,4 @@
-<?php
-
-namespace Melisa\Laravel\Providers;
+<?php namespace Melisa\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Melisa\libraries\Uuid;
