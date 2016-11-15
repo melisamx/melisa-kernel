@@ -117,6 +117,15 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      */
     public function create(array $data)
     {
+        /**
+         * necesary use in seeder class
+         */
+        if( $this->model->isUnguarded()) {
+            
+            $this->model->reguard();
+            
+        }
+        
         return $this->model->create($data);
     }
 

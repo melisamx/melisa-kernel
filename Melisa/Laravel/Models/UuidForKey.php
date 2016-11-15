@@ -19,6 +19,14 @@ trait UuidForKey
         static::creating(function($model) {
             
             $model->incrementing = false;
+            
+            /* required for use seeder */
+            if( $model->id) {
+                
+                return true;
+                
+            }
+            
             $uuid = app('Melisa\libraries\Uuid');
             $model->{$model->getKeyName()} = $uuid->v5(config('app.name'));
             

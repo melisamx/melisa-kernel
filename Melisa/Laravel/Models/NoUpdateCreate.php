@@ -18,6 +18,15 @@ trait NoUpdateCreate
         
         static::creating(function($model) {
             
+            /**
+             * fix seeder
+             */
+            if( !isset($model->updateAt)) {
+                
+                return true;
+                
+            }
+            
             /* necesary but not updatedAt fill */
             $model->setUpdatedAt(NULL);
             

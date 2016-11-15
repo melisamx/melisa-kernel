@@ -9,4 +9,10 @@ trait LogicBusiness
         
     }
     
+    public function debug($message, array $data = []) {
+        
+        return melisa('logger')->debug($message, $data);
+        
+    }
+    
 }
