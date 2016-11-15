@@ -11,6 +11,21 @@ class RouteServiceProvider extends ServiceProvider
         
         $this->mapApiRoutes();
         $this->mapWebRoutes();
+        $this->mapCoreRoutes();
+        
+    }
+    
+    public function mapCoreRoutes() {
+        
+        Route::group([
+            'middleware'=>'web',
+            'namespace'=>'App\Core\Http\Controllers\Api',
+            'prefix' => 'core/api',
+        ], function () {
+            
+            require realpath(base_path() . '/../Core/routes/core.php');
+            
+        });
         
     }
     
@@ -20,7 +35,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
-        ], function ($router) {
+        ], function () {
             
             require base_path('routes/web.php');
         });
@@ -34,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
             'middleware' => 'api',
             'namespace' => $this->namespace,
             'prefix' => 'api',
-        ], function ($router) {
+        ], function () {
             require base_path('routes/api.php');
         });
         
