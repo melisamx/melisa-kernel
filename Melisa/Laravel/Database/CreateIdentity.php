@@ -22,6 +22,7 @@ trait CreateIdentity
         
         Identities::firstOrCreate([
             'id'=>$this->getId(),
+        ], [
             'idProfile'=>$idProfile->id,
             'display'=>'Developer',
             'displayEspecific'=>'Developer',
@@ -36,6 +37,7 @@ trait CreateIdentity
         
         People::firstOrCreate([
             'id'=>$this->getId(),
+        ], [
             'name'=>'Developer',
             'firstName'=>'in',
             'lastName'=>'house',

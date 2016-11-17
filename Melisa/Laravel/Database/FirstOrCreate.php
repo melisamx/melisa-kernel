@@ -14,7 +14,15 @@ trait FirstOrCreate
         
         foreach($records as $r) {
             
-            $model::firstOrCreate($r);
+            if( isset($r['find'], $r['values'])) {
+                                
+                $model::firstOrCreate($r['find'], $r['values']);
+                
+            } else {
+                
+                $model::firstOrCreate($r);
+                
+            }
             
         }
         

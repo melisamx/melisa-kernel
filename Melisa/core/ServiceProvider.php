@@ -26,7 +26,8 @@ class ServiceProvider
         'uuid'=>'tools\Uuid',
         'validator'=>'Validator',
         'inputValid'=>'InputValid',
-        'array'=>'ArrayHelper'
+        'array'=>'ArrayHelper',
+        'userAgent'=>'UserAgent'
     ];
     
     public function get($name) {
