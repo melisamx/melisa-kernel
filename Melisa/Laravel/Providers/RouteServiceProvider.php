@@ -19,8 +19,7 @@ class RouteServiceProvider extends ServiceProvider
         
         Route::group([
             'middleware'=>'web',
-            'namespace'=>'App\Core\Http\Controllers\Api',
-            'prefix' => 'core/api',
+            'namespace'=>'App\Core\Http\Controllers',
         ], function () {
             
             require realpath(base_path() . '/../Core/routes/core.php');
