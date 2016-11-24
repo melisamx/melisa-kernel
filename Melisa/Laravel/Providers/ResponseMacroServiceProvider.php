@@ -6,44 +6,89 @@ use Illuminate\Support\Facades\Response;
 class ResponseMacroServiceProvider extends ServiceProvider
 {
     
+    public function responseCreate($value) {
+        
+        $data = $this->addDefaultResult($value);        
+        
+        $this->addBenchMark($data);
+
+        if( is_array($value)) {
+
+            $data += $value;
+
+        } else {
+
+            $data ['id']= $value;
+
+        }
+
+        $response = $this->addMessages($data);
+
+        return $this->responseJson($value, $response);
+        
+    }
+    
+    public function responseData($value) {
+        
+        $data = $this->addDefaultResult($value);        
+        
+        $this->addBenchMark($data);
+        
+        if( $value) {
+
+            $data ['data']= $value;
+
+        }
+
+        $response = $this->addMessages($data);
+
+        return $this->responseJson($value, $response);
+        
+    }
+    
     public function boot()
     {
         
-        Response::macro('create', function($value) {
-            
-            $data = [
-                'success'=>$value ? true : false,
-            ];
-            
-            $messages = melisa('msg')->get();
-            
-            if( !env('benchmark')) {
+        Response::macro('create', [$this, 'responseCreate']);
+        Response::macro('data', [$this, 'responseData']);
+        
+    }
+    
+    public function responseJson(&$value, &$response) {
+        
+        if( $value) {
+
+            return Response::json($response);
+
+        }
+
+        return Response::json($response)->header('Content-Status', 400);
+        
+    }
+    
+    public function addDefaultResult(&$value) {
+        
+        return [
+            'success'=>$value ? true : false,
+        ];
+        
+    }
+    
+    public function addMessages(&$data) {
+        
+        $messages = melisa('msg')->get();
+        
+        return melisa('array')->mergeDefault($messages, $data);
+        
+    }
+    
+    public function addBenchMark(&$data) {
+        
+        if( !env('benchmark')) {
                 
-                $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
-                
-            }
-            
-            if( is_array($value)) {
-                
-                $data += $value;
-                
-            } else {
-                
-                $data ['id']= $value;
-                
-            }
-            
-            $response = melisa('array')->mergeDefault($messages, $data);
-            
-            if( $value) {
-                
-                return Response::json($response);
-                
-            }
-            
-            return Response::json($response)->header('Content-Status', 400);
-            
-        });
+            $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
+
+        }
         
     }
     

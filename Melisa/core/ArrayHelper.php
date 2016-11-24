@@ -24,8 +24,8 @@ class ArrayHelper
             }
 
         }
-
-        return $arrayDefault;
+        
+        return array_merge($arregloBase, $arrayDefault);
         
     }
     

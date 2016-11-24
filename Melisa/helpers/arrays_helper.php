@@ -27,7 +27,7 @@ if( !function_exists('arrayDefault')) {
             }
 
         }
-
+        
         return $arrayDefault;
 
     }
