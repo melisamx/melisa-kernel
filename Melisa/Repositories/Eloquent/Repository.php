@@ -110,6 +110,31 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->applyCriteria();
         return $this->model->paginate($perPage, $columns);
     }
+    
+    public function creates(array $records) {
+        
+        $flag = true;
+        $ids = [];
+        
+        foreach($records as $record) {
+            
+            $result = $this->create($record);
+            
+            if( $result) {
+                
+                $ids []= $result;
+                continue;
+                
+            }
+            
+            $flag = false;
+            break;
+            
+        }
+        
+        return $flag ? $ids : false;
+        
+    }
 
     /**
      * @param array $data
@@ -198,6 +223,26 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     {
         $this->applyCriteria();
         return $this->model->find($id, $columns);
+    }
+        
+    /**
+     * @param $id
+     * @param array $columns
+     * @return mixed
+     */
+    public function findOrFail($id, $columns = array('*'))
+    {
+        $this->applyCriteria();
+        $record = $this->model->find($id, $columns);
+        
+        if( is_null($record)) {
+            
+            return false;
+            
+        }
+        
+        return $record;
+        
     }
 
     /**
@@ -381,6 +426,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function rollBack() {
         
         $this->model->getConnectionResolver()->connection()->rollBack();
+        return false;
         
     }
             

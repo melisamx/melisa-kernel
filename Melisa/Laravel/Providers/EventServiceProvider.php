@@ -6,8 +6,8 @@ class EventServiceProvider extends ServiceProvider
 {
     
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'App\Core\Events\ModuleAccessEvent' => [
+            'App\Core\Listeners\ModuleAccessBinacleListener',
         ],
     ];
     
