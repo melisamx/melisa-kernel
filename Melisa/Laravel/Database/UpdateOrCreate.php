@@ -12,6 +12,12 @@ trait UpdateOrCreate
         
         $model = app()->make($clasName);
         
+        if( !isset($records[0])) {
+            
+            $records = [ $records ];
+            
+        }
+        
         foreach($records as $r) {
             
             if( isset($r['find'], $r['values'])) {

@@ -14,8 +14,9 @@ trait InstallApplication
     public function installApplication($find, $values) {
         
         return $this->UpdateOrCreate('App\Core\Models\Applications', [
-            'find'=>$find
-        ], [
+            'find'=>[
+                'key'=>$find
+            ],
             'values'=>$values
         ]);
         

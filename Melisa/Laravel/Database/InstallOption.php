@@ -14,8 +14,9 @@ trait InstallOption
     public function installOption($find, $values) {
         
         return $this->UpdateOrCreate('App\Core\Models\Options', [
-            'find'=>$find
-        ], [
+            'find'=>[
+                'key'=>$find
+            ],
             'values'=>$values
         ]);
         
