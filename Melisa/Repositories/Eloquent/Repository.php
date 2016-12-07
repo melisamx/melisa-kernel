@@ -110,31 +110,6 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->applyCriteria();
         return $this->model->paginate($perPage, $columns);
     }
-    
-    public function creates(array $records) {
-        
-        $flag = true;
-        $ids = [];
-        
-        foreach($records as $record) {
-            
-            $result = $this->create($record);
-            
-            if( $result) {
-                
-                $ids []= $result;
-                continue;
-                
-            }
-            
-            $flag = false;
-            break;
-            
-        }
-        
-        return $flag ? $ids : false;
-        
-    }
 
     /**
      * @param array $data
