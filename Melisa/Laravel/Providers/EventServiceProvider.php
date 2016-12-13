@@ -9,6 +9,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Core\Events\ModuleAccessEvent' => [
             'App\Core\Listeners\ModuleAccessBinacleListener',
         ],
+        'Illuminate\Auth\Events\Login' => [
+            'App\Core\Listeners\LoginSuccessListener',
+        ],
     ];
     
 }
