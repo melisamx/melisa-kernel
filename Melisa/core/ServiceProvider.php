@@ -27,7 +27,8 @@ class ServiceProvider
         'validator'=>'Validator',
         'inputValid'=>'InputValid',
         'array'=>'ArrayHelper',
-        'userAgent'=>'UserAgent'
+        'userAgent'=>'UserAgent',
+        'string'=>'StringHelper'
     ];
     
     public function get($name) {
