@@ -12,6 +12,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Login' => [
             'App\Core\Listeners\LoginSuccessListener',
         ],
+        'Melisa\core\Event' => [
+            'App\Core\Listeners\EventBinnacleListener',
+        ],
     ];
     
 }

@@ -1,5 +1,7 @@
 <?php namespace Melisa\core;
 
+use Melisa\core\Event;
+
 trait LogicBusiness
 {
     
@@ -41,6 +43,20 @@ trait LogicBusiness
         }
         
         return $this->acts[$key] = app()->make($this->makes[$key]);
+        
+    }
+    
+    public function emitEvent($key, $data = null) {
+        
+        $result = event(new Event($key, $data));
+        
+        if( in_array(false, $result)) {
+            
+            return false;
+            
+        }
+        
+        return true;
         
     }
     
