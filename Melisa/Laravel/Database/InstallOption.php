@@ -1,7 +1,5 @@
 <?php namespace Melisa\Laravel\Database;
 
-use Melisa\Laravel\Database\UpdateOrCreate;
-
 /**
  * 
  *
@@ -9,7 +7,6 @@ use Melisa\Laravel\Database\UpdateOrCreate;
  */
 trait InstallOption
 {
-    use UpdateOrCreate;
     
     public function installOption($find, $values) {
         

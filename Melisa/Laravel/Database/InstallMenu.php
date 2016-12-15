@@ -1,24 +1,22 @@
 <?php namespace Melisa\Laravel\Database;
 
-use Melisa\Laravel\Database\UpdateOrCreate;
-
 /**
  * 
  *
  * @author Luis Josafat Heredia Contreras
  */
-trait InstallApplication
+trait InstallMenu
 {
     
-    public function installApplication($find, $values) {
+    public function installMenu($find, array $values) {
         
-        return $this->UpdateOrCreate('App\Core\Models\Applications', [
+        return $this->UpdateOrCreate('App\Core\Models\Menus', [
             'find'=>[
                 'key'=>$find
             ],
             'values'=>$values
         ]);
         
-    }    
+    }
     
 }

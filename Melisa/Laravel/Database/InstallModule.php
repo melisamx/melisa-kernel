@@ -7,7 +7,6 @@
  */
 trait InstallModule
 {
-    use UpdateOrCreate;
     
     public function installModule(array $config) {
         

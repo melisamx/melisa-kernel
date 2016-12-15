@@ -1,7 +1,5 @@
 <?php namespace Melisa\Laravel\Database;
 
-use Melisa\Laravel\Database\UpdateOrCreate;
-
 /**
  * 
  *
