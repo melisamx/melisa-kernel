@@ -10,7 +10,7 @@ trait InstallOption
     
     public function installOption($find, $values) {
         
-        return $this->UpdateOrCreate('App\Core\Models\Options', [
+        return $this->updateOrCreate('App\Core\Models\Options', [
             'find'=>[
                 'key'=>$find
             ],

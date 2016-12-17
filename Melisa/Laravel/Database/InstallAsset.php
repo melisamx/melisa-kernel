@@ -26,7 +26,7 @@ trait InstallAsset
     
     public function installAsset($find, $values) {
         
-        return $this->UpdateOrCreate('App\Core\Models\Assets', [
+        return $this->updateOrCreate('App\Core\Models\Assets', [
             'find'=>[
                 'id'=>$find
             ],

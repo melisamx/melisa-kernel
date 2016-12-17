@@ -10,7 +10,7 @@ trait InstallMenu
     
     public function installMenu($find, array $values) {
         
-        return $this->UpdateOrCreate('App\Core\Models\Menus', [
+        return $this->updateOrCreate('App\Core\Models\Menus', [
             'find'=>[
                 'key'=>$find
             ],

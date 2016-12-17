@@ -14,7 +14,7 @@ trait IdSeeder
         
         if( !$id) {
             
-            $id = env('ID_BASE', '83b78de3-ab6c-11e6-9095-080027f62005');
+            $id = env('ID_APP', '83b78de3-ab6c-11e6-9095-080027f62005');
             
         }
         

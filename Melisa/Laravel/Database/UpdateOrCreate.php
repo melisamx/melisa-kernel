@@ -8,7 +8,7 @@
 trait UpdateOrCreate
 {
     
-    public function UpdateOrCreate($clasName, array $records) {
+    public function updateOrCreate($clasName, array $records) {
         
         $model = app()->make($clasName);
         

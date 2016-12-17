@@ -1,6 +1,6 @@
 <?php namespace Melisa\Laravel\Database;
 
-use Melisa\Laravel\Database\UpdateOrCreate;
+use App\Core\Models\Applications;
 
 /**
  * 
@@ -12,13 +12,19 @@ trait InstallApplication
     
     public function installApplication($find, $values) {
         
-        return $this->UpdateOrCreate('App\Core\Models\Applications', [
+        return $this->updateOrCreate('App\Core\Models\Applications', [
             'find'=>[
                 'key'=>$find
             ],
             'values'=>$values
         ]);
         
-    }    
+    }
+    
+    public function findApplication($key) {
+        
+        return Applications::where('key', $key)->firstOrFail();
+        
+    }
     
 }

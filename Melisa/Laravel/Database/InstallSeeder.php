@@ -10,13 +10,17 @@ use Illuminate\Database\Seeder;
 class InstallSeeder extends Seeder
 {
     use InstallApplication, 
-            InstallAsset, 
-            InstallEvent, 
-            InstallModule, 
-            InstallOption,
-            InstallMenu,
-            InstallMenuOptions,
-            UpdateOrCreate;
+        InstallAsset, 
+        InstallEvent, 
+        InstallModule, 
+        InstallOption,
+        InstallMenu,
+        InstallMenuOptions,
+        UpdateOrCreate,
+        InstallProfile,
+        IdSeeder,
+        InstallRedirect,
+        InstallIdentity;
     
     public function run() {
         
