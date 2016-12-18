@@ -1,7 +1,5 @@
 <?php namespace Melisa\Laravel\Database;
 
-use Melisa\Laravel\Database\IdSeeder;
-
 use App\Core\Models\Identities;
 use App\Core\Models\UsersIdentities;
 use App\Core\Models\Profiles;

@@ -20,7 +20,9 @@ class InstallSeeder extends Seeder
         InstallProfile,
         IdSeeder,
         InstallRedirect,
-        InstallIdentity;
+        InstallIdentity,
+        InstallTraslationLanguage,
+        InstallUser;
     
     public function run() {
         

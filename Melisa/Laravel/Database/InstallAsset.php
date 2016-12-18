@@ -24,6 +24,14 @@ trait InstallAsset
                 
     }
     
+    public function installAssetImage($find, $values) {
+        
+        $values ['idAssetType']= 4;
+        
+        return $this->installAsset($find, $values);
+                
+    }
+    
     public function installAsset($find, $values) {
         
         return $this->updateOrCreate('App\Core\Models\Assets', [
