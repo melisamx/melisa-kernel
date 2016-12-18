@@ -22,7 +22,8 @@ class InstallSeeder extends Seeder
         InstallRedirect,
         InstallIdentity,
         InstallTraslationLanguage,
-        InstallUser;
+        InstallUser,
+        InstallTraslation;
     
     public function run() {
         

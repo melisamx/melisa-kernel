@@ -13,24 +13,26 @@ use App\Core\Models\User;
 trait InstallIdentity
 {
     
-    public function installIdentity($profile = 'system', $username = 'developer', array $values = []) {
+    public function installIdentity($displayEspecific, $profileKey = 'system', $username = 'developer', array $values = []) {
         
-        $prodile = Profiles::where('key', $profile)->firstOrFail();
+        $profile = Profiles::where('key', $profileKey)->firstOrFail();
         $user = User::where('name', $username)->firstOrFail();
         
         Identities::updateOrCreate([
-            'id'=>$this->getId(),
-            'idProfile'=>$prodile->id,
+            'displayEspecific'=>$displayEspecific,
+            'idProfile'=>$profile->id,
         ], $values);
+        
+        $identity = $this->findIdentity($displayEspecific);
         
         UsersIdentities::firstOrCreate([
             'idUser'=>$user->id,
-            'idIdentity'=>$this->getId()
+            'idIdentity'=>$identity->id
         ]);
         
     }
     
-    public function findIdentity($displayEspecific) {
+    public function findIdentity($displayEspecific = 'Developer') {
         
         return Identities::where('displayEspecific', $displayEspecific)->firstOrFail();
         
