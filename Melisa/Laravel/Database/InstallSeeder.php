@@ -23,7 +23,12 @@ class InstallSeeder extends Seeder
         InstallIdentity,
         InstallTraslationLanguage,
         InstallUser,
-        InstallTraslation;
+        InstallTraslation,
+        InstallApplicationRoles,
+        InstallScope,
+        InstallApplicationRS,
+        InstallTask,
+        InstallApplicationRST;
     
     public function run() {
         
