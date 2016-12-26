@@ -20,4 +20,10 @@ trait InstallUser
         
     }
     
+    public function findUser($key = 'developer') {
+        
+        return User::where('name', $key)->firstOrFail();
+        
+    }
+    
 }
