@@ -9,5 +9,6 @@ abstract class Criteria {
      * @param Repository $repository
      * @return mixed
      */
-    public abstract function apply($model, Repository $repository);
+    public abstract function apply($model, Repository $repository, array $input = []);
+    
 }

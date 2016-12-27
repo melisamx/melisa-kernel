@@ -1,0 +1,55 @@
+<?php namespace Melisa\Laravel\Logics;
+
+use Melisa\core\LogicBusiness;
+use Melisa\Repositories\Contracts\RepositoryInterface;
+
+/**
+ * 
+ *
+ * @author Luis Josafat Heredia Contreras
+ */
+class PagingLogics
+{
+    use LogicBusiness;
+    
+    protected $repository;
+    protected $repositoryCriteria;
+    
+    public function __construct(RepositoryInterface $repository, $criteria = null) {
+        
+        $this->repository = $repository;
+        $this->repositoryCriteria = $criteria;
+        
+    }
+    
+    public function init(array $input) {
+        
+        if( is_null($this->repositoryCriteria)) {
+            
+            $result = $this->repository->paginate($input['limit']);
+            
+        } else {
+            
+            $result = $this->repository->getByCriteria($this->repositoryCriteria, $input)->paginate($input['limit']);
+            
+        }
+        
+        if( $result->total() === 0) {
+            
+            return [
+                'success'=>true,
+                'total'=>0,
+                'data'=>[],
+            ];
+            
+        }
+        
+        return [
+            'success'=>true,
+            'total'=>$result->total(),
+            'data'=>$result->toArray()['data']
+        ];
+        
+    }
+    
+}

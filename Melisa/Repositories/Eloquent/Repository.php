@@ -342,9 +342,9 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      * @param Criteria $criteria
      * @return $this
      */
-    public function getByCriteria(Criteria $criteria)
+    public function getByCriteria(Criteria $criteria, array $input = [])
     {
-        $this->model = $criteria->apply($this->model, $this);
+        $this->model = $criteria->apply($this->model, $this, $input);
         return $this;
     }
 

@@ -1,6 +1,4 @@
-<?php
-
-namespace Melisa\Repositories\Contracts;
+<?php namespace Melisa\Repositories\Contracts;
 
 use Melisa\Repositories\Criteria\Criteria;
 
@@ -25,7 +23,7 @@ interface CriteriaInterface {
      * @param Criteria $criteria
      * @return $this
      */
-    public function getByCriteria(Criteria $criteria);
+    public function getByCriteria(Criteria $criteria, array $input = []);
 
     /**
      * @param Criteria $criteria
