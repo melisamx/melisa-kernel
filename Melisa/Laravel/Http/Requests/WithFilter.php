@@ -23,8 +23,9 @@ class WithFilter extends Generic
             foreach($filters as $filter) {
 
                 if( !isset($filter->property, $filter->value)) {
-
-                    $flag = false;
+                    
+                    $flag = false;                    
+                    $validator->errors()->add($field, 'filter.json.invalid');
                     break;
 
                 }
@@ -37,6 +38,7 @@ class WithFilter extends Generic
 
                 if( !in_array($filter->property, $parameters, true)) {
 
+                    $validator->errors()->add($field, 'filter.not.allowed');
                     $flag = false;
                     break;
 
@@ -48,15 +50,25 @@ class WithFilter extends Generic
                     
                 }
                 
-                $flag = \Validator::make([
+                $validatorProperty = \Validator::make([
                     $filter->property => $filter->value
-                ], $rules)->passes();
+                ], $rules);
                 
-                if( !$flag) {
+                $flag = $validatorProperty->passes();
+                
+                if( $flag) {
                     
-                    break;
+                    continue;
                     
                 }
+                
+                foreach($validatorProperty->errors()->all() as $error) {
+                    
+                    $validator->errors()->add($field . '.' . $filter->property, $error);
+                    
+                }
+                
+                break;
 
             }
 
