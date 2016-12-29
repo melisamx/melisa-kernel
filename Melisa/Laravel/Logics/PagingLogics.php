@@ -36,19 +36,17 @@ class PagingLogics
         
         if( $result->total() === 0) {
             
-            return [
-                'success'=>true,
+            return response()->paging([
                 'total'=>0,
                 'data'=>[],
-            ];
+            ]);
             
         }
         
-        return [
-            'success'=>true,
+        return response()->paging([
             'total'=>$result->total(),
             'data'=>$result->toArray()['data']
-        ];
+        ]);
         
     }
     

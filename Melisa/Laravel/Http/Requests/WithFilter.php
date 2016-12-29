@@ -1,6 +1,5 @@
 <?php namespace Melisa\Laravel\Http\Requests;
 
-
 /**
  * 
  *

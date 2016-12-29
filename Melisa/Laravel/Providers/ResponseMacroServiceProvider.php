@@ -46,11 +46,31 @@ class ResponseMacroServiceProvider extends ServiceProvider
         
     }
     
+    public function responsePaging($value) {
+        
+        $data = $this->addDefaultResult($value);        
+        
+        $this->addBenchMark($data);
+        
+        if( $value) {
+
+            $data ['data']= $value['data'];
+            $data ['total']= $value['total'];
+
+        }
+
+        $response = $this->addMessages($data);
+
+        return $this->responseJson($value, $response);
+        
+    }
+    
     public function boot()
     {
         
         Response::macro('create', [$this, 'responseCreate']);
         Response::macro('data', [$this, 'responseData']);
+        Response::macro('paging', [$this, 'responsePaging']);
         
     }
     
@@ -84,7 +104,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
     
     public function addBenchMark(&$data) {
         
-        if( !env('benchmark')) {
+        if( env('APP_ENV') === 'local') {
                 
             $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
 
