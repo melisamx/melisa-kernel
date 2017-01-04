@@ -7,6 +7,20 @@ trait LogicBusiness
     
     public $acts = [];
     
+    public function getIdentity()
+    {
+        
+        return app('identity')->get();
+        
+    }
+    
+    public function isAllowed($task)
+    {
+        
+        return app('security')->isAllowed($task);
+        
+    }
+    
     public function error($message, array $data = []) {
         
         return melisa('logger')->error($message, $data);

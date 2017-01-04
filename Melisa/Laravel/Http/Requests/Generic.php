@@ -37,7 +37,8 @@ class Generic extends FormRequest
      * @param  array  $errors
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function response(array $errors) {
+    public function response(array $errors)
+    {
         
         return new JsonResponse([
             'success'=>false,
@@ -48,7 +49,8 @@ class Generic extends FormRequest
         
     }
     
-    public function allValid() {
+    public function allValid()
+    {
         
         return $this->only(array_keys($this->rules));
         
