@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'Melisa\Laravel\Console\Commands\Repositories',
-        'Melisa\Laravel\Console\Commands\Models'
+        'Melisa\Laravel\Console\Commands\Models',
+        'Melisa\Laravel\Console\Commands\Seeders',
     ];
 
     /**
