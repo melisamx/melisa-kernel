@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Seeders extends Command
+class Faker extends Command
 {
     
     /**
@@ -15,14 +15,14 @@ class Seeders extends Command
      *
      * @var string
      */
-    protected $signature = 'seeders';
+    protected $signature = 'faker';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run seeders';
+    protected $description = 'Run faker';
     
     protected $logic;
 
@@ -34,7 +34,7 @@ class Seeders extends Command
     public function handle()
     {
         
-        $class = app()->getNameSpace() . '\Database\Seeds\DatabaseSeeder';
+        $class = app()->getNameSpace() . '\Database\Seeds\FakerSeeder';
         
         $this->call('db:seed', [
             '--class'=>$class

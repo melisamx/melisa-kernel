@@ -28,7 +28,8 @@ class InstallSeeder extends Seeder
         InstallScope,
         InstallApplicationRS,
         InstallTask,
-        InstallApplicationRST;
+        InstallApplicationRST,
+        Factory;
     
     public function run() {
         
