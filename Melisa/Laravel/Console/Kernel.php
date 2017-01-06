@@ -11,7 +11,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'Melisa\Laravel\Console\Commands\Repositories',
+        'Melisa\Laravel\Console\Commands\Models'
     ];
 
     /**
