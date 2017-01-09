@@ -14,10 +14,10 @@ trait LogicBusiness
         
     }
     
-    public function isAllowed($task)
+    public function isAllowed($gate = '*')
     {
         
-        return app('security')->isAllowed($task);
+        return app('security')->isAllowed($gate);
         
     }
     

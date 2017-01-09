@@ -93,7 +93,7 @@ class IlluminateConnectionManager implements ConnectionManagerInterface
         
         $capsule = new Capsule;
         
-        get_instance()->abs->get
+        get_instance()->abs->get;
         
         return $capsule;
         
