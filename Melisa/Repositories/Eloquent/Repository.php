@@ -74,6 +74,13 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         $this->applyCriteria();
         return $this->model->get($columns);
     }
+    
+    public function getModel()
+    {
+        
+        return $this->model;
+        
+    }
 
     /**
      * @param array $relations
@@ -346,6 +353,15 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     {
         $this->model = $criteria->apply($this->model, $this, $input);
         return $this;
+    }
+
+    /**
+     * @param Criteria $criteria
+     * @return $this
+     */
+    public function getByCriteriaReset(Criteria $criteria, array $input = [])
+    {
+        return $criteria->apply($this->model, $this, $input);
     }
 
     /**
