@@ -30,7 +30,9 @@ class PagingLogics
             
         } else {
             
-            $result = $this->repository->getByCriteria($this->repositoryCriteria, $input)->paginate($input['limit']);
+            $result = $this->repository
+                    ->withCriteria($this->repositoryCriteria, $input)
+                    ->paginate($input['limit']);
             
         }
         

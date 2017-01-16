@@ -5,6 +5,7 @@ namespace Melisa\Repositories\Eloquent;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Container\Container as App;
+use Illuminate\Database\Eloquent\Builder;
 use Melisa\Repositories\Contracts\RepositoryInterface;
 use Melisa\Repositories\Exceptions\RepositoryException;
 use Melisa\Repositories\Contracts\CriteriaInterface;
@@ -33,6 +34,11 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      * @var Collection
      */
     protected $criteria;
+
+    /**
+     * @var Collection
+     */
+    protected $builderCriteria;
 
     /**
      * @var bool
@@ -100,7 +106,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function lists($value, $key = null)
     {
         $this->applyCriteria();
-        $lists = $this->model->lists($value, $key);
+        $lists = $this->getBuilderOrModel()->lists($value, $key);
         if (is_array($lists)) {
             return $lists;
         }
@@ -115,7 +121,8 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function paginate($perPage = 25, $columns = array('*'))
     {
         $this->applyCriteria();
-        return $this->model->paginate($perPage, $columns);
+        
+        return $this->getBuilderOrModel()->paginate($perPage, $columns);
     }
 
     /**
@@ -204,7 +211,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function find($id, $columns = array('*'))
     {
         $this->applyCriteria();
-        return $this->model->find($id, $columns);
+        return $this->getBuilderOrModel()->find($id, $columns);
     }
         
     /**
@@ -215,7 +222,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function findOrFail($id, $columns = array('*'))
     {
         $this->applyCriteria();
-        $record = $this->model->find($id, $columns);
+        $record = $this->getBuilderOrModel()->find($id, $columns);
         
         if( is_null($record)) {
             
@@ -224,6 +231,17 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         }
         
         return $record;
+        
+    }
+    
+    private function getBuilderOrModel()
+    {
+        
+        if( $this->builderCriteria instanceof Builder) {
+            return $this->builderCriteria;
+        } else {
+            return $this->model;
+        }
         
     }
 
@@ -236,7 +254,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function findBy($attribute, $value, $columns = array('*'))
     {
         $this->applyCriteria();
-        return $this->model->where($attribute, '=', $value)->first($columns);
+        return $this->getBuilderOrModel()->where($attribute, '=', $value)->first($columns);
     }
 
     /**
@@ -248,7 +266,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function findAllBy($attribute, $value, $columns = array('*'))
     {
         $this->applyCriteria();
-        return $this->model->where($attribute, '=', $value)->get($columns);
+        return $this->getBuilderOrModel()->where($attribute, '=', $value)->get($columns);
     }
 
     /**
@@ -264,7 +282,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     {
         $this->applyCriteria();
 
-        $model = $this->model;
+        $model = $this->getBuilderOrModel();
 
         foreach ($where as $field => $value) {
             if ($value instanceof \Closure) {
@@ -334,6 +352,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function skipCriteria($status = true)
     {
         $this->skipCriteria = $status;
+        $this->builderCriteria = null;
         return $this;
     }
 
@@ -351,8 +370,29 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      */
     public function getByCriteria(Criteria $criteria, array $input = [])
     {
-        $this->model = $criteria->apply($this->model, $this, $input);
+        
+        $result = $criteria->apply($this->model, $this, $input);
+        
+        if( $result instanceof Builder) {
+            return $result->get();
+        }
+        
         return $this;
+        
+    }
+    
+    public function withCriteria(Criteria $criteria, array $input = [])
+    {
+        
+        $result = $criteria->apply($this->model, $this, $input);
+        
+        if( $result instanceof Builder) {
+            $this->builderCriteria = $result;
+            return $this;
+        }
+        
+        return $this;
+        
     }
 
     /**
@@ -396,7 +436,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
 
         foreach ($this->getCriteria() as $criteria) {
             if ($criteria instanceof Criteria)
-                $this->model = $criteria->apply($this->model, $this);
+                $this->builderCriteria = $criteria->apply($this->model, $this);
         }
 
         return $this;
@@ -404,20 +444,33 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     
     public function beginTransaction() {
         
-        $this->model->getConnectionResolver()->connection()->beginTransaction();
+        $this->model->getConnection()->beginTransaction();
         
     }
     
     public function commit() {
         
-        $this->model->getConnectionResolver()->connection()->commit();
+        $this->model->getConnection()->commit();
         
     }
     
     public function rollBack() {
         
-        $this->model->getConnectionResolver()->connection()->rollBack();
+        $this->model->getConnection()->rollBack();
         return false;
+        
+    }
+    
+    public function debugLastQuery()
+    {
+        
+        $queries = $this->model
+                ->getConnection()
+                ->getQueryLog();
+        
+        $lastQuery = end($queries);
+        
+        return melisa('logger')->debug($lastQuery['query']);
         
     }
             

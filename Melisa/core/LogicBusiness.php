@@ -39,9 +39,14 @@ trait LogicBusiness
         
     }
     
-    public function debugLastQuery() {
-                
-        $queries = \DB::getQueryLog();
+    public function debugLastQuery($database = null) {
+        
+        if( !$database) {
+            $queries = \DB::getQueryLog();
+        } else {
+            $queries = \DB::connection($database)->getQueryLog();
+        }        
+        
         $lastQuery = end($queries);
         
         return melisa('logger')->debug($lastQuery['query']);
