@@ -8,6 +8,26 @@ class Generic extends FormRequest
     
     public $keyAction = true;
     protected $rules = [];
+    
+    public function __construct() {
+        
+        parent::__construct();
+        
+        $me = $this;
+        
+        validator()->extend('xss', function($field, $value, $parameters, $validator) use($me) {
+            
+            $value = app('xss')->xss_clean($value);
+            
+            $me->merge([
+                $field=>$value
+            ]);
+            
+            return true;
+            
+        });
+        
+    }
 
     /**
      * Determine if the user is authorized to make this request.
