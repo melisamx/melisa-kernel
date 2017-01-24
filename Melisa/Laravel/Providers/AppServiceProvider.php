@@ -5,6 +5,7 @@ use Melisa\codeigniter\CI_Security;
 use App\Security\Logics\GatesSecurity;
 use App\Core\Logics\Identities\Identities;
 use App\Security\Logics\SystemSecurity\UserGod;
+use App\Security\Logics\SystemSecurity\Art;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton('usergod', function ($app) {
             
             return $app->make(UserGod::class);
+            
+        });
+        
+        $this->app->singleton('art', function ($app) {
+            
+            return $app->make(Art::class);
             
         });
         

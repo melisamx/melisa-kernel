@@ -25,7 +25,7 @@ trait InstallIdentity
         
         $identity = $this->findIdentity($displayEspecific);
         
-        UsersIdentities::firstOrCreate([
+        UsersIdentities::updateOrCreate([
             'idUser'=>$user->id,
             'idIdentity'=>$identity->id
         ]);

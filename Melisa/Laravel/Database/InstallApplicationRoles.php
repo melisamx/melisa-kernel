@@ -18,7 +18,7 @@ trait InstallApplicationRoles
         return ApplicationsRoles::updateOrCreate([
             'idApplication'=>$application->id,
             'idIdentityCreated'=>$identity->id,
-            'rol'=>$rol
+            'role'=>$rol
         ], $values);
         
     }
@@ -27,7 +27,7 @@ trait InstallApplicationRoles
         
         return ApplicationsRoles::where([
             'idApplication'=>$idApplication,
-            'rol'=>$rolName,
+            'role'=>$rolName,
         ])->firstOrFail();
         
     }
