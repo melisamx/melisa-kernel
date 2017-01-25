@@ -19,4 +19,34 @@ class CustomValidator extends Validator
         
     }
     
+    public function validateSort($field, $value, $parameters, $validator)
+    {
+        
+        $this->requireParameterCount(1, $parameters, 'sort');
+        
+        $fieldsSort = json_decode($value);
+        
+        foreach($fieldsSort as $fieldSort) {
+            
+            if( !isset($fieldSort->property, $fieldSort->direction)) {
+                $validator->errors()->add($field, 'sort.json.invalid');
+                return false;
+            }
+            
+            if( !in_array($fieldSort->property, $parameters, true)) {
+                $validator->errors()->add($field, 'sort.field.invalid');
+                return false;
+            }
+            
+            if( !in_array($fieldSort->direction, ['ASC', 'DESC'], true)) {
+                $validator->errors()->add($field, 'sort.direction.invalid');
+                return false;
+            }
+            
+        }
+        
+        return true;
+        
+    }
+    
 }

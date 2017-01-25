@@ -14,10 +14,8 @@ class FilterCriteria extends Criteria
     public function apply($model, RepositoryInterface $repository, array $input = [])
     {
         
-        if( !isset($input['filter'])) {
-            
-            return $model;
-            
+        if( !isset($input['filter'])) {            
+            return $model;            
         }
         
         $filters = [];
@@ -25,15 +23,19 @@ class FilterCriteria extends Criteria
         foreach($input['filter'] as $filter) {
             
             $operator = '=';
+            $value = $filter->value;
             
             if( isset($filter->operator)) {
-                
                 $operator = $filter->operator;
+                
+                if($filter->operator === 'like') {
+                    $value = '%' . $value . '%';
+                }
                 
             }
             
             $filters []= [
-                $filter->property, $operator, $filter->value
+                $filter->property, $operator, $value
             ];
             
         }

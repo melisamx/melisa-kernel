@@ -86,10 +86,8 @@ class WithFilter extends Generic
         
         $input = $this->only(array_keys($this->rules));
         
-        if( !isset($input['filter'])) {
-            
-            return $input;
-            
+        if( !isset($input['filter'])) {            
+            return $input;            
         }
         
         $filters = json_decode($input['filter']);
