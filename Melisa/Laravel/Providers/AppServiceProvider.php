@@ -6,6 +6,7 @@ use App\Security\Logics\GatesSecurity;
 use App\Core\Logics\Identities\Identities;
 use App\Security\Logics\SystemSecurity\UserGod;
 use App\Security\Logics\SystemSecurity\Art;
+use Waavi\Sanitizer\Laravel\Factory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,10 @@ class AppServiceProvider extends ServiceProvider
             
             return $app->make(CI_Security::class);
             
+        });
+        
+        $this->app->singleton('sanitize', function ($app) {
+            return new Factory;
         });
 
     }
