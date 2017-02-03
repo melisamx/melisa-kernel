@@ -49,4 +49,9 @@ class CustomValidator extends Validator
         
     }
     
+    public function validateAlphaspaces($attribute, $value, $params)
+    {
+        return preg_match('/^[\pL\s]+$/u', $value);
+    }
+    
 }
