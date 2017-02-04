@@ -7,6 +7,7 @@ use App\Core\Logics\Identities\Identities;
 use App\Security\Logics\SystemSecurity\UserGod;
 use App\Security\Logics\SystemSecurity\Art;
 use Waavi\Sanitizer\Laravel\Factory;
+use Melisa\Laravel\Services\UuidServices;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,10 @@ class AppServiceProvider extends ServiceProvider
         
         $this->app->singleton('sanitize', function ($app) {
             return new Factory;
+        });
+        
+        $this->app->singleton('uuid', function ($app) {
+            return new UuidServices();
         });
 
     }

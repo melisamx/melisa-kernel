@@ -27,8 +27,7 @@ trait UuidForKey
                 
             }
             
-            $uuid = app('Melisa\libraries\Uuid');
-            $model->{$model->getKeyName()} = $uuid->v5(config('app.name'));
+            $model->{$model->getKeyName()} = app('uuid')->v5();
             
         });
         

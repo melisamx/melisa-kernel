@@ -187,7 +187,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      * @param  $id
      * @return mixed
      */
-    public function updateOrCreate(array $findFields, array $values)
+    public function updateOrCreate(array $findFields, array $values = [])
     {
         
         return $this->model->updateOrCreate($findFields, $values);
