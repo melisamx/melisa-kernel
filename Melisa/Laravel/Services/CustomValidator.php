@@ -14,7 +14,7 @@ class CustomValidator extends Validator
         
         /* sencha send true and false */
         $acceptable = [true, false, 0, 1, '0', '1', 'true', 'false'];
-
+        
         return in_array($value, $acceptable, true);
         
     }
