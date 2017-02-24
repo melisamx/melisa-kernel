@@ -13,13 +13,9 @@ class ResponseMacroServiceProvider extends ServiceProvider
         $this->addBenchMark($data);
 
         if( is_array($value)) {
-
             $data += $value;
-
         } else {
-
             $data ['id']= $value;
-
         }
 
         $response = $this->addMessages($data);
@@ -35,9 +31,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         $this->addBenchMark($data);
         
         if( $value) {
-
             $data ['data']= $value;
-
         }
 
         $response = $this->addMessages($data);
@@ -53,10 +47,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         $this->addBenchMark($data);
         
         if( $value) {
-
-            $data ['data']= $value['data'];
-            $data ['total']= $value['total'];
-
+            $data += $value;
         }
 
         $response = $this->addMessages($data);
@@ -77,9 +68,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
     public function responseJson(&$value, &$response) {
         
         if( $value) {
-
             return Response::json($response);
-
         }
 
         return Response::json($response)->header('Content-Status', 400);
@@ -104,10 +93,8 @@ class ResponseMacroServiceProvider extends ServiceProvider
     
     public function addBenchMark(&$data) {
         
-        if( env('APP_ENV') === 'local') {
-                
+        if( env('APP_ENV') === 'local') {                
             $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
-
         }
         
     }
