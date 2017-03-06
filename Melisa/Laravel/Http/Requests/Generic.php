@@ -72,7 +72,7 @@ class Generic extends FormRequest
     public function allValid()
     {
         
-        return $this->only(array_keys($this->rules));
+        return $this->only(array_keys($this->rules()));
         
     }
     
