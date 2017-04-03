@@ -28,7 +28,7 @@ class Event implements EventBinnacle
     
     public function getKey() {
         
-        return 'event.' . config('app.keyapp', 'dummy') . '.' . $this->key;
+        return 'event.' . $this->key;
         
     }   
     
