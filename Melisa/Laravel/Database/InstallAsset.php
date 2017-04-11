@@ -34,6 +34,11 @@ trait InstallAsset
     
     public function installAsset($find, $values) {
         
+        if( !isset($values['version'])) {
+            $application = $this->findApplication(config('app.keyapp'));
+            $values ['version']= $application->version;
+        }
+        
         return $this->updateOrCreate('App\Core\Models\Assets', [
             'find'=>[
                 'id'=>$find
