@@ -36,7 +36,9 @@ trait InstallAsset
         
         if( !isset($values['version'])) {
             $application = $this->findApplication(config('app.keyapp'));
-            $values ['version']= $application->version;
+            if($application) {
+                $values ['version']= $application->version;
+            }
         }
         
         return $this->updateOrCreate('App\Core\Models\Assets', [

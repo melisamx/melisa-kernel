@@ -1,6 +1,7 @@
 <?php namespace Melisa\Laravel\Database;
 
 use Illuminate\Database\Seeder;
+use Melisa\Laravel\Database\Seeds\Json\ImportSimple;
 
 /**
  * 
@@ -31,7 +32,8 @@ class InstallSeeder extends Seeder
         InstallApplicationRST,
         Factory,
         InstallGateSystem,
-        CleanLogsSeeder;
+        CleanLogsSeeder,
+        ImportSimple;
     
     public function run() {
         

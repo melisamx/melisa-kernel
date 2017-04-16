@@ -23,7 +23,7 @@ trait InstallApplication
     
     public function findApplication($key) {
         
-        return Applications::where('key', $key)->firstOrFail();
+        return Applications::where('key', $key)->first();
         
     }
     
