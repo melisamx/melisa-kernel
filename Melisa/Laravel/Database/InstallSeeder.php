@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 use Melisa\Laravel\Database\Seeds\Json\ImportSimple;
+use Melisa\Laravel\Database\Seeds\Csv\ImportSimple as CsvImportSimple;
+use Melisa\Laravel\Database\Seeds\Txt\ImportSimple as TxtImportSimple;
+use Melisa\Laravel\Database\Seeds\Module\InstallJson;
 
 /**
  * 
@@ -33,7 +36,10 @@ class InstallSeeder extends Seeder
         Factory,
         InstallGateSystem,
         CleanLogsSeeder,
-        ImportSimple;
+        ImportSimple,
+        CsvImportSimple,
+        TxtImportSimple,
+        InstallJson;
     
     public function run() {
         

@@ -30,6 +30,11 @@ class ImportSimple
         
     }
     
+    public function getPathFile($pathBase, $file)
+    {
+        return $pathBase . "$file.json";
+    }
+    
     public function processFile($path, $filesName, $keyConnection)
     {
         
@@ -39,7 +44,7 @@ class ImportSimple
         
         foreach($filesName as $file) {
             
-            $filePath = $path . "$file.json";
+            $filePath = $this->getPathFile($path, $file);
             
             if( !$this->existPath($filePath)) {
                 return $this->error('no exist file import {f}', [
@@ -50,7 +55,7 @@ class ImportSimple
             $content = $this->getContentFile($filePath);
             
             if( !$this->isValidContent($content)) {
-                return $this->error('invalid content file json {f}', [
+                return $this->error('invalid content file {f}', [
                     'f'=>$filePath
                 ]);
             }
