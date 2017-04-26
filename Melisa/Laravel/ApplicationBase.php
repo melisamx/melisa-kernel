@@ -107,7 +107,7 @@ class ApplicationBase extends Application
         if (isset($this->appPaths['database'])) {
             return $this->appPaths['database'];
         }
-        return $this->basePath.'/database';
+        return $this->basePath.'/Database';
     }
 
     /**
