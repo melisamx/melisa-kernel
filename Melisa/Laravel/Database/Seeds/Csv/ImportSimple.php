@@ -11,9 +11,7 @@ trait ImportSimple
 {
     
     public function csvImportSimple(array $files = [], $keyConnection = null) {
-        
-        return app(KernelImportSimple::class)->init($files, $keyConnection);
-        
+        return app(KernelImportSimple::class)->init($files, $keyConnection);        
     }
     
 }
