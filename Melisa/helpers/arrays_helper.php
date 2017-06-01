@@ -11,8 +11,8 @@ if( !function_exists('array_is_multi_array')) {
 
 if( !function_exists('arrayDefault')) {
     
-    function arrayDefault(&$arregloBase, $arrayDefault) {
-
+    function arrayDefault(&$arregloBase, $arrayDefault)
+    {
         foreach($arrayDefault as $key => $valor) {
 
             if (isset($arregloBase[$key])) {
@@ -29,7 +29,6 @@ if( !function_exists('arrayDefault')) {
         }
         
         return $arrayDefault;
-
     }
     
 }
@@ -37,8 +36,8 @@ if( !function_exists('arrayDefault')) {
 if( !function_exists('array_interpolate'))
 {
     
-    function array_interpolate($template, array $context = array()) {
-        
+    function array_interpolate($template, array $context = array())
+    {        
         /* build a replacement array with braces around the context keys */
         $keysReplace = array();
         foreach($context as $key => $val) {
@@ -54,15 +53,14 @@ if( !function_exists('array_interpolate'))
         
         /* interpolate replacement values into the message and return */
         return strtr($template, $keysReplace);        
-        
     }
     
 }
 
 if( !function_exists('arrayIndexOfExist')) {
     
-    function arrayIndexOfExist($needle, $haystack) {
-        
+    function arrayIndexOfExist($needle, $haystack)
+    {        
         foreach ($haystack as $item) {
             
            if (strpos($item, $needle) !== FALSE) {
@@ -72,8 +70,7 @@ if( !function_exists('arrayIndexOfExist')) {
            
         }
         
-        return FALSE;
-        
+        return FALSE;        
     }
     
 }

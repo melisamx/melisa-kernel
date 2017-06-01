@@ -23,7 +23,6 @@ class ServiceProvider
         'logger'=>'Logging',
         'model'=>'Models',
         'fs'=>'FileSystem',
-        'uuid'=>'tools\Uuid',
         'validator'=>'Validator',
         'inputValid'=>'InputValid',
         'array'=>'ArrayHelper',
@@ -31,34 +30,26 @@ class ServiceProvider
         'string'=>'StringHelper'
     ];
     
-    public function get($name) {
-        
-        if( isset($this->services[$name])) {
-            
-            return $this->createInstance($name);
-            
+    public function get($name)
+    {        
+        if( isset($this->services[$name])) {            
+            return $this->createInstance($name);            
         }
         
-        exit('service no suport ' . $name);
-        
+        exit('service no suport ' . $name);        
     }
     
-    public function createInstance($name) {
-        
+    public function createInstance($name)
+    {        
         static $instances = [];
         
-        if( isset($instances[$name])) {
-            
-            return $instances[$name];
-            
+        if( isset($instances[$name])) {            
+            return $instances[$name];            
         }
         
-        $instanceName = __NAMESPACE__ . '\\' . $this->services[$name];
-        
-        $instances [$name] = new $instanceName();
-        
-        return $instances [$name];
-        
+        $instanceName = __NAMESPACE__ . '\\' . $this->services[$name];        
+        $instances [$name] = new $instanceName();        
+        return $instances [$name];        
     }
     
 }

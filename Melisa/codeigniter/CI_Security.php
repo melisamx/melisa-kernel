@@ -1,4 +1,6 @@
-<?php namespace Melisa\codeigniter;
+<?php
+
+namespace Melisa\codeigniter;
 
 /**
  * CodeIgniter

@@ -1,4 +1,6 @@
-<?php namespace Melisa\core;
+<?php
+
+namespace Melisa\core;
 
 /**
  * 
@@ -8,29 +10,24 @@
 class ArrayHelper
 {
     
-    public function mergeDefault(&$arregloBase, $arrayDefault) {
-        
+    public function mergeDefault(&$arregloBase, $arrayDefault)
+    {        
         foreach($arrayDefault as $key => $val) {
 
             if (isset($arregloBase[$key])) {
-
                 $arrayDefault[$key] = $arregloBase[$key];
                 unset($arregloBase[$key]);
-
-            } else {
-                
-                $arrayDefault = array_merge($arregloBase, $arrayDefault);
-                
+            } else {                
+                $arrayDefault = array_merge($arregloBase, $arrayDefault);                
             }
 
         }
         
-        return array_merge($arregloBase, $arrayDefault);
-        
+        return array_merge($arregloBase, $arrayDefault);        
     }
     
-    public function interpolate($template, array $context = []) {
-        
+    public function interpolate($template, array $context = [])
+    {        
         /* build a replacement array with braces around the context keys */
         $keysReplace = [];
         foreach($context as $key => $val) {
@@ -45,8 +42,7 @@ class ArrayHelper
         }
         
         /* interpolate replacement values into the message and return */
-        return strtr($template, $keysReplace);
-        
+        return strtr($template, $keysReplace);        
     }
     
 }

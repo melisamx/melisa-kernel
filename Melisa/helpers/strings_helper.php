@@ -8,14 +8,12 @@ if ( !function_exists('str_contains')) {
      * @param string|array $needle
      * @return bool
      */
-    function str_contains($haystack, $needles) {
-        
+    function str_contains($haystack, $needles)
+    {        
         foreach ((array) $needles as $needle) {
             if ($needle != '' && strpos($haystack, $needle) !== false) return true;
-        }
-        
-        return false;
-         
+        }        
+        return false;         
     }
     
 }

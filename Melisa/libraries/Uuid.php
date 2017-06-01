@@ -1,4 +1,6 @@
-<?php namespace Melisa\libraries;
+<?php
+
+namespace Melisa\libraries;
 
 /**
  * UUID Class
