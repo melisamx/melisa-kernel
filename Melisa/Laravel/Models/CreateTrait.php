@@ -13,9 +13,9 @@ trait CreateTrait
 {    
     
     public static function create(array $input = [])
-    {        
+    {   
         try {            
-            $result = parent::create($input);            
+            $result = static::query()->create($input);            
         } catch (QueryException $ex) {            
             $result = false;
             melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));            
