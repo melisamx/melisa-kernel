@@ -1,4 +1,6 @@
-<?php namespace Melisa\Kernel\Database\Seeds\Csv;
+<?php
+
+namespace Melisa\Kernel\Database\Seeds\Csv;
 
 use Melisa\Kernel\Database\Seeds\Json\ImportSimple as JsonImportSimple;
 

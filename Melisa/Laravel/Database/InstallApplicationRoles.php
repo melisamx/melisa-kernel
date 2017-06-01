@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\ApplicationsRoles;
 
@@ -10,8 +12,8 @@ use App\Core\Models\ApplicationsRoles;
 trait InstallApplicationRoles
 {
     
-    public function installApplicationRol($appKey, $rol, array $values) {
-        
+    public function installApplicationRol($appKey, $rol, array $values)
+    {        
         $application = $this->findApplication($appKey);
         $identity = $this->findIdentity();
         
@@ -19,17 +21,15 @@ trait InstallApplicationRoles
             'idApplication'=>$application->id,
             'idIdentityCreated'=>$identity->id,
             'role'=>$rol
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findApplicationRol($idApplication, $rolName) {
-        
+    public function findApplicationRol($idApplication, $rolName)
+    {        
         return ApplicationsRoles::where([
             'idApplication'=>$idApplication,
             'role'=>$rolName,
-        ])->firstOrFail();
-        
+        ])->firstOrFail();        
     }
     
 }

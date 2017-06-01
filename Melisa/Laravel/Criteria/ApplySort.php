@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Criteria;
+<?php
+
+namespace Melisa\Laravel\Criteria;
 
 use Melisa\Repositories\Contracts\RepositoryInterface;
 
@@ -11,8 +13,7 @@ trait ApplySort
 {
     
     public function applySort($model, array $input = [])
-    {
-        
+    {        
         if( !isset($input['sort'])) {            
             return $model;            
         }
@@ -25,8 +26,7 @@ trait ApplySort
             
         }
         
-        return $model;
-        
+        return $model;        
     }
     
 }

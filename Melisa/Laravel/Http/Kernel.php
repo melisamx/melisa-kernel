@@ -1,7 +1,13 @@
-<?php namespace Melisa\Laravel\Http;
+<?php
+
+namespace Melisa\Laravel\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class Kernel extends HttpKernel
 {
     /**
@@ -13,6 +19,9 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \Melisa\Laravel\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         
         /* db query log */
         \Melisa\Laravel\Http\Middleware\DbBeforeLogQuery::class,

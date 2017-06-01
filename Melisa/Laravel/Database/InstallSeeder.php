@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use Illuminate\Database\Seeder;
 use Melisa\Laravel\Database\Seeds\Json\ImportSimple;
@@ -41,7 +43,8 @@ class InstallSeeder extends Seeder
         TxtImportSimple,
         InstallJson;
     
-    public function run() {
+    public function run()
+    {
         
     }
     

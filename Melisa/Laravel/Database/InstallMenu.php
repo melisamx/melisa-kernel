@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php 
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,15 +10,14 @@
 trait InstallMenu
 {
     
-    public function installMenu($find, array $values) {
-        
+    public function installMenu($find, array $values)
+    {        
         return $this->updateOrCreate('App\Core\Models\Menus', [
             'find'=>[
                 'key'=>$find
             ],
             'values'=>$values
-        ]);
-        
+        ]);        
     }
     
 }

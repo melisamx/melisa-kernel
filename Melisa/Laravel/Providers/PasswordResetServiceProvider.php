@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Providers;
+<?php
+
+namespace Melisa\Laravel\Providers;
 
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider as BasePasswordReset;
 use Melisa\Laravel\Auth\PasswordBrokerManager;

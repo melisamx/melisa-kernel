@@ -1,9 +1,16 @@
-<?php namespace Melisa\Laravel\Exceptions;
+<?php
+
+namespace Melisa\Laravel\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+/**
+ * 
+ *
+ * @author Luis Josafat Heredia Contreras
+ */
 class Handler extends ExceptionHandler
 {
     /**
@@ -60,4 +67,5 @@ class Handler extends ExceptionHandler
         
         return redirect()->guest('login');
     }
+    
 }

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Sanitizes;
+<?php
+
+namespace Melisa\Sanitizes;
 
 use Waavi\Sanitizer\Laravel\SanitizesInput;
 
@@ -17,14 +19,12 @@ trait BeforeSanitize
      *  @return void
      */
     public function sanitize()
-    {
-        
+    {        
         $sanitize = app()->make('sanitize');
         $sanitize->extend('boolean', BooleanSanitize::class);
         
         $this->sanitizer = $sanitize->make($this->input(), $this->sanitizes);
-        $this->replace($this->sanitizer->sanitize());
-        
+        $this->replace($this->sanitizer->sanitize());        
     }
     
 }

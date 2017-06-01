@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database\Seeds\Txt;
+<?php
+
+namespace Melisa\Laravel\Database\Seeds\Txt;
 
 use Melisa\Kernel\Database\Seeds\Txt\ImportSimple as KernelImportSimple;
 
@@ -10,10 +12,9 @@ use Melisa\Kernel\Database\Seeds\Txt\ImportSimple as KernelImportSimple;
 trait ImportSimple
 {
     
-    public function txtImportSimple(array $files = [], $keyConnection = null) {
-        
-        return app(KernelImportSimple::class)->init($files, $keyConnection);
-        
+    public function txtImportSimple(array $files = [], $keyConnection = null)
+    {        
+        return app(KernelImportSimple::class)->init($files, $keyConnection);        
     }
     
 }

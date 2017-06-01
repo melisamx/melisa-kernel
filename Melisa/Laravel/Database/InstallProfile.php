@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Profiles;
 
@@ -10,18 +12,16 @@ use App\Core\Models\Profiles;
 trait InstallProfile
 {
     
-    public function installProfile($find, $values) {
-        
+    public function installProfile($find, $values)
+    {        
         return Profiles::updateOrCreate([
             'key'=>$find
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findProfile($key) {
-        
-        return Profiles::where('key', $key)->firstOrFail();
-        
+    public function findProfile($key)
+    {        
+        return Profiles::where('key', $key)->firstOrFail();        
     }
     
 }

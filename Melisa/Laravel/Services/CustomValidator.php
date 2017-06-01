@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Services;
+<?php
+
+namespace Melisa\Laravel\Services;
 
 use Illuminate\Validation\Validator;
 
@@ -10,18 +12,16 @@ use Illuminate\Validation\Validator;
 class CustomValidator extends Validator
 {
     
-    public function validateBoolean($attribute, $value) {
-        
+    public function validateBoolean($attribute, $value)
+    {        
         /* sencha send true and false */
         $acceptable = [true, false, 0, 1, '0', '1', 'true', 'false'];
         
-        return in_array($value, $acceptable, true);
-        
+        return in_array($value, $acceptable, true);        
     }
     
     public function validateSort($field, $value, $parameters, $validator)
-    {
-        
+    {        
         $this->requireParameterCount(1, $parameters, 'sort');
         
         $fieldsSort = json_decode($value);
@@ -45,8 +45,7 @@ class CustomValidator extends Validator
             
         }
         
-        return true;
-        
+        return true;        
     }
     
     public function validateAlphaspaces($attribute, $value, $params)

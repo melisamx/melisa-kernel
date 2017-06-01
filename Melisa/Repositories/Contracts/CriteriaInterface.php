@@ -1,4 +1,6 @@
-<?php namespace Melisa\Repositories\Contracts;
+<?php
+
+namespace Melisa\Repositories\Contracts;
 
 use Melisa\Repositories\Criteria\Criteria;
 
@@ -6,7 +8,8 @@ use Melisa\Repositories\Criteria\Criteria;
  * Interface CriteriaInterface
  * @package Melisa\Repositories\Contracts
  */
-interface CriteriaInterface {
+interface CriteriaInterface
+{
 
     /**
      * @param bool $status
@@ -35,4 +38,5 @@ interface CriteriaInterface {
      * @return $this
      */
     public function  applyCriteria();
+    
 }

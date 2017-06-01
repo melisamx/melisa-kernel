@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Http\Controllers;
+<?php
+
+namespace Melisa\Laravel\Http\Controllers;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

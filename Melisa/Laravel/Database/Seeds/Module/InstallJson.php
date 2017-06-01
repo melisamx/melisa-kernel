@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database\Seeds\Module;
+<?php
+
+namespace Melisa\Laravel\Database\Seeds\Module;
 
 use Melisa\Kernel\Database\Seeds\Module\InstallJson as InstallModuleJson;
 
@@ -10,10 +12,9 @@ use Melisa\Kernel\Database\Seeds\Module\InstallJson as InstallModuleJson;
 trait InstallJson
 {
     
-    public function installModuleJson($path, $files) {
-        
-        return app(InstallModuleJson::class)->init($path, $files);
-        
+    public function installModuleJson($path, $files)
+    {        
+        return app(InstallModuleJson::class)->init($path, $files);        
     }
     
 }

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Http\Requests;
+<?php
+
+namespace Melisa\Laravel\Http\Requests;
 
 /**
  * 
@@ -8,8 +10,8 @@
 class WithFilter extends Generic
 {
     
-    public function __construct() {
-        
+    public function __construct()
+    {        
         parent::__construct();
         
         $rules = $this->rulesFilters;
@@ -21,32 +23,24 @@ class WithFilter extends Generic
 
             foreach($filters as $filter) {
 
-                if( !isset($filter->property, $filter->value)) {
-                    
+                if( !isset($filter->property, $filter->value)) {                    
                     $flag = false;                    
                     $validator->errors()->add($field, 'filter.json.invalid');
                     break;
-
                 }
 
                 if( empty($parameters)) {
-
                     continue;
-
                 }
 
                 if( !in_array($filter->property, $parameters, true)) {
-
                     $validator->errors()->add($field, 'filter.not.allowed');
                     $flag = false;
                     break;
-
                 }
                 
-                if( is_null($rules)) {
-                    
-                    continue;
-                    
+                if( is_null($rules)) {                    
+                    continue;                    
                 }
                 
                 $validatorProperty = \Validator::make([
@@ -55,35 +49,28 @@ class WithFilter extends Generic
                 
                 $flag = $validatorProperty->passes();
                 
-                if( $flag) {
-                    
-                    continue;
-                    
+                if( $flag) {                    
+                    continue;                    
                 }
                 
-                foreach($validatorProperty->errors()->all() as $error) {
-                    
-                    $validator->errors()->add($field . '.' . $filter->property, $error);
-                    
+                foreach($validatorProperty->errors()->all() as $error) {                    
+                    $validator->errors()->add($field . '.' . $filter->property, $error);                    
                 }
                 
                 break;
-
             }
 
             if( !$flag) {
-
                 return false;
             }
 
-            return true;
-        
+            return true;        
         });
         
     }
     
-    public function allValid() {
-        
+    public function allValid()
+    {        
         $input = $this->only(array_keys($this->rules));
         
         if( !isset($input['filter'])) {            
@@ -96,8 +83,7 @@ class WithFilter extends Generic
             'filter'=>$filters
         ]);
         
-        return parent::allValid();
-        
+        return parent::allValid();        
     }
     
 }

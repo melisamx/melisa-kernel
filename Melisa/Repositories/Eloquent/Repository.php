@@ -6,10 +6,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Container\Container as App;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\QueryException;
 use Melisa\Repositories\Contracts\RepositoryInterface;
 use Melisa\Repositories\Exceptions\RepositoryException;
 use Melisa\Repositories\Contracts\CriteriaInterface;
 use Melisa\Repositories\Criteria\Criteria;
+use Melisa\core\orm\ErrorHumanTrait;
 
 /**
  * Class Repository
@@ -17,6 +19,7 @@ use Melisa\Repositories\Criteria\Criteria;
  */
 abstract class Repository implements RepositoryInterface, CriteriaInterface
 {
+    use ErrorHumanTrait;
 
     /**
      * @var App
@@ -166,7 +169,14 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function update(array $data, $id, $attribute = "id")
     {
         $input = array_only($data, $this->getModel()->getFillable());
-        return $this->model->where($attribute, '=', $id)->update($input);
+        try
+        {
+            $result = $this->model->where($attribute, '=', $id)->update($input);
+        } catch (QueryException $ex) {
+            $result = false;
+            melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));
+        }
+        return $result;
     }
 
     /**
@@ -189,10 +199,8 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      * @return mixed
      */
     public function updateOrCreate(array $findFields, array $values = [])
-    {
-        
-        return $this->model->updateOrCreate($findFields, $values);
-        
+    {        
+        return $this->model->updateOrCreate($findFields, $values);        
     }
 
     /**
@@ -231,19 +239,16 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
             
         }
         
-        return $record;
-        
+        return $record;        
     }
     
     private function getBuilderOrModel()
-    {
-        
+    {        
         if( $this->builderCriteria instanceof Builder) {
             return $this->builderCriteria;
         } else {
             return $this->model;
-        }
-        
+        }        
     }
 
     /**
@@ -370,21 +375,18 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
      * @return $this
      */
     public function getByCriteria(Criteria $criteria, array $input = [])
-    {
-        
+    {        
         $result = $criteria->apply($this->model, $this, $input);
         
         if( $result instanceof Builder) {
             return $result->get();
         }
         
-        return $this;
-        
+        return $this;        
     }
     
     public function withCriteria(Criteria $criteria, array $input = [])
-    {
-        
+    {        
         $result = $criteria->apply($this->model, $this, $input);
         
         if( $result instanceof Builder) {
@@ -392,8 +394,7 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
             return $this;
         }
         
-        return $this;
-        
+        return $this;        
     }
 
     /**
@@ -443,36 +444,29 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
         return $this;
     }
     
-    public function beginTransaction() {
-        
-        $this->model->getConnection()->beginTransaction();
-        
+    public function beginTransaction()
+    {        
+        $this->model->getConnection()->beginTransaction();        
     }
     
-    public function commit() {
-        
-        $this->model->getConnection()->commit();
-        
+    public function commit()
+    {        
+        $this->model->getConnection()->commit();        
     }
     
-    public function rollBack() {
-        
+    public function rollBack()
+    {        
         $this->model->getConnection()->rollBack();
-        return false;
-        
+        return false;        
     }
     
     public function debugLastQuery()
-    {
-        
+    {        
         $queries = $this->model
                 ->getConnection()
-                ->getQueryLog();
-        
-        $lastQuery = end($queries);
-        
-        return melisa('logger')->debug($lastQuery['query']);
-        
+                ->getQueryLog();        
+        $lastQuery = end($queries);        
+        return melisa('logger')->debug($lastQuery['query']);        
     }
             
 }

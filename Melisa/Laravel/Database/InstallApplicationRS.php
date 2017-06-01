@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\ApplicationsRS;
 
@@ -10,7 +12,8 @@ use App\Core\Models\ApplicationsRS;
 trait InstallApplicationRS
 {
     
-    public function installRolScope($appKey, $rol, $scopeName, array $values) {
+    public function installRolScope($appKey, $rol, $scopeName, array $values)
+    {
         
         $application = $this->findApplication($appKey);
         $applicationRol = $this->findApplicationRol($application->id, $rol);
@@ -22,17 +25,15 @@ trait InstallApplicationRS
         return ApplicationsRS::updateOrCreate([
             'idApplicationRol'=>$applicationRol->id,
             'idScope'=>$scope->id
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findApplicationRolScope($idApplicationRol, $idScope) {
-        
+    public function findApplicationRolScope($idApplicationRol, $idScope)
+    {        
         return ApplicationsRS::where([
             'idApplicationRol'=>$idApplicationRol,
             'idScope'=>$idScope
-        ])->firstOrFail();
-        
+        ])->firstOrFail();        
     }
     
 }

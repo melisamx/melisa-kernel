@@ -1,10 +1,12 @@
-<?php namespace Melisa\core;
+<?php
+
+namespace Melisa\core;
 
 class Messages
 {
         
-    public function add($input) {
-        
+    public function add($input)
+    {        
         $message = melisa('array')->mergeDefault($input, [
             'type'=>'error',
             'line'=>FALSE,
@@ -18,45 +20,35 @@ class Messages
         if( !$message['line']) unset($message['line']);
         unset($message['log']);
         
-        if(env('APP_ENV') != 'local') {
-            
-            unset($message['line'], $message['file'], $message['log']);
-            
+        if(env('APP_ENV') != 'local') {            
+            unset($message['line'], $message['file'], $message['log']);            
         }
         
-        $this->addMessage($message);
-        
+        $this->addMessage($message);        
     }
     
-    public function get() {
-        
-        return $this->addMessage(NULL, TRUE);
-        
+    public function get()
+    {        
+        return $this->addMessage(NULL, TRUE);        
     }
     
-    private function addMessage($message, $get = FALSE) {
-        
+    private function addMessage($message, $get = FALSE)
+    {        
         static $messages = array();
         static $count = 0;
         
-        if($get) {
-            
+        if($get) {            
             /* verify enviroment, delete message debug */
-            if(env('APP_ENV') != 'local' && isset($messages['d'])) {
-                
-                unset($messages['d']);
-                   
+            if(env('APP_ENV') != 'local' && isset($messages['d'])) {                
+                unset($messages['d']);                   
             }
             
-            return $messages;
-            
+            return $messages;            
         }
         
-        if( $count > 50) {
-            
+        if( $count > 50) {            
             $messages = [];
-            $count = 0;
-            
+            $count = 0;            
         }
         
         switch ($message['type']) {
@@ -78,11 +70,9 @@ class Messages
                 break;
         }
         
-        unset($message['type']);
-        
+        unset($message['type']);        
         /* add message */
-        $messages[$type][] = $message;
-        
+        $messages[$type][] = $message;        
     }
     
 }

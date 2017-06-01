@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Identities;
 use App\Core\Models\UsersIdentities;
@@ -13,8 +15,8 @@ use App\Core\Models\User;
 trait InstallIdentity
 {
     
-    public function installIdentity($displayEspecific, $profileKey = 'system', $username = 'developer', array $values = []) {
-        
+    public function installIdentity($displayEspecific, $profileKey = 'system', $username = 'developer', array $values = [])
+    {        
         $profile = Profiles::where('key', $profileKey)->firstOrFail();
         $user = User::where('name', $username)->firstOrFail();
         
@@ -28,14 +30,12 @@ trait InstallIdentity
         UsersIdentities::updateOrCreate([
             'idUser'=>$user->id,
             'idIdentity'=>$identity->id
-        ]);
-        
+        ]);        
     }
     
-    public function findIdentity($displayEspecific = 'Developer') {
-        
-        return Identities::where('displayEspecific', $displayEspecific)->firstOrFail();
-        
+    public function findIdentity($displayEspecific = 'Developer')
+    {        
+        return Identities::where('displayEspecific', $displayEspecific)->firstOrFail();        
     }
     
 }

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Logics;
+<?php
+
+namespace Melisa\Laravel\Logics;
 
 use Melisa\core\LogicBusiness;
 use Melisa\Repositories\Contracts\RepositoryInterface;
@@ -52,8 +54,7 @@ class DeleteLogic
     }
     
     public function init($input)
-    {
-        
+    {        
         $this->repository->beginTransaction();
         
         $idRecord = $this->delete($input);
@@ -69,22 +70,18 @@ class DeleteLogic
         }
         
         $this->repository->commit();
-        return $event;
-        
+        return $event;        
     }
     
     public function generateEvent($input, $idRecord)
-    {
-        
+    {        
         return [
             $this->getIdField()=>$idRecord
-        ];
-        
+        ];        
     }
     
     public function fireEvent(array $event)
-    {
-        
+    {        
         $emitEvent = $this->getFireEvent();
         
         if( empty($emitEvent)) {
@@ -95,15 +92,12 @@ class DeleteLogic
             return false;
         } else {
             return true;
-        }
-        
+        }        
     }
     
     public function delete(&$input)
-    {
-        
-        return $this->repository->delete($input);
-        
+    {        
+        return $this->repository->delete($input);        
     }
     
 }

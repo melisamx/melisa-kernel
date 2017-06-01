@@ -1,7 +1,13 @@
-<?php namespace Melisa\Laravel\Http\Middleware;
+<?php
+
+namespace Melisa\Laravel\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifyCsrf;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class VerifyCsrfToken extends BaseVerifyCsrf
 {
     /**

@@ -1,8 +1,11 @@
-<?php namespace Melisa\Repositories\Criteria;
+<?php
+
+namespace Melisa\Repositories\Criteria;
 
 use Melisa\Repositories\Contracts\RepositoryInterface as Repository;
 
-abstract class Criteria {
+abstract class Criteria
+{
 
     /**
      * @param $model

@@ -9,18 +9,19 @@ use Illuminate\Database\QueryException;
  *
  * @author Luis Josafat Heredia Contreras
  */
-trait CreateTrait
+trait SaveTrait
 {    
     
-    public static function create(array $input = [])
+    public function save(array $options = [])
     {        
+        dd($options);
         try {            
-            $result = parent::create($input);            
+            $result = parent::update($input);            
         } catch (QueryException $ex) {            
             $result = false;
             melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));            
         }
-        
+        dd($result);
         if( $result === false) {            
             return false;            
         }

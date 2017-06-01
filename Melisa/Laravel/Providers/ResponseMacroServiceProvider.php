@@ -1,13 +1,19 @@
-<?php namespace Melisa\Laravel\Providers;
+<?php
+
+namespace Melisa\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class ResponseMacroServiceProvider extends ServiceProvider
 {
     
-    public function responseCreate($value) {
-        
+    public function responseCreate($value)
+    {        
         $data = $this->addDefaultResult($value);        
         
         $this->addBenchMark($data);
@@ -20,12 +26,11 @@ class ResponseMacroServiceProvider extends ServiceProvider
 
         $response = $this->addMessages($data);
 
-        return $this->responseJson($value, $response);
-        
+        return $this->responseJson($value, $response);        
     }
     
-    public function responseData($value) {
-        
+    public function responseData($value)
+    {        
         $data = $this->addDefaultResult($value);        
         
         $this->addBenchMark($data);
@@ -36,12 +41,11 @@ class ResponseMacroServiceProvider extends ServiceProvider
 
         $response = $this->addMessages($data);
 
-        return $this->responseJson($value, $response);
-        
+        return $this->responseJson($value, $response);        
     }
     
-    public function responsePaging($value) {
-        
+    public function responsePaging($value)
+    {        
         $data = $this->addDefaultResult($value);        
         
         $this->addBenchMark($data);
@@ -52,51 +56,44 @@ class ResponseMacroServiceProvider extends ServiceProvider
 
         $response = $this->addMessages($data);
 
-        return $this->responseJson($value, $response);
-        
+        return $this->responseJson($value, $response);        
     }
     
     public function boot()
-    {
-        
+    {        
         Response::macro('create', [$this, 'responseCreate']);
         Response::macro('data', [$this, 'responseData']);
-        Response::macro('paging', [$this, 'responsePaging']);
-        
+        Response::macro('paging', [$this, 'responsePaging']);        
     }
     
-    public function responseJson(&$value, &$response) {
-        
+    public function responseJson(&$value, &$response)
+    {        
         if( $value) {
             return Response::json($response);
         }
 
-        return Response::json($response)->header('Content-Status', 400);
-        
+        return Response::json($response)->header('Content-Status', 400);        
     }
     
-    public function addDefaultResult(&$value) {
-        
+    public function addDefaultResult(&$value)
+    {        
         return [
             'success'=>$value ? true : false,
-        ];
-        
+        ];        
     }
     
-    public function addMessages(&$data) {
-        
+    public function addMessages(&$data)
+    {        
         $messages = melisa('msg')->get();
         
         return melisa('array')->mergeDefault($messages, $data);
-        
     }
     
-    public function addBenchMark(&$data) {
-        
+    public function addBenchMark(&$data)
+    {        
         if( env('APP_ENV') === 'local') {                
             $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
-        }
-        
+        }        
     }
     
 }

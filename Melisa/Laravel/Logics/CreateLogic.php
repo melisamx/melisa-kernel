@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Logics;
+<?php
+
+namespace Melisa\Laravel\Logics;
 
 use Melisa\core\LogicBusiness;
 use Melisa\Repositories\Contracts\RepositoryInterface;
@@ -64,8 +66,7 @@ class CreateLogic
     }
     
     public function init($input)
-    {
-        
+    {        
         $this->repository->beginTransaction();
         
         $this->inyectIdIdentityCreated($input);
@@ -83,22 +84,18 @@ class CreateLogic
         }
         
         $this->repository->commit();
-        return $event;
-        
+        return $event;        
     }
     
     public function generateEvent($input, $idRecord)
-    {
-        
+    {        
         return [
             $this->getIdField()=>$idRecord
-        ];
-        
+        ];        
     }
     
     public function fireEvent(array $event)
-    {
-        
+    {        
         $emitEvent = $this->getFireEvent();
         
         if( empty($emitEvent)) {
@@ -109,24 +106,20 @@ class CreateLogic
             return false;
         } else {
             return true;
-        }
-        
+        }        
     }
     
     public function inyectIdIdentityCreated(&$input)
-    {
-        
+    {        
         if( !$this->getAutoInyectIdentityCreated()) {
             return;
         }
         
-        $input [$this->getIdentityCreated()]= $this->getIdentity();
-        
+        $input [$this->getIdentityCreated()]= $this->getIdentity();        
     }
     
     public function create(&$input)
-    {
-        
+    {        
         $result = $this->repository->create($input);
         
         if( $result === false) {
@@ -137,8 +130,7 @@ class CreateLogic
             return $input['id'];
         } else {
             return $result;
-        }
-        
+        }        
     }
     
 }

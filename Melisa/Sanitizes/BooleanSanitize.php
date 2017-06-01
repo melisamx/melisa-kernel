@@ -1,4 +1,6 @@
-<?php namespace Melisa\Sanitizes;
+<?php
+
+namespace Melisa\Sanitizes;
 
 use Waavi\Sanitizer\Contracts\Filter;
 
@@ -17,14 +19,12 @@ class BooleanSanitize implements Filter
      * @return bool
      */
     public function apply($value, $options = [])
-    {
-        
+    {        
         return in_array($value, [
             'false',
             0,
             '0'
-        ], true) ? 0 : true;
-        
+        ], true) ? 0 : true;        
     }
     
 }

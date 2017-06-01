@@ -1,10 +1,13 @@
-<?php namespace Melisa\Repositories\Contracts;
+<?php
+
+namespace Melisa\Repositories\Contracts;
 
 /**
  * Interface RepositoryInterface
  * @package Melisa\Repositories\Contracts
  */
-interface RepositoryInterface {
+interface RepositoryInterface
+{
 
     /**
      * @param array $columns

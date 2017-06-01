@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,32 +10,26 @@
 trait InstallAsset
 {
     
-    public function installAssetCss($find, $values) {
-        
-        $values ['idAssetType']= 2;
-        
-        return $this->installAsset($find, $values);
-        
+    public function installAssetCss($find, $values)
+    {        
+        $values ['idAssetType']= 2;        
+        return $this->installAsset($find, $values);        
     }    
     
-    public function installAssetJs($find, $values) {
-        
-        $values ['idAssetType']= 1;
-        
-        return $this->installAsset($find, $values);
-                
+    public function installAssetJs($find, $values)
+    {        
+        $values ['idAssetType']= 1;        
+        return $this->installAsset($find, $values);                
     }
     
-    public function installAssetImage($find, $values) {
-        
-        $values ['idAssetType']= 4;
-        
-        return $this->installAsset($find, $values);
-                
+    public function installAssetImage($find, $values)
+    {        
+        $values ['idAssetType']= 4;        
+        return $this->installAsset($find, $values);                
     }
     
-    public function installAsset($find, $values) {
-        
+    public function installAsset($find, $values)
+    {        
         if( !isset($values['version'])) {
             $application = $this->findApplication(config('app.keyapp'));
             if($application) {
@@ -46,8 +42,7 @@ trait InstallAsset
                 'id'=>$find
             ],
             'values'=>$values
-        ]);
-        
+        ]);        
     }
     
 }

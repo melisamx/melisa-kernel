@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Http\Middleware;
+<?php
+
+namespace Melisa\Laravel\Http\Middleware;
 
 use Closure;
 
@@ -11,12 +13,9 @@ class DbBeforeLogQuery
 {
     
     public function handle($request, Closure $next, $guard = null)
-    {
-        
-        \DB::connection()->enableQueryLog();      
-
-        return $next($request);
-        
+    {        
+        \DB::connection()->enableQueryLog();
+        return $next($request);        
     }
     
 }

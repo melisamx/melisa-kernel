@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Models;
+<?php
+
+namespace Melisa\Laravel\Models;
 
 /**
  * 
@@ -14,21 +16,17 @@ trait UuidForKey
      * @return void
      */
     public static function bootUuidForKey()
-    {
-        
+    {        
         static::creating(function($model) {
             
             $model->incrementing = false;
             
             /* required for use seeder */
-            if( $model->id) {
-                
-                return true;
-                
+            if( $model->id) {                
+                return true;                
             }
             
-            $model->{$model->getKeyName()} = app('uuid')->v5();
-            
+            $model->{$model->getKeyName()} = app('uuid')->v5();            
         });
         
     }

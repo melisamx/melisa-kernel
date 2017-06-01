@@ -1,11 +1,17 @@
-<?php namespace Melisa\Laravel;
+<?php
+
+namespace Melisa\Laravel;
 
 use Illuminate\Foundation\Application;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class ApplicationBase extends Application
 {
     
-    protected $appPaths = array();
+    protected $appPaths = [];
 
     /**
      * Create a new Illuminate application instance.
@@ -69,7 +75,7 @@ class ApplicationBase extends Application
      *
      * @return string
      */
-    public function path()
+    public function path($path = '')
     {
         return $this->basePath.'/app';
     }
@@ -89,7 +95,7 @@ class ApplicationBase extends Application
      *
      * @return string
      */
-    public function configPath()
+    public function configPath($path = '')
     {
         if (isset($this->appPaths['config'])) {
             return $this->appPaths['config'];
@@ -102,7 +108,7 @@ class ApplicationBase extends Application
      *
      * @return string
      */
-    public function databasePath()
+    public function databasePath($path = '')
     {
         if (isset($this->appPaths['database'])) {
             return $this->appPaths['database'];
@@ -163,7 +169,6 @@ class ApplicationBase extends Application
             return $this->appPaths['storageSession'];
         }
         
-        return $this->basePath.'/storage/framework/session';
-        
+        return $this->basePath.'/storage/framework/session';        
     }
 }

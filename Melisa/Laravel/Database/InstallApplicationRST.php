@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\ApplicationsRST;
 
@@ -10,8 +12,8 @@ use App\Core\Models\ApplicationsRST;
 trait InstallApplicationRST
 {
     
-    public function installRolScopeTask($appKey, $rol, $scopeName, $taskKey, array $values = []) {
-        
+    public function installRolScopeTask($appKey, $rol, $scopeName, $taskKey, array $values = [])
+    {        
         $application = $this->findApplication($appKey);
         $applicationRol = $this->findApplicationRol($application->id, $rol);
         $scope = $this->findScope($scopeName);
@@ -24,8 +26,7 @@ trait InstallApplicationRST
         return ApplicationsRST::updateOrCreate([
             'idApplicationRS'=>$applicationRS->id,
             'idTask'=>$task->id
-        ], $values);
-        
+        ], $values);        
     }
     
 }

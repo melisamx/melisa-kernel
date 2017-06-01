@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Http\Requests;
+<?php
+
+namespace Melisa\Laravel\Http\Requests;
 
 use Melisa\Laravel\Http\Requests\Generic;
 

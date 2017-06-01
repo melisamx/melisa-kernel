@@ -1,4 +1,6 @@
-<?php namespace Melisa\laravel\Auth;
+<?php
+
+namespace Melisa\laravel\Auth;
 
 use Illuminate\Auth\Passwords\DatabaseTokenRepository;
 

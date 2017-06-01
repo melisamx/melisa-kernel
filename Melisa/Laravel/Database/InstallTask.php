@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Tasks;
 
@@ -10,18 +12,16 @@ use App\Core\Models\Tasks;
 trait InstallTask
 {
     
-    public function installTask($key, array $values = []) {
-        
+    public function installTask($key, array $values = [])
+    {        
         return Tasks::updateOrCreate([
             'key'=>$key
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findTask($key) {
-        
-        return Tasks::where('key', $key)->firstOrFail();
-        
+    public function findTask($key)
+    {        
+        return Tasks::where('key', $key)->firstOrFail();        
     }
     
 }

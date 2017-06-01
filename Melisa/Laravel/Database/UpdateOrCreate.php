@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,26 +10,20 @@
 trait UpdateOrCreate
 {
     
-    public function updateOrCreate($clasName, array $records) {
-        
+    public function updateOrCreate($clasName, array $records)
+    {        
         $model = app()->make($clasName);
         
-        if( !isset($records[0])) {
-            
-            $records = [ $records ];
-            
+        if( !isset($records[0])) {            
+            $records = [ $records ];            
         }
         
         foreach($records as $r) {
             
-            if( isset($r['find'], $r['values'])) {
-                                
-                $model::updateOrCreate($r['find'], $r['values']);
-                
-            } else {
-                
-                $model::updateOrCreate($r);
-                
+            if( isset($r['find'], $r['values'])) {                                
+                $model::updateOrCreate($r['find'], $r['values']);                
+            } else {                
+                $model::updateOrCreate($r);                
             }
             
         }

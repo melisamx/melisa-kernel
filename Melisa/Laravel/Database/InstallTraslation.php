@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Translations;
 
@@ -10,24 +12,22 @@ use App\Core\Models\Translations;
 trait InstallTraslation
 {
     
-    public function i18n($languageId, $key, $text) {
-        
+    public function i18n($languageId, $key, $text)
+    {        
         return Translations::updateOrCreate([
             'idTranslationLanguage'=>$languageId,
             'key'=>$key
         ], [
             'text'=>$text
-        ]);
-        
+        ]);        
     }
     
-    public function i18nFind($key, $languageKey = 'es') {
-        
+    public function i18nFind($key, $languageKey = 'es')
+    {        
         return TranslationsLanguages::where([
             'key'=>$key,
             'idTranslationLanguage'=>$languageKey
-        ])->firstOrFail();
-        
+        ])->firstOrFail();        
     }
     
 }

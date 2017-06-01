@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Auth;
+<?php
+
+namespace Melisa\Laravel\Auth;
 
 use Illuminate\Auth\Passwords\PasswordBrokerManager as BasePasswordBroker;
 use Illuminate\Support\Str;

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Models;
+<?php
+
+namespace Melisa\Laravel\Models;
 
 /**
  * 

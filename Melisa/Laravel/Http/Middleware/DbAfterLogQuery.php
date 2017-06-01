@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Http\Middleware;
+<?php
+
+namespace Melisa\Laravel\Http\Middleware;
 
 use Closure;
 
@@ -11,14 +13,10 @@ class DbAfterLogQuery
 {
     
     public function handle($request, Closure $next, $guard = null)
-    {
-        
-        $response = $next($request);
-        
-        $querysLog = \DB::getQueryLog();
-        
-        $logData = '';
-        
+    {        
+        $response = $next($request);        
+        $querysLog = \DB::getQueryLog();        
+        $logData = '';        
         foreach($querysLog as $queryLog) {
             
             foreach($queryLog['bindings'] as $binding) {
@@ -30,24 +28,22 @@ class DbAfterLogQuery
                 
             }
             
-            $logData .= $queryLog['query'] . PHP_EOL;
-            
+            $logData .= $queryLog['query'] . PHP_EOL;            
         }
         
         if($logData) {
             
             logger()->info('Queries executed on '. 
-                    $request->url() . 
-                    ' (' .count($querysLog) . ')' .
-                    ": " . 
-                    PHP_EOL . 
-                    $logData
+                $request->url() . 
+                ' (' .count($querysLog) . ')' .
+                ": " . 
+                PHP_EOL . 
+                $logData
             );
             
         }
 
-        return $response;
-        
+        return $response;        
     }
     
 }

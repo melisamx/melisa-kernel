@@ -1,7 +1,13 @@
-<?php namespace Melisa\Laravel\Providers;
+<?php
+
+namespace Melisa\Laravel\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     

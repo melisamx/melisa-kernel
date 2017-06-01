@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Contracts;
+<?php
+
+namespace Melisa\Laravel\Contracts;
 
 /**
  * 

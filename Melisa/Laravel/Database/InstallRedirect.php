@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Redirects;
 use App\Core\Models\RedirectsProfiles;
@@ -11,8 +13,8 @@ use App\Core\Models\RedirectsProfiles;
 trait InstallRedirect
 {
     
-    public function installRedirect($appKey, $name, array $values) {
-        
+    public function installRedirect($appKey, $name, array $values)
+    {        
         $application = $this->findApplication($appKey);
         $identity = $this->findIdentity('developer');
         $values ['idIdentityCreated']= $identity->id;
@@ -20,12 +22,11 @@ trait InstallRedirect
         return Redirects::updateOrCreate([
             'idApplication'=>$application->id,
             'name'=>$name,
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function installRedirectProfile($redirectName, $profileKey, array $values = []) {
-        
+    public function installRedirectProfile($redirectName, $profileKey, array $values = [])
+    {        
         $redirect = $this->findRedirect($redirectName);
         $identity = $this->findIdentity('developer');
         $profile = $this->findProfile($profileKey);
@@ -36,14 +37,12 @@ trait InstallRedirect
         return RedirectsProfiles::updateOrCreate([
             'idRedirect'=>$redirect->id,
             'idProfile'=>$profile->id,
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findRedirect($name) {
-        
-        return Redirects::where('name', $name)->firstOrFail();
-        
+    public function findRedirect($name)
+    {        
+        return Redirects::where('name', $name)->firstOrFail();        
     }
     
 }

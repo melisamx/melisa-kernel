@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,32 +10,26 @@
 trait IdSeeder
 {
     
-    public function getId() {
-        
+    public function getId()
+    {        
         static $id;
         
-        if( !$id) {
-            
-            $id = env('ID_APP', '83b78de3-ab6c-11e6-9095-080027f62005');
-            
+        if( !$id) {            
+            $id = env('ID_APP', '83b78de3-ab6c-11e6-9095-080027f62005');            
         }
         
-        return $id;
-        
+        return $id;        
     }
     
-    public function getIdInt() {
-        
+    public function getIdInt()
+    {        
         static $id;
         
-        if( !$id) {
-            
-            $id = env('ID_BASE_INT', 1);
-            
+        if( !$id) {            
+            $id = env('ID_BASE_INT', 1);            
         }
         
-        return $id;
-        
+        return $id;        
     }
     
 }

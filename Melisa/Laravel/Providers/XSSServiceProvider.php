@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Providers;
+<?php
+
+namespace Melisa\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Melisa\codeigniter\CI_Security;
@@ -12,12 +14,9 @@ class XSSServiceProvider extends ServiceProvider
 {
     
     public function boot()
-    {
-        
-        $this->app->singleton('xss', function ($app) {
-            
-            return $app->make(CI_Security::class);
-            
+    {        
+        $this->app->singleton('xss', function ($app) {            
+            return $app->make(CI_Security::class);            
         });
         
     }

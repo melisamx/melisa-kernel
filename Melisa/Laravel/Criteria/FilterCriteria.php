@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Criteria;
+<?php
+
+namespace Melisa\Laravel\Criteria;
 
 use Melisa\Repositories\Criteria\Criteria;
 use Melisa\Repositories\Contracts\RepositoryInterface;
@@ -12,14 +14,12 @@ class FilterCriteria extends Criteria
 {
     
     public function apply($model, RepositoryInterface $repository, array $input = [])
-    {
-        
+    {        
         if( !isset($input['filter'])) {            
             return $model;            
         }
         
-        $filters = [];
-        
+        $filters = [];        
         foreach($input['filter'] as $filter) {
             
             $operator = '=';
@@ -40,8 +40,7 @@ class FilterCriteria extends Criteria
             
         }
         
-        return $model->where($filters);
-        
+        return $model->where($filters);        
     }
     
 }

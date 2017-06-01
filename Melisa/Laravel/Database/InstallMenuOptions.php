@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,10 +10,9 @@
 trait InstallMenuOptions
 {
     
-    public function installMenuOptions(array $config) {
-        
-        return app('App\Core\Logics\Menus\Install')->init($config);
-        
+    public function installMenuOptions(array $config)
+    {        
+        return app('App\Core\Logics\Menus\Install')->init($config);        
     }    
     
 }

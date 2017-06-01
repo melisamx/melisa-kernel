@@ -1,4 +1,6 @@
-<?php namespace Melisa\Kernel\Database\Seeds\Module;
+<?php
+
+namespace Melisa\Kernel\Database\Seeds\Module;
 
 use Melisa\core\LogicBusiness;
 use App\Core\Logics\Modules\Install;
@@ -13,8 +15,7 @@ class InstallJson
     use LogicBusiness;
     
     public function init($path, $filesName)
-    {
-        
+    {        
         $path = $this->getPathImport($path);
         
         if( !$this->existPath($path)) {
@@ -28,13 +29,11 @@ class InstallJson
         }
         
         $this->debug('import all files success!!');
-        return true;
-        
+        return true;        
     }
     
     public function processFile($path, $filesName)
-    {
-        
+    {        
         if( !is_array($filesName)) {
             $filesName = [ $filesName ];
         }
@@ -65,8 +64,7 @@ class InstallJson
                 'f'=>$file
             ]);
             
-        }
-        
+        }        
     }
     
     public function installModule($config)
@@ -86,8 +84,7 @@ class InstallJson
         }
         
         $class = app(Install::class);
-        return $class;
-        
+        return $class;        
     }
     
     public function isValidContent($content)

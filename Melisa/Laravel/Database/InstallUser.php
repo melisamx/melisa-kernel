@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\User;
 
@@ -10,20 +12,18 @@ use App\Core\Models\User;
 trait InstallUser
 {
     
-    public function installUser($name, $password, $values) {
-        
+    public function installUser($name, $password, $values)
+    {        
         $values ['password']= bcrypt($password);
         
         return User::updateOrCreate([
             'name'=>$name
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findUser($key = 'developer') {
-        
-        return User::where('name', $key)->firstOrFail();
-        
+    public function findUser($key = 'developer')
+    {        
+        return User::where('name', $key)->firstOrFail();        
     }
     
 }

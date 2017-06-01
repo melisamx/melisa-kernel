@@ -1,8 +1,14 @@
-<?php namespace Melisa\Laravel\Http\Middleware;
+<?php
+
+namespace Melisa\Laravel\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class RedirectIfAuthenticated
 {
     
@@ -17,16 +23,12 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
-        
-        if (Auth::guard($guard)->check()) {
-            
-            return redirect($this->redirect);
-            
+    {        
+        if (Auth::guard($guard)->check()) {            
+            return redirect($this->redirect);            
         }        
 
-        return $next($request);
-        
+        return $next($request);        
     }
     
 }

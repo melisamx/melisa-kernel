@@ -1,16 +1,22 @@
-<?php namespace Melisa\Laravel\Http\Requests;
+<?php
+
+namespace Melisa\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class Generic extends FormRequest
 {
     
     public $keyAction = true;
     protected $rules = [];
     
-    public function __construct() {
-        
+    public function __construct()
+    {        
         parent::__construct();
         
         $me = $this;
@@ -25,8 +31,7 @@ class Generic extends FormRequest
             
             return true;
             
-        });
-        
+        });        
     }
 
     /**
@@ -45,10 +50,8 @@ class Generic extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        
-        return $this->rules;
-        
+    {        
+        return $this->rules;        
     }
     
     /**
@@ -58,22 +61,18 @@ class Generic extends FormRequest
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function response(array $errors)
-    {
-        
+    {        
         return new JsonResponse([
             'success'=>false,
             'errors'=>[
                 $errors
             ]
-        ], 422);
-        
+        ], 422);        
     }
     
     public function allValid()
-    {
-        
-        return $this->only(array_keys($this->rules()));
-        
+    {        
+        return $this->only(array_keys($this->rules()));        
     }
     
 }

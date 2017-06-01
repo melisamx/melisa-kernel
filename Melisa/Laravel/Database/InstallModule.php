@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,10 +10,9 @@
 trait InstallModule
 {
     
-    public function installModule(array $config) {
-        
-        return app('App\Core\Logics\Modules\Install')->init($config);
-        
+    public function installModule(array $config)
+    {        
+        return app('App\Core\Logics\Modules\Install')->init($config);        
     }    
     
 }

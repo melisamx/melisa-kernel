@@ -1,4 +1,6 @@
-<?php namespace Melisa\Kernel\Database\Seeds\Json;
+<?php
+
+namespace Melisa\Kernel\Database\Seeds\Json;
 
 use Melisa\core\LogicBusiness;
 
@@ -11,8 +13,8 @@ class ImportSimple
 {
     use LogicBusiness;
     
-    public function init($filesName = [], $keyConnection = null) {
-        
+    public function init($filesName = [], $keyConnection = null)
+    {        
         $path = $this->getPathImport();
         
         if( !$this->existPath($path)) {
@@ -26,8 +28,7 @@ class ImportSimple
         }
         
         $this->debug('import all files success!!');
-        return true;
-        
+        return true;        
     }
     
     public function getPathFile($pathBase, $file)
@@ -36,8 +37,7 @@ class ImportSimple
     }
     
     public function processFile($path, $filesName, $keyConnection)
-    {
-        
+    {        
         if( !is_array($filesName)) {
             $filesName = [ $filesName ];
         }
@@ -74,8 +74,7 @@ class ImportSimple
     }
     
     public function importRecords($keyConnection, $table, array &$records)
-    {
-        
+    {        
         $connection = $this->getConnection($keyConnection);
         
         foreach($records as $record) {
@@ -104,13 +103,11 @@ class ImportSimple
         }
         
         $table->where($record)->update($record);
-        return true;
-        
+        return true;        
     }
     
     public function getConnection($keyConnection)
-    {
-        
+    {        
         if( is_null($keyConnection)) {
             $keyConnection = config('app.keyapp');
         }

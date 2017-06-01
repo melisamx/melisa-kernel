@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,14 +10,13 @@
 trait InstallEvent
 {
     
-    public function installEvent($find, array $values) {
-        
+    public function installEvent($find, array $values)
+    {        
         $model = app()->make('App\Core\Models\Events');
         
         return $model::updateOrCreate([
             'key'=>$find
-        ], $values);
-        
+        ], $values);        
     }
     
 }

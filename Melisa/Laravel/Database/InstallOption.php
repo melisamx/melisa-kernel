@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 /**
  * 
@@ -8,15 +10,14 @@
 trait InstallOption
 {
     
-    public function installOption($find, $values) {
-        
+    public function installOption($find, $values)
+    {        
         return $this->updateOrCreate('App\Core\Models\Options', [
             'find'=>[
                 'key'=>$find
             ],
             'values'=>$values
-        ]);
-        
+        ]);        
     }    
     
 }

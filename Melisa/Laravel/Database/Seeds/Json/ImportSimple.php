@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database\Seeds\Json;
+<?php
+
+namespace Melisa\Laravel\Database\Seeds\Json;
 
 use Melisa\Kernel\Database\Seeds\Json\ImportSimple as KernelImportSimple;
 
@@ -10,10 +12,9 @@ use Melisa\Kernel\Database\Seeds\Json\ImportSimple as KernelImportSimple;
 trait ImportSimple
 {
     
-    public function jsonImportSimple(array $files = [], $keyConnection = null) {
-        
-        return app(KernelImportSimple::class)->init($files, $keyConnection);
-        
+    public function jsonImportSimple(array $files = [], $keyConnection = null)
+    {        
+        return app(KernelImportSimple::class)->init($files, $keyConnection);        
     }
     
 }

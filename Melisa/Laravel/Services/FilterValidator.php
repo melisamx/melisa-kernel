@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Services;
+<?php
+
+namespace Melisa\Laravel\Services;
 
 use Illuminate\Validation\Validator;
 

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database;
+<?php
+
+namespace Melisa\Laravel\Database;
 
 use App\Core\Models\Scopes;
 
@@ -10,19 +12,17 @@ use App\Core\Models\Scopes;
 trait InstallScope
 {
     
-    public function installScope($id, $find, array $values = []) {
-        
+    public function installScope($id, $find, array $values = [])
+    {        
         return Scopes::updateOrCreate([
             'id'=>$id,
             'name'=>$find
-        ], $values);
-        
+        ], $values);        
     }
     
-    public function findScope($name) {
-        
-        return Scopes::where('name', $name)->firstOrFail();
-        
+    public function findScope($name)
+    {        
+        return Scopes::where('name', $name)->firstOrFail();        
     }
     
 }

@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Database\Seeds\Csv;
+<?php
+
+namespace Melisa\Laravel\Database\Seeds\Csv;
 
 use Melisa\Kernel\Database\Seeds\Csv\ImportSimple as KernelImportSimple;
 
@@ -10,7 +12,8 @@ use Melisa\Kernel\Database\Seeds\Csv\ImportSimple as KernelImportSimple;
 trait ImportSimple
 {
     
-    public function csvImportSimple(array $files = [], $keyConnection = null) {
+    public function csvImportSimple(array $files = [], $keyConnection = null)
+    {
         return app(KernelImportSimple::class)->init($files, $keyConnection);        
     }
     

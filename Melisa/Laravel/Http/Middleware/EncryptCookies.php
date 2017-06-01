@@ -1,7 +1,13 @@
-<?php namespace Melisa\Laravel\Http\Middleware;
+<?php
+
+namespace Melisa\Laravel\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;
 
+/**
+ * 
+ * @author Luis Josafat Heredia Contreras
+ */
 class EncryptCookies extends BaseEncrypter
 {
     /**
