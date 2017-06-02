@@ -2,77 +2,72 @@
 
 namespace Melisa\core;
 
+use Illuminate\Support\Collection;
+
 class Messages
 {
-        
+    
+    protected $collection;
+
+
+    public function __construct($collection = null) {
+        if( is_null($collection)) {
+            $this->collection = new Collection([]);
+        }
+    }
+
     public function add($input)
-    {        
+    {
         $message = melisa('array')->mergeDefault($input, [
             'type'=>'error',
-            'line'=>FALSE,
-            'log'=>TRUE,
-            'file'=>FALSE,
             'message'=>''
         ]);
-        
-        /* unset variables de mas */
-        if( !$message['file']) unset($message['file']);
-        if( !$message['line']) unset($message['line']);
-        unset($message['log']);
-        
-        if(env('APP_ENV') != 'local') {            
-            unset($message['line'], $message['file'], $message['log']);            
-        }
         
         $this->addMessage($message);        
     }
     
     public function get()
-    {        
-        return $this->addMessage(NULL, TRUE);        
+    {
+        if( config('app.env') === 'local') {
+            return $this->collection->all();
+        }
+        return $this->getErrors();
     }
     
-    private function addMessage($message, $get = FALSE)
+    public function getErrors()
     {        
-        static $messages = array();
-        static $count = 0;
-        
-        if($get) {            
-            /* verify enviroment, delete message debug */
-            if(env('APP_ENV') != 'local' && isset($messages['d'])) {                
-                unset($messages['d']);                   
-            }
-            
-            return $messages;            
-        }
-        
-        if( $count > 50) {            
-            $messages = [];
-            $count = 0;            
-        }
-        
-        switch ($message['type']) {
-            
-            case 'debug':
-                $type = 'debug';
-                break;
-            
-            case 'warning':
-                $type = 'warning';
-                break;
-            
-            case 'benchmark':
-                /* benchmark points ya que bm es usado por el sistema */
-                $type = 'bmp';
-                break;
-            default:
-                $type = 'errors';
-                break;
-        }
-        
-        unset($message['type']);        
-        /* add message */
-        $messages[$type][] = $message;        
+        return $this->collection->where('type', 'error')->map(function($record) {
+            return collect($record)->only('message')->toArray();
+        })->values();
+    }
+    
+    public function getInfo()
+    { 
+        return $this->collection->where('type', 'info')->map(function($record) {
+            return collect($record)->only('message')->toArray();
+        })->values();
+    }
+    
+    public function getDebug()
+    { 
+        return $this->collection->where('type', 'debug')->map(function($record) {
+            return collect($record)->only('message')->toArray();
+        })->values();
+    }
+    
+    public function getAllTypes()
+    {
+        return [
+            'errors'=>$this->getErrors(),
+            'info'=>$this->getInfo(),
+            'debug'=>$this->getDebug(),
+        ];
+    }
+    
+    private function addMessage($message)
+    {        
+        $this->collection->push($message);
+        return $message;
     }
     
 }

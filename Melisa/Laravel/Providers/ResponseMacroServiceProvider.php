@@ -40,7 +40,6 @@ class ResponseMacroServiceProvider extends ServiceProvider
         }
 
         $response = $this->addMessages($data);
-
         return $this->responseJson($value, $response);        
     }
     
@@ -84,7 +83,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
     
     public function addMessages(&$data)
     {        
-        $messages = melisa('msg')->get();
+        $messages = melisa('msg')->getAllTypes();
         
         return melisa('array')->mergeDefault($messages, $data);
     }
