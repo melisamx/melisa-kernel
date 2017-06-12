@@ -2,9 +2,6 @@
 
 namespace Melisa\Laravel\Logics;
 
-use Melisa\core\LogicBusiness;
-use Melisa\Repositories\Contracts\RepositoryInterface;
-
 /**
  * Update logic basic with emit event
  *

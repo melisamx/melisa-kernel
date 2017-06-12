@@ -17,6 +17,7 @@ class CreateLogic
     protected $repository;
     protected $idField = 'id';
     protected $fireEvent;
+    protected $disableFireEvent = false;
     protected $fieldIdIdentityCreated = 'idIdentityCreated';
     protected $autoInyectIdentityCreated = true;
 
@@ -102,11 +103,22 @@ class CreateLogic
             return true;
         }
         
+        if( $this->disableFireEvent) {
+            $this->debug('Disable fire event');
+            return true;
+        }
+        
         if( !$this->emitEvent($emitEvent, $event)) {
             return false;
         } else {
             return true;
         }        
+    }
+    
+    public function disableFireEvent($disable = true)
+    {
+        $this->disableFireEvent = $disable;
+        return $this;
     }
     
     public function inyectIdIdentityCreated(&$input)
@@ -129,7 +141,7 @@ class CreateLogic
         if( isset($input['id'])) {
             return $input['id'];
         } else {
-            return $result;
+            return is_numeric($result) ? $result : $result->id;
         }        
     }
     
