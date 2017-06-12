@@ -140,8 +140,8 @@ class CreateLogic
         
         if( isset($input['id'])) {
             return $input['id'];
-        } else {
-            return is_numeric($result) ? $result : $result->id;
+        } else {            
+            return is_numeric($result) ? $result : (isset($result->id) ? $result->id : $result) ;
         }        
     }
     
