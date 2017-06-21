@@ -3,8 +3,9 @@
 namespace Melisa\Repositories\Criteria;
 
 use Melisa\Repositories\Contracts\RepositoryInterface as Repository;
+use Melisa\Laravel\Criteria\CriteriaInterface;
 
-abstract class Criteria
+abstract class Criteria implements CriteriaInterface
 {
 
     /**

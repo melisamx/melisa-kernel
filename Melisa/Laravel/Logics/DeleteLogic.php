@@ -63,7 +63,7 @@ class DeleteLogic
             return $this->repository->rollBack();
         }
         
-        $event = $this->generateEvent($input, $idRecord);
+        $event = $this->generateEvent($input, $input[$this->getIdField()]);
         
         if( !$this->fireEvent($event)) {
             return $this->repository->rollBack();

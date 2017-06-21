@@ -5,11 +5,13 @@ namespace Melisa\Laravel\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 
+use Melisa\Laravel\Http\Requests\RequestInterface;
+
 /**
  * 
  * @author Luis Josafat Heredia Contreras
  */
-class Generic extends FormRequest
+class Generic extends FormRequest implements RequestInterface
 {
     
     public $keyAction = true;

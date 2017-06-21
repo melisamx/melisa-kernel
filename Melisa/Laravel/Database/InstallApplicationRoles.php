@@ -12,18 +12,6 @@ use App\Core\Models\ApplicationsRoles;
 trait InstallApplicationRoles
 {
     
-    public function installApplicationRol($appKey, $rol, array $values)
-    {        
-        $application = $this->findApplication($appKey);
-        $identity = $this->findIdentity();
-        
-        return ApplicationsRoles::updateOrCreate([
-            'idApplication'=>$application->id,
-            'idIdentityCreated'=>$identity->id,
-            'role'=>$rol
-        ], $values);        
-    }
-    
     public function findApplicationRol($idApplication, $rolName)
     {        
         return ApplicationsRoles::where([

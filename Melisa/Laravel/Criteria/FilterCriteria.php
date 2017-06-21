@@ -13,7 +13,7 @@ use Melisa\Repositories\Contracts\RepositoryInterface;
 class FilterCriteria extends Criteria
 {
     
-    public function apply($model, RepositoryInterface $repository, array $input = [])
+    public function apply($model, RepositoryInterface $repository, array $input = [], array $fields = [])
     {        
         if( !isset($input['filter'])) {            
             return $model;            
@@ -34,9 +34,15 @@ class FilterCriteria extends Criteria
                 
             }
             
-            $filters []= [
-                $filter->property, $operator, $value
-            ];
+            if( isset($fields[$filter->property])) {
+                $filters []= [
+                    $fields[$filter->property], $operator, $value
+                ];
+            } else {
+                $filters []= [
+                    $filter->property, $operator, $value
+                ];
+            }            
             
         }
         
