@@ -64,7 +64,9 @@ class InstallJson
                 'f'=>$file
             ]);
             
-        }        
+        }
+        
+        return true;
     }
     
     public function installModule($config)

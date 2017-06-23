@@ -13,8 +13,12 @@ trait InstallJson
 {
     
     public function installModuleJson($path, $files)
-    {        
-        return app(InstallModuleJson::class)->init($path, $files);        
+    {   
+        if( !app(InstallModuleJson::class)->init($path, $files))
+        {
+            dd(melisa('msg')->get());
+        }
+        return true;
     }
     
 }
