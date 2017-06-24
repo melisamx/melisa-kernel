@@ -10,6 +10,8 @@ namespace Melisa\Laravel\Logics;
 class UpdateLogic extends CreateLogic
 {
     
+    protected $fieldIdIdentityCreated = 'idIdentityUpdated';
+    
     public function create(&$input)
     {        
         $result = $this->repository->update($input, $this->getInputId($input));
