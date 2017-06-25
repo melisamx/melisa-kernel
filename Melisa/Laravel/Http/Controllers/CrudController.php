@@ -135,13 +135,14 @@ class CrudController extends Controller
         $logicClass = $this->getPathLogic($this->create);
         if( !$logicClass) {
             $logicClass = 'Melisa\Laravel\Logics\\' . $logicDefault;
-        }
-        $logic = new $logicClass($repository);
-        
-        if( !isset($this->create['event'])) {
-            $logic->setFireEvent($event);
+            $logic = new $logicClass($repository);
+            if( !isset($this->create['event'])) {
+                $logic->setFireEvent($event);
+            } else {
+                $logic->setFireEvent($this->create['event']);
+            }
         } else {
-            $logic->setFireEvent($this->create['event']);
+            $logic = app($logicClass);
         }
         
         $result = $logic->init($request->allValid());        
