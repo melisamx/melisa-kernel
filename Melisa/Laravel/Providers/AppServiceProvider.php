@@ -8,6 +8,7 @@ use App\Security\Logics\GatesSecurity;
 use App\Core\Logics\Identities\Identities;
 use App\Security\Logics\SystemSecurity\UserGod;
 use App\Security\Logics\SystemSecurity\Art;
+use App\Security\Logics\SystemSecurity\RbacLogic;
 use Waavi\Sanitizer\Laravel\Factory;
 use Melisa\Laravel\Services\UuidServices;
 
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
         
         $this->app->singleton('art', function ($app) {            
             return $app->make(Art::class);            
+        });
+        
+        $this->app->singleton('rbac', function ($app) {            
+            return $app->make(RbacLogic::class);            
         });
         
         $this->app->singleton('xss', function ($app) {            

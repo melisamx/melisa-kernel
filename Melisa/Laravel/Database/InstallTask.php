@@ -24,4 +24,34 @@ trait InstallTask
         return Tasks::where('key', $key)->firstOrFail();        
     }
     
+    public function findTasks($query)
+    {        
+        return Tasks::where('key', 'like', $query)->get();        
+    }
+    
+    public function findTasksRead($query)
+    {
+        return Tasks::where('key', 'like', $query)
+            ->where('pattern', 9)
+            ->get();
+    }
+    
+    public function getTasksKeys($query)
+    {
+        $tasks = $this->findTasks($query);        
+        if( !$tasks->count()) {
+            return [];
+        }        
+        return $tasks->pluck('key')->toArray();
+    }
+    
+    public function getTasksKeysRead($query)
+    {
+        $tasks = $this->findTasksRead($query);
+        if( !$tasks->count()) {
+            return [];
+        }        
+        return $tasks->pluck('key')->toArray();
+    }
+    
 }
