@@ -11,4 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
+    public function responseJson($logic, $request)
+    {
+        $result = $logic->init($request->allValid());
+        return response()->data($result);
+    }
+    
 }
