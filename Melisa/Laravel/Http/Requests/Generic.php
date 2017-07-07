@@ -4,6 +4,7 @@ namespace Melisa\Laravel\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Factory;
 
 use Melisa\Laravel\Http\Requests\RequestInterface;
 
@@ -17,9 +18,13 @@ class Generic extends FormRequest implements RequestInterface
     public $keyAction = true;
     protected $rules = [];
     
-    public function __construct()
+    public function __construct(Factory $factory)
     {        
         parent::__construct();
+        
+        if (method_exists($this, 'applicableValidations')) {
+            $this->useCustomValidations($factory, $this->applicableValidations());
+        }
         
         $me = $this;
         
@@ -75,6 +80,13 @@ class Generic extends FormRequest implements RequestInterface
     public function allValid()
     {        
         return $this->only(array_keys($this->rules()));        
+    }
+    
+    private function useCustomValidations($factory, $validations)
+    {
+        $validations->each(function ($validation) use ($factory) {
+            $factory->extend($validation->name(), $validation->test(), $validation->errorMessage());
+        });
     }
     
 }

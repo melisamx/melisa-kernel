@@ -19,7 +19,7 @@ class BooleanSanitize implements Filter
      * @return bool
      */
     public function apply($value, $options = [])
-    {        
+    {
         return in_array($value, [
             'false',
             0,

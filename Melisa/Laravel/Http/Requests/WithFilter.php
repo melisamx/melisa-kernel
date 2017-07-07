@@ -2,6 +2,8 @@
 
 namespace Melisa\Laravel\Http\Requests;
 
+use Illuminate\Validation\Factory;
+
 /**
  * 
  *
@@ -10,9 +12,9 @@ namespace Melisa\Laravel\Http\Requests;
 class WithFilter extends Generic
 {
     
-    public function __construct()
+    public function __construct(Factory $factory)
     {        
-        parent::__construct();
+        parent::__construct($factory);
         
         $rules = $this->rulesFilters;
         
