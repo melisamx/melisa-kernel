@@ -66,10 +66,7 @@ class CrudController extends Controller
         if( !isset($action['module'])) {
             return false;
         }
-        return $path . 
-            $this->getClassEntity() . 
-            '\\' . 
-            $action['module'];
+        return $path . $action['module'];
     }
     
     public function getEventDot()
@@ -129,7 +126,7 @@ class CrudController extends Controller
                 '\\Http\\Requests\\' . 
                 $this->getClassEntity() . 
                 '\\' . $requestDefault;
-        }        
+        } 
         $request = app($requestClass);
         $repository = app($this->getPathRepositories($this->create));
         $logicClass = $this->getPathLogic($this->create);

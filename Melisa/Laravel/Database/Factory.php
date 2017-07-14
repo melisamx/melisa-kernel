@@ -18,7 +18,7 @@ trait Factory
     public function factory()
     {
         
-        $factory = app(EloquentFactory::class);        
+        $factory = app(EloquentFactory::class);
         $factory->load(base_path() .'/Database/factories');
         $arguments = func_get_args();
         
