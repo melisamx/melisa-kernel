@@ -38,7 +38,7 @@ class Messages
     {        
         return $this->collection->where('type', 'error')->map(function($record) {
             return collect($record)->only('message')->toArray();
-        })->values();
+        })->values()->toArray();
     }
     
     public function getInfo()
