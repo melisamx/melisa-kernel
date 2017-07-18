@@ -18,6 +18,11 @@ class JsonRecordsValidation extends CustomValidation
     {
         return $this->name;
     }
+    
+    public function errorMessage()
+    {
+        return $this->errorMessage;
+    }
 
     public function test()
     {
@@ -35,7 +40,7 @@ class JsonRecordsValidation extends CustomValidation
                 return false;
             }
             
-            foreach($input as $record) {
+            foreach($input as $i=>$record) {
                 
                 $validation = \Validator::make($record, $rules, $messages);
                 
@@ -44,7 +49,10 @@ class JsonRecordsValidation extends CustomValidation
                 }
                 
                 foreach($validation->errors()->all() as $error) {
-                    $validator->errors()->add('record.invalid', $error);                    
+                    $validator->errors()->add('record.invalid', [
+                        'index'=>$i,
+                        'message'=>$error
+                    ]);                    
                 }
                 
                 return false;
@@ -52,11 +60,6 @@ class JsonRecordsValidation extends CustomValidation
             
             return true;
         };
-    }
-
-    public function errorMessage()
-    {
-        return $this->errorMessage;
     }
     
 }

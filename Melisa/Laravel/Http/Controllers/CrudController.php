@@ -148,12 +148,58 @@ class CrudController extends Controller
     
     public function create()
     {        
-        return $this->createUpdate('CreateRequest', 'CreateLogic', $this->getEventCreate());
+        $requestClass = $this->getPathRequest($this->create);
+        if( !$requestClass) {
+            $requestClass = $this->getClassNamespace() . 
+                '\\Http\\Requests\\' . 
+                $this->getClassEntity() . 
+                '\\CreateRequest';
+        } 
+        $request = app($requestClass);
+        $repository = app($this->getPathRepositories($this->create));
+        $logicClass = $this->getPathLogic($this->create);
+        if( !$logicClass) {
+            $logicClass = 'Melisa\Laravel\Logics\\CreateLogic';
+            $logic = new $logicClass($repository);
+            if( !isset($this->create['event'])) {
+                $logic->setFireEvent($this->getEventCreate());
+            } else {
+                $logic->setFireEvent($this->create['event']);
+            }
+        } else {
+            $logic = app($logicClass);
+        }
+        
+        $result = $logic->init($request->allValid());        
+        return response()->data($result); 
     }
     
     public function update()
     {
-        return $this->createUpdate('UpdateRequest', 'UpdateLogic', $this->getEventUpdate());        
+        $requestClass = $this->getPathRequest($this->update);
+        if( !$requestClass) {
+            $requestClass = $this->getClassNamespace() . 
+                '\\Http\\Requests\\' . 
+                $this->getClassEntity() . 
+                '\\UpdateRequest';
+        } 
+        $request = app($requestClass);
+        $repository = app($this->getPathRepositories($this->update));
+        $logicClass = $this->getPathLogic($this->update);
+        if( !$logicClass) {
+            $logicClass = 'Melisa\Laravel\Logics\\UpdateLogic';
+            $logic = new $logicClass($repository);
+            if( !isset($this->update['event'])) {
+                $logic->setFireEvent($this->getEventUpdate());
+            } else {
+                $logic->setFireEvent($this->update['event']);
+            }
+        } else {
+            $logic = app($logicClass);
+        }
+        
+        $result = $logic->init($request->allValid());        
+        return response()->data($result);       
     }
     
     public function activateDeactivate($logicDefault, $event)

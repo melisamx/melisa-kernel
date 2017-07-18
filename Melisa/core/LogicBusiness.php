@@ -3,6 +3,7 @@
 namespace Melisa\core;
 
 use Melisa\core\Event;
+use Melisa\Repositories\Contracts\RepositoryInterface;
 
 trait LogicBusiness
 {
@@ -70,6 +71,28 @@ trait LogicBusiness
             return false;
         }        
         return true;
+    }
+    
+    public function updateRepository(
+        RepositoryInterface &$repository,
+        array &$input, 
+        $messageError = 'Imposible modificar registro',
+        $rollback = true
+    )
+    {
+        $result = $repository->update($input, $input['id']);
+        
+        if( $result !== false) {
+            return true;
+        }
+        
+        $this->error($messageError);
+        
+        if( !$rollback) {
+            return false;
+        }
+        
+        return $repository->rollback();
     }
     
 }
