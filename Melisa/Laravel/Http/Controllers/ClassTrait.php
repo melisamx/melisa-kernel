@@ -24,10 +24,10 @@ trait ClassTrait
             1, 1));
     }
     
-    public function getClassEntity()
+    public function getClassEntity($type = 'Controllers')
     {
         $segments = explode('\\', get_called_class());
-        $base = array_slice($segments, array_search('Controllers', $segments) + 1);
+        $base = array_slice($segments, array_search($type, $segments) + 1);
         $index = array_search($segments[count($segments) - 1], $base);
         $base[$index] = str_replace('Controller', '', $base[$index]);
         return implode('\\', $base);

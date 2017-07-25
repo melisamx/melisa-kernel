@@ -21,7 +21,7 @@ class ModuleController extends Controller
         if( !isset($action['module'])) {
             return $path . 
                 $type . '\\' .
-                $this->getClassEntity() . 
+                $this->getClassEntity('Modules') . 
                 '\\';
         }
         return $path . $action['module'];
