@@ -26,9 +26,11 @@ trait ClassTrait
     
     public function getClassEntity()
     {
-        return str_replace('Controller', '', array_slice(
-            explode('\\', get_called_class()), 
-            -1)[0]);
+        $segments = explode('\\', get_called_class());
+        $base = array_slice($segments, array_search('Controllers', $segments) + 1);
+        $index = array_search($segments[count($segments) - 1], $base);
+        $base[$index] = str_replace('Controller', '', $base[$index]);
+        return implode('\\', $base);
     }
     
 }

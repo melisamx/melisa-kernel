@@ -56,6 +56,7 @@ class CrudController extends Controller
         if( !isset($action['logic'])) {
             return false;
         }
+        
         return $path . 
             $this->getClassEntity() . 
             '\\' . 
@@ -160,6 +161,7 @@ class CrudController extends Controller
         $request = app($requestClass);
         $repository = app($this->getPathRepositories($this->create));
         $logicClass = $this->getPathLogic($this->create);
+        
         if( !$logicClass) {
             $logicClass = 'Melisa\Laravel\Logics\\CreateLogic';
             $logic = new $logicClass($repository);
