@@ -19,6 +19,8 @@ class CrudController extends Controller
     protected $update;
     protected $delete;
     protected $paging;
+    protected $activate;
+    protected $deactivate;
     
     public function getPathCriteria($action)
     {
@@ -202,39 +204,54 @@ class CrudController extends Controller
         return response()->data($result);       
     }
     
-    public function activateDeactivate($logicDefault, $event)
+    public function activate()
     {
-        $requestClass = $this->getPathRequest($this->update);
+        $requestClass = $this->getPathRequest($this->activate);
         if( !$requestClass) {
             $requestClass = 'Melisa\Laravel\Http\Requests\ActivateDeactivateRequest';
         }
         
         $request = app($requestClass);
-        $repository = app($this->getPathRepositories($this->update));
-        $logicClass = $this->getPathLogic($this->update);
+        $repository = app($this->getPathRepositories($this->activate));
+        $logicClass = $this->getPathLogic($this->activate);
         if( !$logicClass) {
-            $logicClass = 'Melisa\Laravel\Logics\\' . $logicDefault;
+            $logicClass = 'Melisa\Laravel\Logics\\ActivateLogic';
         }
         $logic = new $logicClass($repository);
         
-        if( !isset($this->create['event'])) {
-            $logic->setFireEvent($event);
+        if( !isset($this->activate['event'])) {
+            $logic->setFireEvent($this->getEventActivate());
         } else {
-            $logic->setFireEvent($this->create['event']);
+            $logic->setFireEvent($this->activate['event']);
         }
         
         $result = $logic->init($request->allValid());        
         return response()->data($result);
     }
     
-    public function activate()
-    {
-        return $this->activateDeactivate('ActivateLogic', $this->getEventActivate());
-    }
-    
     public function deactivate()
     {
-        return $this->activateDeactivate('DeactivateLogic', $this->getEventDeactivate());        
+        $requestClass = $this->getPathRequest($this->deactivate);
+        if( !$requestClass) {
+            $requestClass = 'Melisa\Laravel\Http\Requests\ActivateDeactivateRequest';
+        }
+        
+        $request = app($requestClass);
+        $repository = app($this->getPathRepositories($this->deactivate));
+        $logicClass = $this->getPathLogic($this->deactivate);
+        if( !$logicClass) {
+            $logicClass = 'Melisa\Laravel\Logics\\DeactivateLogic';
+        }
+        $logic = new $logicClass($repository);
+        
+        if( !isset($this->activate['event'])) {
+            $logic->setFireEvent($this->getEventDeactivate());
+        } else {
+            $logic->setFireEvent($this->deactivate['event']);
+        }
+        
+        $result = $logic->init($request->allValid());        
+        return response()->data($result);
     }
     
     public function report($id, $format = 'json')
