@@ -18,9 +18,10 @@ class ImportSimple
         $path = $this->getPathImport();
         
         if( !$this->existPath($path)) {
-            return $this->error('no exist path import {p}', [
+            $this->error('no exist path import {p}', [
                 'p'=>$path
             ]);
+            dd('no exist path import ' . $path);
         }
         
         if( !$this->processFile($path, $filesName, $keyConnection)) {
@@ -47,17 +48,19 @@ class ImportSimple
             $filePath = $this->getPathFile($path, $file);
             
             if( !$this->existPath($filePath)) {
-                return $this->error('no exist file import {f}', [
+                $this->error('no exist file import {f}', [
                     'f'=>$filePath
                 ]);
+                dd('no exist file import ' . $filePath);
             }
             
             $content = $this->getContentFile($filePath);
             
             if( !$this->isValidContent($content)) {
-                return $this->error('invalid content file {f}', [
+                $this->error('invalid content file {f}', [
                     'f'=>$filePath
                 ]);
+                dd('invalid content file ' . $filePath);
             }
             
             if( !$this->importRecords($keyConnection, $file, $content)) {
@@ -80,11 +83,12 @@ class ImportSimple
         foreach($records as $record) {
             
             if( !$this->importRecord($connection, $table, $record)) {
-                return $this->error('imposible import record in connection {c} on table {t}: {r}', [
+                $this->error('imposible import record in connection {c} on table {t}: {r}', [
                     'c'=>$keyConnection,
                     't'=>$table,
                     'r'=>json_encode($record)
                 ]);
+                dd('imposible import record in connection ' . $keyConnection);
             }
             
         }
