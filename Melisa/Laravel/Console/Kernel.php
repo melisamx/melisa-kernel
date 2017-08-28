@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
         'Melisa\Laravel\Console\Commands\Models',
         'Melisa\Laravel\Console\Commands\ModelsShortcut',
         'Melisa\Laravel\Console\Commands\Seeders',
+        'Melisa\Laravel\Console\Commands\SeedersShortcut',
         'Melisa\Laravel\Console\Commands\Faker',
     ];
 
