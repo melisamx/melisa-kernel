@@ -5,11 +5,11 @@ namespace Melisa\Laravel\Console\Commands;
 use Illuminate\Console\Command;
 
 /**
- * Generate models
+ * Reset database app
  *
  * @author Luis Josafat Heredia Contreras
  */
-class Faker extends Command
+class Migrate extends Command
 {
     
     /**
@@ -17,14 +17,14 @@ class Faker extends Command
      *
      * @var string
      */
-    protected $signature = 'faker';
+    protected $signature = 'm';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Run faker seeders';
+    protected $description = 'Migrate database app';
     
     protected $logic;
 
@@ -35,11 +35,11 @@ class Faker extends Command
      */
     public function handle()
     {        
-        $class = app()->getNameSpace() . '\Database\Seeds\FakerSeeder';
+        $database = config('app.keyapp');
         
-        $this->call('db:seed', [
-            '--class'=>$class
-        ]);        
+        return $this->call('migrate', [
+            '--database'=>$database
+        ]);
     }
     
 }

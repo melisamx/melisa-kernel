@@ -36,10 +36,8 @@ class Models extends Command
      */
     public function __construct(ModelsGenerate $logic)
     {
-        parent::__construct();
-        
-        $this->logic = $logic;
-        
+        parent::__construct();        
+        $this->logic = $logic;        
     }
 
     /**

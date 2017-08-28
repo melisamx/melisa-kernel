@@ -1,9 +1,11 @@
-<?php namespace Melisa\Laravel\Console\Commands;
+<?php
+
+namespace Melisa\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
 
 /**
- * Generate models
+ * Run seeders
  *
  * @author Luis Josafat Heredia Contreras
  */
@@ -32,14 +34,12 @@ class Seeders extends Command
      * @return mixed
      */
     public function handle()
-    {
-        
+    {        
         $class = app()->getNameSpace() . '\Database\Seeds\DatabaseSeeder';
         
         $this->call('db:seed', [
             '--class'=>$class
-        ]);
-        
+        ]);        
     }
     
 }

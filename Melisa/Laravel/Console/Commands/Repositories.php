@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Console\Commands;
+<?php
+
+namespace Melisa\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Core\Console\Commands\RepositoriesGenerate;
@@ -23,7 +25,7 @@ class Repositories extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generate files repositories';
     
     protected $logic;
 
@@ -34,10 +36,8 @@ class Repositories extends Command
      */
     public function __construct(RepositoriesGenerate $logic)
     {
-        parent::__construct();
-        
-        $this->logic = $logic;
-        
+        parent::__construct();        
+        $this->logic = $logic;        
     }
 
     /**
@@ -46,29 +46,21 @@ class Repositories extends Command
      * @return mixed
      */
     public function handle()
-    {
-        
+    {        
         $connection = $this->argument('connection');
         
-        if( $connection === 'mysql') {
-            
-            $connections = config('database.connections');
-            
-            $connection = $this->choice('Database use?', array_keys($connections), 1);
-            
+        if( $connection === 'mysql') {            
+            $connections = config('database.connections');            
+            $connection = $this->choice('Database use?', array_keys($connections), 1);            
         }
         
         $result = $this->logic->init($connection);
         
-        if( !$result) {
-            
-            $this->error('Imposible create Class repositories');
-            
-        } else {
-            
+        if( !$result) {            
+            $this->error('Imposible create Class repositories');            
+        } else {            
             $this->info('Success!!');
-        }
-        
+        }        
     }
     
 }
