@@ -17,6 +17,6 @@ class ModelsShortcut extends Models
      *
      * @var string
      */
-    protected $signature = 'm {connection=mysql}';
+    protected $signature = 'mo {connection=mysql}';
     
 }
