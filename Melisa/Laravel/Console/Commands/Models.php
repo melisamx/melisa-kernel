@@ -1,4 +1,6 @@
-<?php namespace Melisa\Laravel\Console\Commands;
+<?php
+
+namespace Melisa\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Core\Console\Commands\ModelsGenerate;
@@ -46,29 +48,21 @@ class Models extends Command
      * @return mixed
      */
     public function handle()
-    {
-        
+    {        
         $connection = $this->argument('connection');
         
-        if( $connection === 'mysql') {
-            
-            $connections = config('database.connections');
-            
-            $connection = $this->choice('Database use?', array_keys($connections), 1);
-            
+        if( $connection === 'mysql') {            
+            $connections = config('database.connections');            
+            $connection = $this->choice('Database use?', array_keys($connections), 1);            
         }
         
         $result = $this->logic->init($connection);
         
-        if( !$result) {
-            
-            $this->error('Imposible create Class models');
-            
-        } else {
-            
+        if( !$result) {            
+            $this->error('Imposible create Class models');            
+        } else {            
             $this->info('Success!!');
         }
-        
     }
     
 }
