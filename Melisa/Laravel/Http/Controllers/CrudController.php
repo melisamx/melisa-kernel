@@ -159,11 +159,7 @@ class CrudController extends Controller
                 '\\CreateRequest';
         } 
         $request = app($requestClass);
-        if( isset($this->create['repositorie'])) {
-            $repository = app($this->getPathRepositories($this->create));
-        } else {
-            $repository = null;
-        }
+        $repository = app($this->getPathRepositories($this->create));
         $logicClass = $this->getPathLogic($this->create);
         
         if( !$logicClass) {
