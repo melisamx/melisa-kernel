@@ -95,4 +95,11 @@ trait LogicBusiness
         return $repository->rollback();
     }
     
+    public function inyectIdentity(&$input)
+    {
+        if( !isset($input ['idIdentityCreated'])) {
+            $input ['idIdentityCreated']= $this->getIdentity();
+        }
+    }
+    
 }
