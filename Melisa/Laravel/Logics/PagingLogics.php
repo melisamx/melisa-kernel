@@ -26,11 +26,11 @@ class PagingLogics
     public function init(array $input)
     {        
         if( is_null($this->repositoryCriteria)) {            
-            $result = $this->repository->paginate($input['limit']);            
+            $result = $this->repository->paginate((int)$input['limit']);            
         } else {            
             $result = $this->repository
                 ->withCriteria($this->repositoryCriteria, $input)
-                ->paginate($input['limit']);
+                ->paginate((int)$input['limit']);
         }
         
         if( $result->total() === 0) {            
