@@ -34,8 +34,16 @@ trait InstallIdentity
     }
     
     public function findIdentity($displayEspecific = 'Developer')
-    {        
-        return Identities::where('displayEspecific', $displayEspecific)->firstOrFail();        
+    {
+        /* fast */
+        static $identity = null;
+        
+        if( !is_null($identity)) {
+            return $identity;
+        }
+        
+        $identity = Identities::where('displayEspecific', $displayEspecific)->firstOrFail();        
+        return $identity;
     }
     
 }
