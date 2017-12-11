@@ -18,19 +18,17 @@ class ResponseMacroServiceProvider extends ServiceProvider
         
         $this->addBenchMark($data);
 
-        if( is_array($value)) {
-            $data += $value;
-        } else {
-            $data ['id']= $value;
+        if( $value) {
+            $data ['data']= $value;
         }
 
         $response = $this->addMessages($data);
 
-        return $this->responseJson($value, $response);        
+        return $this->responseJson($value, $response, 201);        
     }
     
-    public function responseData($value)
-    {        
+    public function responseData($value, $status = 200)
+    {
         $data = $this->addDefaultResult($value);        
         
         $this->addBenchMark($data);
@@ -40,7 +38,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         }
 
         $response = $this->addMessages($data);
-        return $this->responseJson($value, $response);        
+        return $this->responseJson($value, $response, $status);        
     }
     
     public function responsePaging($value)
@@ -63,15 +61,33 @@ class ResponseMacroServiceProvider extends ServiceProvider
         Response::macro('create', [$this, 'responseCreate']);
         Response::macro('data', [$this, 'responseData']);
         Response::macro('paging', [$this, 'responsePaging']);        
+        Response::macro('unauthenticated', [$this, 'responseUnauthenticated']);        
+        Response::macro('unauthorized', [$this, 'responseUnauthorized']);
     }
     
-    public function responseJson(&$value, &$response)
+    public function responseUnauthenticated($message)
+    {
+        $data = $this->addDefaultResult($message);        
+        $this->addBenchMark($data);
+        $response = $this->addMessages($data);
+        return Response::json($response, 401);
+    }
+    
+    public function responseUnauthorized($message)
+    {
+        $data = $this->addDefaultResult($message);        
+        $this->addBenchMark($data);
+        $response = $this->addMessages($data);
+        return Response::json($response, 401);
+    }
+    
+    public function responseJson(&$value, &$response, $status = 200)
     {        
         if( $value) {
-            return Response::json($response);
+            return Response::json($response, $status);
         }
 
-        return Response::json($response)->header('Content-Status', 400);        
+        return Response::json($response, $status);        
     }
     
     public function addDefaultResult(&$value)

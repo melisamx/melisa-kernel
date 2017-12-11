@@ -5,7 +5,8 @@ namespace Melisa\Laravel\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\Factory;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Melisa\Laravel\Http\Requests\RequestInterface;
 
 /**
@@ -87,6 +88,31 @@ class Generic extends FormRequest implements RequestInterface
         $validations->each(function ($validation) use ($factory) {
             $factory->extend($validation->name(), $validation->test(), $validation->errorMessage());
         });
+    }
+    
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->getMessageBag()->toArray();
+        $logger = melisa('logger');
+        foreach ($errors as $field=>$messages) {
+            foreach($messages as $message) {
+                if( is_array($message)) {
+                    $logger->error('Campo ' .  $field . ' invalido. ' .$message['message']);
+                } else {
+                    $logger->error('Campo ' . $field . ' invalido. ' . $message);
+                }
+            }
+        }
+        
+        throw new HttpResponseException(response()->data(false, 422));
     }
     
 }

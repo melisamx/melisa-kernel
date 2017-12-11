@@ -169,9 +169,21 @@ abstract class Repository implements RepositoryInterface, CriteriaInterface
     public function update(array $data, $id, $attribute = "id")
     {
         $input = array_only($data, $this->getModel()->getFillable());
+        
+        $input += [
+            $attribute=>$id
+        ];
+        
+        /* necesary or not apply uppercase */
+        $model = $this->getModel()
+            ->newInstance()
+            ->findOrFail($id);
+        $model->fill($input);
+        
         try
         {
-            $result = $this->model->where($attribute, '=', $id)->update($input);
+            $result = $model->save();
+//            $result = $this->model->where($attribute, '=', $id)->update($input);
         } catch (QueryException $ex) {
             $result = false;
             melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));

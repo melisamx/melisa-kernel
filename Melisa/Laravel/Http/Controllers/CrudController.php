@@ -175,7 +175,7 @@ class CrudController extends Controller
         }
         
         $result = $logic->init($request->allValid());        
-        return response()->data($result); 
+        return response()->create($result); 
     }
     
     public function update()
