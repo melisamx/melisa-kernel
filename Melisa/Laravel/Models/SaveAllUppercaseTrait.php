@@ -23,7 +23,7 @@ trait SaveAllUppercaseTrait
         }
         
         if(is_string($value)) {
-            $this->attributes [$key]= trim(strtoupper($value));
+            $this->attributes [$key]= trim(mb_strtoupper($value));
         }
     }
     
