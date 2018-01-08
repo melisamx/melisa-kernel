@@ -24,7 +24,7 @@ trait InstallIdentity
             'displayEspecific'=>$displayEspecific,
             'idProfile'=>$profile->id,
         ], $values);
-        
+            
         $identity = $this->findIdentity($displayEspecific);
         
         UsersIdentities::updateOrCreate([
