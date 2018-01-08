@@ -20,12 +20,9 @@ trait InstallApplication
             unset($values['comments']);
         }
         
-        $application = $this->updateOrCreate('App\Core\Models\Applications', [
-            'find'=>[
-                'key'=>$find
-            ],
-            'values'=>$values
-        ]);        
+        $application = Applications::updateOrCreate([
+            'key'=>$find,
+        ], $values);        
         
         if( $comments) {
             ApplicationsVersions::updateOrCreate([
