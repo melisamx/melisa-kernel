@@ -11,6 +11,10 @@ use App\Security\Logics\SystemSecurity\Art;
 use App\Security\Logics\SystemSecurity\RbacLogic;
 use Waavi\Sanitizer\Laravel\Factory;
 use Melisa\Laravel\Services\UuidServices;
+use Melisa\Laravel\Database\MySqlConnection;
+use Illuminate\Database\Connection;
+use Melisa\core\Messages;
+use Melisa\Laravel\Providers\MessagesProvider;
 
 /**
  * 
@@ -51,6 +55,20 @@ class AppServiceProvider extends ServiceProvider
         
         $this->app->singleton('uuid', function ($app) {
             return new UuidServices();
+        });
+        
+        $this->app->singleton('messages', function() {
+            return new MessagesProvider();
+        });
+    }
+    
+    public function register()
+    {
+        /* https://github.com/shiftonelabs/laravel-nomad */
+        $class = MySqlConnection::class;
+        $this->app->bind('db.connection.mysql', $class);        
+        Connection::resolverFor('mysql', function ($connection, $database, $prefix, $config) use ($class) {
+            return new $class($connection, $database, $prefix, $config);
         });
     }
     

@@ -273,7 +273,7 @@ class CrudController extends Controller
         
         $moduleClass = $this->getPathModule($this->report);
         if( !$moduleClass) {
-            melisa('logger')->error('No module class configuration');
+            app('messages')->error('No module class configuration');
             return response()->data(false);
         }
         return app($moduleClass)

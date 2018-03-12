@@ -5,6 +5,7 @@ namespace Melisa\Laravel\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 /**
  * 
@@ -61,11 +62,40 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if ($request->expectsJson() || $request->ajax()) {
+        if ($request->isJson() || $request->ajax()) {
             return response()->unauthenticated(false);
         }
         
         return redirect()->guest('login');
+    }
+    
+    /**
+    * Convert a validation exception into a JSON response.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \Illuminate\Validation\ValidationException  $exception
+    * @return \Illuminate\Http\JsonResponse
+    */
+   protected function invalidJson($request, ValidationException $exception)
+   {
+       return response()->json($exception->errors(), $exception->status);
+   }
+   
+   /**
+     * Handle a failed validation attempt.
+     *
+     * @param  \Illuminate\Contracts\Validation\Validator  $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+    {
+        if($request->isJson() || $request->ajax()) {
+            return response()->validationException($e->validator);
+        }
+        
+        return parent::convertValidationExceptionToResponse($e, $request);
     }
     
 }

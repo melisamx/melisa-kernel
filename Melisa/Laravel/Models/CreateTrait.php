@@ -18,7 +18,7 @@ trait CreateTrait
             $result = static::query()->create($input);            
         } catch (QueryException $ex) {            
             $result = false;
-            melisa('logger')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));            
+            app('messages')->error(static::errorHuman($ex->getMessage(), $ex->errorInfo, $input));            
         }
         
         if( $result === false) {            

@@ -23,6 +23,12 @@ class FilterCriteria extends Criteria
             
             $operator = '=';
             $value = $filter->value;
+            $overridFilter = 'overrideFilter' . ucfirst($filter->property);
+            
+            if( method_exists($this, $overridFilter)) {
+                $model = $this->{$overridFilter}($model, $filter, $input);
+                continue;
+            }
             
             if( isset($filter->operator)) {
                 $operator = $filter->operator;
@@ -46,6 +52,19 @@ class FilterCriteria extends Criteria
         }
         
         return $model->where($filters);        
+    }
+    
+    public function existFilter($filter, &$input)
+    {
+        if( !isset($input['filter'])) {
+            return false;
+        }
+        
+        $exist = collect($input['filter'])
+            ->where('property', $filter)
+            ->first();
+        
+        return $exist ? true : false;
     }
     
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Melisa\core;
+namespace Melisa\Laravel\Providers;
 
 use Illuminate\Support\Collection;
 
-class Messages
+class MessagesProvider
 {
     
     protected $collection;
@@ -13,6 +13,60 @@ class Messages
         if( is_null($collection)) {
             $this->collection = new Collection([]);
         }
+    }
+    
+    public function debug($message, array $context = [])
+    {
+        $data = melisa('array')->interpolate($message, $context);
+        logger()->debug($data);
+        $this->add([
+            'type'=>'debug',
+            'message'=>$data,
+        ]);
+    }
+    
+    public function info($message, array $context = [])
+    {
+        $data = melisa('array')->interpolate($message, $context);
+        logger()->info($data);
+        $this->add([
+            'type'=>'info',
+            'message'=>$data,
+        ]);
+    }
+    
+    public function errorCode($code, array $context = [])
+    {
+        $message = $this->getMessageCode($code, $context);
+        $this->add([
+            'message'=>$message,
+            'code'=>$code
+        ]);
+    }
+    
+    public function getMessageCode($code, $data = [])
+    {
+        static $errors = null;        
+        if( !$errors) {
+            $errors = config('errors');
+        }
+        
+        $message = isset($errors[$code]) ? $errors[$code] : null;
+        
+        if( !empty($data) && !is_null($message)) {
+            $message = melisa('array')->interpolate($message, $data);
+        }
+        
+        return $message;
+    }
+    
+    public function error($message, array $context = [])
+    {
+        $data = melisa('array')->interpolate($message, $context);
+        logger()->error($data);
+        $this->add([
+            'message'=>$data,
+        ]);
     }
 
     public function add($input)
@@ -37,7 +91,7 @@ class Messages
     public function getErrors()
     {        
         return $this->collection->where('type', 'error')->map(function($record) {
-            return collect($record)->only('message')->toArray();
+            return collect($record)->only('code', 'message')->toArray();
         })->values()->toArray();
     }
     

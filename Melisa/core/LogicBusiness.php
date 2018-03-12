@@ -22,17 +22,22 @@ trait LogicBusiness
     
     public function error($message, array $data = [])
     {        
-        return melisa('logger')->error($message, $data);        
+        return app('messages')->error($message, $data);        
+    }
+    
+    public function errorCode($code, array $data = [])
+    {        
+        return app('messages')->errorCode($code, $data);        
     }
     
     public function debug($message, array $data = [])
     {        
-        return melisa('logger')->debug($message, $data);        
+        return app('messages')->debug($message, $data);        
     }
     
     public function info($message, array $data = [])
     {        
-        return melisa('logger')->info($message, $data);        
+        return app('messages')->info($message, $data);        
     }
     
     public function debugLastQuery($database = null)

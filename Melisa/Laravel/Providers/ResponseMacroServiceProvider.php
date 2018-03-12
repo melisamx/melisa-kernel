@@ -4,6 +4,7 @@ namespace Melisa\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Contracts\Validation\Validator;
 
 /**
  * 
@@ -63,6 +64,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
         Response::macro('paging', [$this, 'responsePaging']);        
         Response::macro('unauthenticated', [$this, 'responseUnauthenticated']);        
         Response::macro('unauthorized', [$this, 'responseUnauthorized']);
+        Response::macro('validationException', [$this, 'responseValidationException']);
     }
     
     public function responseUnauthenticated($message)
@@ -99,8 +101,7 @@ class ResponseMacroServiceProvider extends ServiceProvider
     
     public function addMessages(&$data)
     {        
-        $messages = melisa('msg')->getAllTypes();
-        
+        $messages = app('messages')->getAllTypes();        
         return melisa('array')->mergeDefault($messages, $data);
     }
     
@@ -109,6 +110,33 @@ class ResponseMacroServiceProvider extends ServiceProvider
         if( env('APP_ENV') === 'local') {                
             $data ['benchmark']= round(memory_get_usage() / 1024 / 1024, 2) . 'MB';
         }        
+    }
+    
+    public function responseValidationException(Validator $validator)
+    {
+        $errors = $validator->getMessageBag()->toArray();
+        $messages = app('messages');
+        
+        foreach($errors as $field => $fieldErrors) {
+            foreach($fieldErrors as $message) {
+                if( isset($validator->errorCode) && isset($validator->errorCode[$field])) {
+                    $messages->add([
+                        'code'=>$validator->errorCode[$field],
+                        'message'=>"Field $field : $message"
+                    ]);
+                } else {
+                    $messages->add([
+                        'message'=>"Field $field : $message"
+                    ]);
+                }
+            }
+        }
+        
+        $value = false;
+        $data = $this->addDefaultResult($value);        
+        $this->addBenchMark($data);
+        $response = $this->addMessages($data);
+        return $this->responseJson($value, $response, 422);
     }
     
 }

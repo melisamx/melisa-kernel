@@ -21,6 +21,10 @@ class DbAfterLogQuery
             
             foreach($queryLog['bindings'] as $binding) {
                 
+                if($binding instanceof \DateTime) {
+                    $binding = $binding->format('Y-m-d H:i:s');
+                }
+                
                 $queryLog['query'] = str_replace_first(
                     '?', 
                     $binding, 

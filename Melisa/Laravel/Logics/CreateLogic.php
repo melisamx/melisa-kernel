@@ -72,7 +72,7 @@ class CreateLogic
         
         $this->inyectIdIdentityCreated($input);
         
-        $idRecord = $this->create($input);
+        $idRecord = $this->save($input);
         
         if( !$idRecord) {
             return $this->repository->rollBack();
@@ -85,7 +85,21 @@ class CreateLogic
         }
         
         $this->repository->commit();
-        return $event;        
+        return $this->getReturnData($event, $input);
+    }
+    
+    public function save(&$input)
+    {
+        return $this->create($input);
+    }
+    
+    public function getReturnData(&$event, &$input)
+    {
+        if( isset($event['id'])) {
+            return $this->repository->find($event['id']);
+        }
+        
+        return $event;
     }
     
     public function generateEvent($input, $idRecord)
