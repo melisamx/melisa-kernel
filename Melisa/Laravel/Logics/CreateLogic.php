@@ -96,7 +96,7 @@ class CreateLogic
     public function getReturnData(&$event, &$input)
     {
         if( isset($event['id'])) {
-            return $this->repository->find($event['id']);
+            return $this->repository->find($event['id'])->toArray();
         }
         
         return $event;
