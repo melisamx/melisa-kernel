@@ -24,6 +24,12 @@ class Blueprint extends ParentBlueprint
         $this->dateTime('updatedAt')->nullable();
     }
     
+    public function timestampsCustom($precision = 0)
+    {
+        $this->dateTime('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
+        $this->dateTime('updatedAt')->nullable();
+    }
+    
     /**
      * Add creation and update timestamps with defaults to the table.
      *
