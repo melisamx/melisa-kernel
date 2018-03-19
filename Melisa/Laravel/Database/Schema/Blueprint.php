@@ -12,18 +12,7 @@ use Illuminate\Support\Facades\DB;
  */
 class Blueprint extends ParentBlueprint
 {
-    
-    /**
-     * Add creation and update timestamps with defaults to the table.
-     *
-     * @return void
-     */
-    public function timestamps($precision = 0)
-    {
-        $this->dateTime('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
-        $this->dateTime('updatedAt')->nullable();
-    }
-    
+        
     public function timestampsCustom($precision = 0)
     {
         $this->dateTime('createdAt')->default(DB::raw('CURRENT_TIMESTAMP'));
