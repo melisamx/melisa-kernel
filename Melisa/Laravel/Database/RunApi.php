@@ -85,6 +85,23 @@ trait RunApi
         return $this;
     }
     
+    public function get($endpoint, array $data = [])
+    {
+        $params = [
+            'json'=>$data,
+            'headers'=>$this->headers
+        ];
+        
+        try {
+            $response = $this->client->get($endpoint, $params);
+        } catch (RequestException $ex) {
+            $response = $ex->getMessage();
+            return $response;
+        }
+        
+        return json_decode($response->getBody()->getContents());
+    }
+    
     public function post($endpoint, array $data = [])
     {
         $params = [
