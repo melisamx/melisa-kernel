@@ -41,7 +41,8 @@ class InstallSeeder extends Seeder
         ImportSimple,
         CsvImportSimple,
         TxtImportSimple,
-        InstallJson;
+        InstallJson,
+        RunApi;
     
     public function run()
     {
