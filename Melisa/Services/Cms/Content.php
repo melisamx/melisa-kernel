@@ -31,7 +31,38 @@ class Content extends Resource
                 'path'=>'spaces/{keySpace}/contentTypes/{keyContentType}',
                 'method'=>'POST',
             ],
+            'delete'=>[
+                'path'=>'spaces/{keySpace}/content/{idContent}',
+                'method'=>'DELETE',
+            ],
+            'deleteBySpaceKey'=>[
+                'path'=>'spaces/{keySpace}/content/all',
+                'method'=>'DELETE',
+            ],
         ];
+    }
+    
+    public function deleteBySpaceKey($keySpace)
+    {
+        $params = [
+            'parametersUrl'=>[
+                'keySpace'=>$keySpace
+            ]
+        ];
+        
+        return $this->call('deleteBySpaceKey', [$params]);
+    }
+    
+    public function delete($keySpace, $idContent)
+    {
+        $params = [
+            'parametersUrl'=>[
+                'keySpace'=>$keySpace,
+                'idContent'=>$idContent,
+            ]
+        ];
+        
+        return $this->call('delete', [$params]);
     }
     
     public function import($keySpace, $keyContentType, array $fields)

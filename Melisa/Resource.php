@@ -32,7 +32,8 @@ class Resource
         }
         
         $method = $this->methods[$name];
-        $parameters = $arguments[0]['parameters'];
+        $parameters = isset($arguments[0]['parameters']) ? 
+            $arguments[0]['parameters'] : [];
         $parametersUrl = isset($arguments[0]['parametersUrl']) ? 
             $arguments[0]['parametersUrl'] : [];
         $methodType = strtoupper($method['method']);
