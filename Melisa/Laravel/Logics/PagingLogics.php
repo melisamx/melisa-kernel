@@ -32,25 +32,30 @@ class PagingLogics
         $result = $this->runQuery($input);
         
         if( !$result) {
-            return response()->paging(false);
+            return false;
         }
         
         if( $result->total() === 0) {            
-            return response()->paging([
-                'total'=>0,
-                'data'=>[],
-            ]);            
+            return $this->returnDataEmpty();            
         }
         
         return $this->returnData($result, $input); 
     }
     
+    public function returnDataEmpty()
+    {
+        return [
+            'total'=>0,
+            'data'=>[],
+        ];
+    }
+    
     public function returnData(&$result, &$input)
     {
-        return response()->paging([
+        return [
             'total'=>$result->total(),
             'data'=>$result->toArray()['data']
-        ]);
+        ];
     }
     
     public function runQuery(&$input)
