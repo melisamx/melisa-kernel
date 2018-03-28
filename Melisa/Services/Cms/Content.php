@@ -13,6 +13,8 @@ class Content extends Resource
 {
     
     protected $filters = [];
+    protected $sorter = [];
+    protected $byType = null;
 
     public function __construct($service)
     {
@@ -78,6 +80,15 @@ class Content extends Resource
         return $this->call('import', [$params]);
     }
     
+    public function addSorter($field, $direction = 'asc')
+    {
+        $this->sorter []= [
+            'property'=>$field,
+            'direction'=>$direction
+        ];
+        return $this;
+    }
+    
     public function addFilter($field, $value, $operator = '=')
     {
         $this->filters []= [
@@ -85,6 +96,12 @@ class Content extends Resource
             'value'=>$value,
             'operator'=>$operator
         ];
+        return $this;
+    }
+    
+    public function byType($type)
+    {
+        $this->byType = $type;
         return $this;
     }
     
@@ -105,11 +122,23 @@ class Content extends Resource
             $defaulFilters = [];
         }
         
+        $filterType = [];
+        if ($this->byType) {
+            $filterType ['type']= $this->byType;
+            $this->byType = null;
+        }
+        
+        $sorter = [];
+        if (!empty($this->sorter)) {
+            $sorter ['sorter']= json_encode($this->sorter);
+            $this->sorter = null;
+        }
+        
         $params = [
             'parametersUrl'=>[
                 'keySpace'=>$keySpace,
             ],
-            'parameters'=>array_merge($defaultPaging, $defaulFilters)
+            'parameters'=>array_merge($defaultPaging, $defaulFilters, $filterType, $sorter)
         ];
         $this->filters = [];
         return $this->call('getByKey', [ $params ]);
