@@ -118,7 +118,8 @@ class CrudController extends Controller
         }
         
         $logic = new PagingLogics($repository, $criteria);
-        return $logic->init($request->allValid());        
+        $result = $logic->init($request->allValid());
+        return response()->paging($result);        
     }
     
     public function createUpdate($requestDefault, $logicDefault, $event)
